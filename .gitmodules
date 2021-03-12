@@ -1,0 +1,6 @@
+[submodule "microservice"]
+	path = microservice
+	url = https://github.com/hostettler/microservices.git
+[submodule "microservices"]
+	path = microservices
+	url = https://github.com/hostettler/microservices.git
