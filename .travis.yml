@@ -6,14 +6,11 @@ env:
 services:
   - docker
 
+
+
 jobs:
   include:
     - stage : Build
-      install:
-      - javac ./travisTest/hello1.java
-      - javac ./travisTest/hello2.java
-    - stage : Build
       script:
-      - java ./travisTest/hello1.class
-      - java ./travisTest/hello2.class
+      - ./travisTest/scriptJava.sh
 
