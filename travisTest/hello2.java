@@ -1,3 +1,4 @@
+package travisTest;
 
 public class hello2 {
 
