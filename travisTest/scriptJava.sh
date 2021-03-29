@@ -1,7 +1,9 @@
-!# /bin/bash
+#!/bin/bash
 
-javac ./hello1.java
-javac ./hello2.java
+adresse=travisTest
 
-java ./hello1
-java ./hello2
+javac ./$(adresse)/hello1.java
+javac ./$(adresse)/hello2.java
+
+java ./$(adresse)/hello1
+java ./$(adresse)/hello2
