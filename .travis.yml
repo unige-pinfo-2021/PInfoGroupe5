@@ -1,0 +1,28 @@
+language: java
+
+env:
+  - NODE_VERSION="12.13.1"
+  
+services:
+  - docker
+
+addons:
+  sonarcloud:
+    organization:
+
+cache:
+    directories:
+
+jobs:
+  include:
+    - stage: Prepare
+      script:
+
+    - stage : Build
+      script:
+      - javac ./travisTest/hello1.java
+      - javac ./travisTest/hello2.java
+    - stage : Build
+      script:
+	-java ./travisTest/hello1
+	-java ./travisTest/hello2
