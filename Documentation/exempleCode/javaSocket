@@ -1,0 +1,58 @@
+
+
+// Importation des packages
+
+import java.net.*;
+import java.io.*;
+
+// si on veut créer un serveur qui attend une connection
+// créer un socket sur un port
+ServerSocket serverSocket = new ServerSocket(numero_port);
+ 
+// Ecoute sur le socket
+Socket clientSocket = serverSocket.accept();
+
+// Le programme se bloque jusqu'à ce qu'il y ait une connection
+
+// Pour envoyer et recevoir sur une connection, cela correspond à une écriture
+// et à une lecture sur des flux.
+
+// Afin de se faciliter la tâche, on utilisera des classes plus haut niveau pour gérer
+// les flux.
+
+// flux d'écriture
+out = new PrintWriter(clientSocket.getOutputStream(), true);
+
+// flux de lecture
+in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
+// pour récupérer une ligne du flux d'entrée
+
+String ligne = in.readLine();
+
+//Nous venons de récupérer la première ligne des données envoyées par la connection
+
+// pour écrire une ligne sur le flux de sortie
+
+out.println(Données);
+
+
+// pour arrêter les flux et la connection
+
+in.close();
+out.close();
+
+clientSocket.close();
+
+
+// si on veut créer un client qui veut se connecter
+
+Socket clientSocket = new Socket("adresse ip", port);
+
+// pour créer les flux
+
+PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
+// pour le reste, c'est pareille avec le serveur.
+
