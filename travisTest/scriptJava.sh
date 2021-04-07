@@ -2,9 +2,10 @@
 
 
 cd ..
+echo pwd
 
-javac travisTest/hello1.java
-javac travisTest/hello2.java
+javac ./travisTest/hello1.java
+javac ./travisTest/hello2.java
 
 java travisTest/hello1
 java travisTest/hello2
