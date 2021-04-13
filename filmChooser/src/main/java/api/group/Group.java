@@ -8,7 +8,7 @@ public class Group{
 	private ArrayList<String> users = new ArrayList();
 	private ArrayList<String> selectFilms = new ArrayList();
 
-	public Group(){}
+	public Group(){ System.out.println("Groupe cree");}
 
 	public Group(String name, ArrayList<String> users){
 		this.name = name;

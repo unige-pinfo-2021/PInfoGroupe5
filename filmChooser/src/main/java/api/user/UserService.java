@@ -1,6 +1,8 @@
 package api.user;
 
 import java.util.*;
+import java.net.*;
+import java.io.*;
 
 // Mock, replace by service DataBase
 public class UserService{
@@ -8,6 +10,7 @@ public class UserService{
 	private ArrayList<User> database = new ArrayList();
 
 	public UserService(){
+		System.out.println("user service cree");
 		User user = new User("user0", "email0");
 		user.addGroup("Group");
 		user.addGroup("all");
@@ -77,6 +80,30 @@ public class UserService{
 			}
 		}
 		return group;
+	}
+	
+	public void run()
+	{
+		try{
+		ServerSocket serverSocket = new ServerSocket(2000);
+		Socket clientSocket = serverSocket.accept();
+		
+		PrintWriter out;
+    		BufferedReader in;
+		
+		out = new PrintWriter(clientSocket.getOutputStream(), true);
+		in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+		
+		out.println("Serveur utilisateur");
+		
+		in.close();
+		out.close();
+
+		clientSocket.close();
+		}
+		catch(IOException ioEx)
+        	{
+       	}
 	}
 
 }//end class

@@ -30,6 +30,7 @@ public class Film {
     public Film() {
 	this.title = "Default";
         this.producer = "Unknown";
+        System.out.println("Un film est initialisé");
     }
 
     public Film(String title, String producer) {
