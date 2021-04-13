@@ -7,11 +7,15 @@ docker image build -t serviceuser -f services/serviceUser/Dockerfile .
 
 # construit le web-ui
 
+cd web-ui
+
 npm install
 npm update
 npm run-script build --prod
 
 docker image build -t web-ui .
+
+cd ..
     
 # connection au docker hub
 echo ${DockerPassword} | docker login --username ${DockerUsername} --password-stdin
