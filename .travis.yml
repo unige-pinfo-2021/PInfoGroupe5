@@ -11,9 +11,6 @@ services:
 jobs:
   include:
     - stage : Build
-      branch:
-      	only:
-      	 - master
       script:
       - ./travisScripts/buildPushServices.sh
 
