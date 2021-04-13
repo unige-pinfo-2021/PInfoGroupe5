@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: groupe
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      service: groupe
+  template:
+    metadata:
+      labels:
+        service: groupe
+    spec:
+      containers:
+      - name: imagegroupe
+        image: khptif/servicegroupe:latest
+        ports:
+        - containerPort: 2000

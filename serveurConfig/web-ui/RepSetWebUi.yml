@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: web-ui
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      service: web-ui
+  template:
+    metadata:
+      labels:
+        service: web-ui
+    spec:
+      containers:
+      - name: web-ui
+        image: khptif/web-ui:latest
+        ports:
+        - containerPort: 80
