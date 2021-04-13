@@ -11,7 +11,7 @@ npm install
 npm update
 npm run-script build --prod
 
-docker build -t web-ui .
+docker image build -t web-ui .
     
 # connection au docker hub
 echo ${DockerPassword} | docker login --username ${DockerUsername} --password-stdin
