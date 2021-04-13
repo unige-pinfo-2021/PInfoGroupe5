@@ -9,7 +9,9 @@ docker image build -t serviceuser -f services/serviceUser/Dockerfile .
 
 cd web-ui
 
-nvm install ${NODE_VERSION}
+apt-get update
+apt-get install nodejs
+
 npm install
 npm update
 npm run-script build --prod
