@@ -20,6 +20,6 @@ jobs:
   include:
     - stage : Build
       script:
-      - ./buildtestK.sh
+      - ./travisScripts/buildtestK.sh
       #- ./travisScripts/buildPushServices.sh
 
