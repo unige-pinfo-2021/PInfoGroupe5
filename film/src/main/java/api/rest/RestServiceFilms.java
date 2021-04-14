@@ -43,6 +43,17 @@ public class RestServiceFilms {
     }
 
 
+    /*@GET
+    //@Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/restcall/{type}&{title}")
+    public String getrestcall(@PathParam("type") int type,@PathParam("title") String title) throws IOException, InterruptedException { 
+	Rest_Caller rc = new Rest_Caller();
+	String response = rc.restCallFilm(type, title);
+	return title+" "+type;
+    }*/
+
+
    /*@POST , PUT
    @Produces(MediaType.APPLICATION_JSON)
    public ArrayList<Film> addFilm(Film film){
