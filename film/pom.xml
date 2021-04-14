@@ -39,11 +39,12 @@
         <scope>import</scope>
         <type>pom</type>
       </dependency>
-    <dependency>
+
+    <!-- <dependency>
        <groupId>org.json</groupId>
        <artifactId>json</artifactId>
        <version>20210307</version>
-     </dependency>
+     </dependency>-->
     </dependencies>
   </dependencyManagement>
 
