@@ -1,0 +1,20 @@
+
+pour lancer l'application sur la station local
+execute les scripts avec sudo.
+
+installer kubernetes: sudo ./instalK8s.sh
+
+lancer les services: sudo ./services.sh
+
+lancer les pods: sudo ./reset.sh
+
+le web ui se trouve sur localhost:30010/UI/
+lance le fichier html se trouvant dans web-ui/src/index.html
+
+l'adresse de chaque service sont les suivants:
+-film : 'film:8080'
+-user : 'user:8080'
+-group : 'group:8080'
+
+kubernetes possède un DNS interne qui traduit l'adresse compréhensible en
+adresse ip interne.

@@ -4,7 +4,7 @@ metadata:
   name: film
 spec:
   ports:
-  - port: 2000
-    targetPort: 2000
+  - port: 8080
+    targetPort: 8080
   selector:
     service: film

@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: imagefilm
-        image: khptif/servicefilm:latest
+        image: khptif/film:latest
         ports:
-        - containerPort: 2000
+        - containerPort: 8080
