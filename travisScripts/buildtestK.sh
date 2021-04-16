@@ -32,6 +32,8 @@ echo ${DockerPassword} | docker login --username ${DockerUsername} --password-st
 #docker tag serviceuser khptif/serviceuser:latest
 #docker tag web-ui khptif/web-ui:latest 
 
+docker image ls
+
 docker tag api/user khptif/user:latest 
 docker tag api/film khptif/film:latest 
 

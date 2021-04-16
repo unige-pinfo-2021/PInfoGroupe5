@@ -22,6 +22,6 @@ jobs:
       script:
       - ./travisScripts/buildtestK.sh
       #- ./travisScripts/buildPushServices.sh
-      - sudo apt install sshpass
+      - sudo apt-get install sshpass
       - sshpass -p ${serverPassword} ssh -q -o StrictHostKeyChecking=no ${server} cd serveurConfig | echo ${serverPassword} | sudo -S ./reset.sh
 
