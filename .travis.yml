@@ -18,9 +18,10 @@ cache:
 
 jobs:
   include:
+  if: branch = testIntegration
     - stage : Build
       script:
-      if: branch = testIntegration
+      
       - ./travisScripts/buildtestK.sh
       #- ./travisScripts/buildPushServices.sh
       - sudo snap install microk8s --classic
