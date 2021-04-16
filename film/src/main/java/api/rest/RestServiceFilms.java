@@ -4,6 +4,8 @@ import java.util.*;
 
 import api.model.*;
 
+import java.io.IOException;
+
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.GET;
@@ -43,15 +45,15 @@ public class RestServiceFilms {
     }
 
 
-    /*@GET
+    @GET
     //@Produces(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/restcall/{type}&{title}")
     public String getrestcall(@PathParam("type") int type,@PathParam("title") String title) throws IOException, InterruptedException { 
 	Rest_Caller rc = new Rest_Caller();
 	String response = rc.restCallFilm(type, title);
-	return title+" "+type;
-    }*/
+	return response;
+    }
 
 
    /*@POST , PUT
