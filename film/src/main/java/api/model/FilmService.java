@@ -2,6 +2,8 @@ package api.model;
 
 import java.util.*;
 
+import java.io.IOException;
+
 // Mock, replace by service DataBase
 public class FilmService{
 
@@ -51,5 +53,11 @@ public class FilmService{
 	}
 
 	// return list de films en fonction de criteres
+
+	public String rest_call(int type, String title) throws IOException, InterruptedException{
+		Rest_Caller rc = new Rest_Caller();
+		String response = rc.restCallFilm(type, title);
+		return response;
+	}
 	
 }//end class
