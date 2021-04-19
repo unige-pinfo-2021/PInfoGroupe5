@@ -23,7 +23,7 @@ docker image build -t web-ui .
 cd ..
     
 # connection au docker hub
-echo ${DockerPassword} | docker login --username ${DockerUsername} --password-stdin
+#echo ${DockerPassword} | docker login --username ${DockerUsername} --password-stdin
 
 
 # change les noms des images et les envoies au docker hub
@@ -32,17 +32,17 @@ echo ${DockerPassword} | docker login --username ${DockerUsername} --password-st
 #docker tag serviceuser khptif/serviceuser:latest
 #docker tag web-ui khptif/web-ui:latest 
 
-docker image ls
+#docker image ls
 
-docker tag api/user khptif/user:latest 
-docker tag api/film khptif/film:latest 
+#docker tag api/user khptif/user:latest 
+#docker tag api/film khptif/film:latest 
 
 #docker push khptif/servicefilm:latest
 #docker push khptif/servicegroupe:latest
 #docker push khptif/serviceuser:latest
 #docker push khptif/web-ui:latest
 
-docker push khptif/user:latest
-docker push khptif/film:latest
+#docker push khptif/user:latest
+#docker push khptif/film:latest
 
 
