@@ -55,9 +55,82 @@ public class Film {
 	return this.title;
    }
 
+   public String getYear(){
+	return this.year;
+   }
+   
+   public String getRated(){
+	return this.rated;
+   }
+
+   public String getReleased(){
+	return this.released;
+   }
+
+   public String getRuntime(){
+	return this.runtime;
+   }
+
+   public String getGenre(){// ou String[]
+	return this.genre;
+   }
+  
+   public String getDirector(){
+	return this.director;
+   }
+ 
+   public String getWriter(){
+	return this.writer;
+   }
+    
+   public String getActors(){// ou String[]
+	return this.actors;
+   }
+
    public String getPlot(){
 	return this.plot;
    }
+   
+   public String getLanguage(){
+	return this.language;
+   }
+ 
+   public String getCountry(){
+	return this.Country;
+   }
+    
+   public String getAwards(){
+	return this.awards;
+   }
+   
+   public String getPoster(){
+	return this.poster;
+   }
+
+   public String getRatings(){
+	return this.ratings;
+   }
+  
+   public String getMetascore(){
+	return this.metascore;
+   }
+ 
+   public String getImdbrating(){
+	return this.imdbrating;
+   }
+   
+   public String getImdbvotes(){
+	return this.imdbvotes;
+   }
+ 
+   public String getImdbId(){
+	return this.imdbId;
+   }
+  
+   public String getType(){
+	return this.type;
+   }
+    //private String totalseasons;
   
    public String descrpt(){
      return this.title +"\n"+this.year+"\n"+this.rated+"\n"+this.released+"\n"+this.runtime+"\n"+this.genre+"\n" +this.director+"\n"+this.writer+"\n"+this.actors+"\n" +this.plot+"\n"+this.language+"\n"+this.Country+"\n"+this.awards+"\n"+this.poster+"\n"+this.ratings+"\n"+this.metascore+"\n"+this.imdbrating+"\n"+this.imdbvotes+"\n"+this.imdbId+"\n"+this.type;
