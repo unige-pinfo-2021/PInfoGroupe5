@@ -46,13 +46,10 @@ public class RestServiceFilms {
 
 
     @GET
-    //@Produces(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    //@Produces(MediaType.TEXT_PLAIN)
     @Path("/restcall/{type}&{title}")
-    public String getrestcall(@PathParam("type") int type,@PathParam("title") String title) throws IOException, InterruptedException { 
-	/*Rest_Caller rc = new Rest_Caller();
-	String response = rc.restCallFilm(type, title);
-	return response;*/
+    public Film getrestcall(@PathParam("type") int type,@PathParam("title") String title) throws IOException, InterruptedException { 
 	return this.filmService.rest_call(type, title);
     }
 

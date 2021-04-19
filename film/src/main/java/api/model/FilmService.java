@@ -10,9 +10,9 @@ public class FilmService{
 	private ArrayList<Film> database = new ArrayList();
 
 	public FilmService(){
-		database.add(new Film("Film01", "Prod0"));
+		/*database.add(new Film("Film01", "Prod0"));
 		database.add(new Film("Film1", "Prod1"));
-		database.add(new Film("Film2", "Prod2"));
+		database.add(new Film("Film2", "Prod2"));*/
 	}
 
 	public ArrayList<Film> getall(){
@@ -54,10 +54,21 @@ public class FilmService{
 
 	// return list de films en fonction de criteres
 
-	public String rest_call(int type, String title) throws IOException, InterruptedException{
+	public Film rest_call(int type, String title) throws IOException, InterruptedException{
 		Rest_Caller rc = new Rest_Caller();
-		String response = rc.restCallFilm(type, title);
-		return response;
+		String result = rc.restCallFilm(type, title);
+
+		result = result.replace("{","");
+		result = result.replace("}","");
+		result = result.replace(":","");
+		result = result.replace(",","");
+
+		String[] splt = result.split("\"");//"[\\:,.]"); 
+
+		ArrayList<String> inflist = new ArrayList(Arrays.asList(splt) );
+		Film film =  new Film(inflist);
+		//return film.descrpt();
+		return film;
 	}
 	
 }//end class
