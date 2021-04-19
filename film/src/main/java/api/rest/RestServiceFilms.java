@@ -30,25 +30,11 @@ public class RestServiceFilms {
 	return this.filmService.getall();
     }
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/id={id}")
-    public Film getFilm(@PathParam("id") int id) { 
-	return this.filmService.getFilm(id);
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/title={title}")
-    public Film getFilm(@PathParam("title") String title) { 
-	return this.filmService.getFilm(title);
-    }
-
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     //@Produces(MediaType.TEXT_PLAIN)
-    @Path("/restcall/{type}&{title}")
+    @Path("/restcall/{type}/{title}")
     public Film getrestcall(@PathParam("type") int type,@PathParam("title") String title) throws IOException, InterruptedException { 
 	return this.filmService.rest_call(type, title);
     }
