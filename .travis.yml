@@ -3,6 +3,10 @@ language: node_js
 node_js:
  - 12
 
+branches:
+  only:
+  - testIntegration
+
 env:
   - NODE_VERSION="12.13.1"
   
