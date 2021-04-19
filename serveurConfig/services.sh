@@ -8,3 +8,8 @@ ${k8} create -f group/ServiceGroup.yml
 ${k8} create -f user/ServiceUser.yml
 ${k8} create -f web-ui/ServiceWebUi.yml
 
+${k8} create -f film/RepSetFilm.yml
+${k8} create -f group/RepSetGroup.yml
+${k8} create -f user/RepSetUser.yml
+${k8} create -f web-ui/RepSetWebUi.yml
+

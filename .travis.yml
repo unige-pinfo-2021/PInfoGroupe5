@@ -25,6 +25,9 @@ jobs:
     - stage : Build
       script: 
       - ./travisScripts/buildtestK.sh
+      - cd testIntegration
+      - ./script.sh
+      - cd ..
       #- ./travisScripts/buildPushServices.sh
       after_success:
       - ./travisScripts/buildAfterSuccess.sh

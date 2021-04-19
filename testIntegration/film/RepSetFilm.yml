@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: film
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      service: film
+  template:
+    metadata:
+      labels:
+        service: film
+    spec:
+      containers:
+      - name: imagefilm
+        image: api/film:latest
+        ports:
+        - containerPort: 8080
