@@ -3,9 +3,9 @@
 
 cd tests
 mvn package
-docker image build -t testintegration:latest .
 cd ..
 
+sudo snap install core snapd
 sudo snap install microk8s --classic --channel=1.21
 
 sudo microk8s start
