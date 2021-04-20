@@ -26,6 +26,8 @@ cd ..
 echo ${DockerPassword} | docker login --username ${DockerUsername} --password-stdin
 
 
+
+
 # change les noms des images et les envoies au docker hub
 #docker tag servicefilm khptif/servicefilm:latest
 #docker tag servicegroupe khptif/servicegroupe:latest
