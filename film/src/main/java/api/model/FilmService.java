@@ -7,38 +7,40 @@ import java.io.IOException;
 // Mock, replace by service DataBase
 public class FilmService{
 
-	private ArrayList<Film> database = new ArrayList();
+	private ArrayList<Film> selection = new ArrayList();
 
-	public FilmService(){
-		database.add(new Film("Film01", "Prod0"));
-		database.add(new Film("Film1", "Prod1"));
-		database.add(new Film("Film2", "Prod2"));
-	}
+	public FilmService(){}
 
 	public ArrayList<Film> getall(){
-		return this.database;
+		return this.selection;
 	}
 
-	public Film getFilm(int id){
-		return (this.database).get(id);
+
+	public Film rest_call(int type, String title) throws IOException, InterruptedException{
+		Rest_Caller rc = new Rest_Caller();
+		String result = rc.restCallFilm(type, title);
+
+		result = result.replace("{","");
+		result = result.replace("}","");
+		result = result.replace(":","");
+		result = result.replace(",","");
+
+		String[] splt = result.split("\"");//"[\\:,.]"); 
+
+		ArrayList<String> inflist = new ArrayList(Arrays.asList(splt) );
+		Film film =  new Film(inflist);
+		//return film.descrpt();
+		return film;
 	}
 
-	public Film getFilm(String title){
-		for(Film film: database){
-			if((film.getTitle()).equals(title)){
-				return film;
-			} 	
-		}
-		return null;
-	}// faire même fonction mais avec producer
 
 	public boolean containsFilm(Film film){
-		return this.database.contains(film);
+		return this.selection.contains(film);
 	}
 
 	public boolean addFilm(Film film){
 		if(!containsFilm(film)){
-			this.database.add(film);
+			this.selection.add(film);
 			return true;
 		}
 		return false;
@@ -46,18 +48,12 @@ public class FilmService{
 
 	public boolean deleteFilm(Film film){
 		if(containsFilm(film)){
-			this.database.remove(film);
+			this.selection.remove(film);
 			return true;
 		}
 		return false;
 	}
 
 	// return list de films en fonction de criteres
-
-	public String rest_call(int type, String title) throws IOException, InterruptedException{
-		Rest_Caller rc = new Rest_Caller();
-		String response = rc.restCallFilm(type, title);
-		return response;
-	}
 	
 }//end class
