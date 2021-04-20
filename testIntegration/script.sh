@@ -4,7 +4,8 @@
 cd tests
 mvn package
 cd ..
-
+sudo apt update
+sudo apt install snapd
 sudo snap install core snapd
 sudo snap refresh 
 sudo snap install microk8s --classic --channel=1.21
