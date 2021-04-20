@@ -1,9 +1,0 @@
-api/user/UserService.class
-api/film/FilmService.class
-api/film/Film.class
-api/film/Rest_Caller.class
-api/group/Group.class
-api/group/GroupController.class
-api/film/Rest_Caller$TitleType.class
-api/App.class
-api/user/User.class
