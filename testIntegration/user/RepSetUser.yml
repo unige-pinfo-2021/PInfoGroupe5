@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: imageuser
-        image: api/user:latest
+        image: khptif/user:testintegration
         ports:
         - containerPort: 8080

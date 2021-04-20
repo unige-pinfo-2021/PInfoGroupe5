@@ -3,8 +3,10 @@ kind: Service
 metadata: 
   name: film
 spec:
+  type: NodePort
   ports:
-  - port: 8080
-    targetPort: 8080
+  - port: 8000
+    targetPort: 80
+    nodePort: 30003
   selector:
     service: film

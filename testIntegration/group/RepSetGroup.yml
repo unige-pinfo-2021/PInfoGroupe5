@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: imagegroupe
-        image: api/group:latest
+        image: khptif/group:testintegration
         ports:
         - containerPort: 8080

@@ -3,7 +3,7 @@
 
 cd tests
 mvn package
-docker image build -t testIntegration:latest .
+docker image build -t testintegration:latest .
 cd ..
 
 sudo snap install microk8s --classic
@@ -13,13 +13,21 @@ sudo microk8s enable dns
 
 k8='sudo microk8s kubectl'
 
+${k8} delete rs --all
+${k8} delete svc --all
 
-#${k8} create -f film/ServiceFilm.yml
+${k8} create -f film/ServiceFilm.yml
 #${k8} create -f group/ServiceGroup.yml
 ${k8} create -f user/ServiceUser.yml
-${k8} create -f testIntegration/ServiceTest.yml
 
-#${k8} create -f film/RepSetFilm.yml
+
+${k8} create -f film/RepSetFilm.yml
 #${k8} create -f group/RepSetGroup.yml
 ${k8} create -f user/RepSetUser.yml
-${k8} create -f testIntegration/JobTest.yml
+
+sleep 30
+
+${k8} get pods
+cd tests/target/classes
+
+java integration/App

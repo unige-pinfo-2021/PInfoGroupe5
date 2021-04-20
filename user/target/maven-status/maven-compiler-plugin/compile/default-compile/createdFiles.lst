@@ -1,0 +1,4 @@
+api/rest/RestApplication.class
+api/model/User.class
+api/model/UserService.class
+api/rest/RestServiceUser.class

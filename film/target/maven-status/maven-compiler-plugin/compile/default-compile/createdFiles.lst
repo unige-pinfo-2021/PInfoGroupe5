@@ -1,0 +1,6 @@
+api/rest/RestServiceFilms.class
+api/rest/RestApplication.class
+api/model/FilmService.class
+api/model/Film.class
+api/model/Rest_Caller.class
+api/model/Rest_Caller$TitleType.class
