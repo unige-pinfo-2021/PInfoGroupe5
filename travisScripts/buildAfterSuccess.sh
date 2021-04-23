@@ -9,4 +9,4 @@ docker push khptif/user:latest
 docker push khptif/film:latest
 
 sudo apt-get install sshpass
-sshpass -p ${serverPassword} ssh ${server} cd serveurConfig; sudo ./serveurConfig/reset.sh
+sshpass -p ${serverPassword} ssh ${server} 'sudo ./serveurConfig/reset.sh'
