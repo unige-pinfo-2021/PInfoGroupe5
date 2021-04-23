@@ -16,7 +16,7 @@ public class App
     
         System.out.println( "Hello World!" );
         //Thread.sleep(120000);
-        HttpClient client = HttpClient.newHttpClient();
+        /*HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http:localhost:30001/user"))
                 .build();
@@ -25,7 +25,7 @@ public class App
                 HttpResponse.BodyHandlers.ofString());
 
         System.out.println(response.body());
-        
+        */
         
     }
 }
