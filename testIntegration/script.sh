@@ -28,7 +28,7 @@ ${k8} create -f film/RepSetFilm.yml
 #${k8} create -f group/RepSetGroup.yml
 ${k8} create -f user/RepSetUser.yml
 
-sleep 30
+sleep 180
 
 ${k8} get pods
 cd tests/target/classes
