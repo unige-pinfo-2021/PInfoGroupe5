@@ -4,11 +4,12 @@
 cd tests
 mvn package
 cd ..
-sudo apt update
+sudo apt update -y
+sudo apt-get install -y apt-utils
 sudo apt install snapd
 sudo snap install core snapd
 sudo snap refresh 
-sudo snap install microk8s --classic --channel=1.21
+sudo snap install microk8s --classic 
 
 sudo microk8s start
 sudo microk8s enable dns
