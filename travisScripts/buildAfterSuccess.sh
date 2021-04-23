@@ -13,8 +13,12 @@ sudo apt-get install sshpass
 
 
 echo ${privateKey} > key.txt
-chmod 400 key.txt
+chmod 600 key.txt
 
-sshpass -p "" ssh -o "StrictHostKeyChecking no" -i key.txt ${server} sudo ./serveurConfig/reset.sh
+eval "$(ssh-agent -s)" # Start ssh-agent cache
+ssh-add key.txt # Add the private key to SSH
+
+
+ssh -o "StrictHostKeyChecking no" ${server} sudo ./serveurConfig/reset.sh
 
 echo success
