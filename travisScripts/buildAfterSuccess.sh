@@ -10,7 +10,11 @@ docker push khptif/film:latest
 
 sudo apt-get install openssh-server
 sudo apt-get install sshpass
-#sshpass -p ${serverPassword} 
-ssh ${server} sudo ./serveurConfig/reset.sh
+#sshpass -p ${serverPassword}
+cd
+echo ${privateKey} > ./ssh/id_rsa
+echo ${publicKey} > ./ssh/id_rsa.pub
+
+echo yes | ssh ${server} sudo ./serveurConfig/reset.sh
 
 echo success
