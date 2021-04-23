@@ -9,12 +9,12 @@ docker push khptif/user:latest
 docker push khptif/film:latest
 
 sudo apt-get install openssh-server
-sudo apt-get install sshpass
+#sudo apt-get install sshpass
 #sshpass -p ${serverPassword}
-cd
-echo ${privateKey} > ./ssh/id_rsa
-echo ${publicKey} > ./ssh/id_rsa.pub
 
-echo yes | ssh ${server} sudo ./serveurConfig/reset.sh
+echo ${privateKey} > key.txt
+
+
+ssh -o "StrictHostKeyChecking no" -i key.txt ${server} sudo ./serveurConfig/reset.sh
 
 echo success
