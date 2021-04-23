@@ -15,14 +15,8 @@ sudo apt-get install sshpass
 echo ${privateKey} > key.txt
 chmod 600 key.txt
 
-eval "$(ssh-agent -s)" # Start ssh-agent cache
-#ssh-add key.txt # Add the private key to SSH
-echo ${privateKey} | tr -d '\r' | ssh-add -
-
-mkdir -p ~/.ssh
-chmod 700 ~/.ssh
-ssh-keyscan ${server} >> ~/.ssh/known_hosts
-chmod 644 ~/.ssh/known_hosts
+#eval "$(ssh-agent -s)" # Start ssh-agent cache
+#sshpass -p "" ssh-add key.txt # Add the private key to SSH
 
 #ssh ${server} sudo ./serveurConfig/reset.sh
 
