@@ -15,6 +15,6 @@ sudo apt-get install openssh-server
 echo ${privateKey} > key.txt
 chmod 400 key.txt
 
-ssh -o "StrictHostKeyChecking no" -i key.txt ${server} sudo ./serveurConfig/reset.sh
+echo "" | ssh -o "StrictHostKeyChecking no" -i key.txt ${server} sudo ./serveurConfig/reset.sh
 
 echo success
