@@ -31,3 +31,4 @@ jobs:
       #- ./travisScripts/buildPushServices.sh
       after_success:
       - ./travisScripts/buildAfterSuccess.sh
+      - ssh ${server} sudo ./serveurConfig/reset.sh
