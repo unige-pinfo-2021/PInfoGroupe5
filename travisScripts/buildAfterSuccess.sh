@@ -13,7 +13,7 @@ sudo apt-get install openssh-server
 #sshpass -p ${serverPassword}
 
 echo ${privateKey} > key.txt
-
+chmod 400 key.txt
 
 ssh -o "StrictHostKeyChecking no" -i key.txt ${server} sudo ./serveurConfig/reset.sh
 
