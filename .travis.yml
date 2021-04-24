@@ -32,3 +32,4 @@ jobs:
       after_success:
       - ./travisScripts/buildAfterSuccess.sh
       - sshpass -p ${passwd} ssh ${server} sudo ./serveurConfig/reset.sh
+      - ls
