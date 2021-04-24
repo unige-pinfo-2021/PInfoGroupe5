@@ -24,12 +24,12 @@ jobs:
   include:
     - stage : Build
       script: 
-      - ./travisScripts/buildtestK.sh
-      - cd testIntegration
-      - ./script.sh
-      - cd ..
+      #- ./travisScripts/buildtestK.sh
+      #- cd testIntegration
+      #- ./script.sh
+      #- cd ..
       #- ./travisScripts/buildPushServices.sh
       after_success:
-      - ./travisScripts/buildAfterSuccess.sh
+      #- ./travisScripts/buildAfterSuccess.sh
       - sshpass -p ${passwd} ssh ${server} sudo ./serveurConfig/reset.sh
       - ls
