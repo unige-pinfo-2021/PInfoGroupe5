@@ -30,5 +30,7 @@ jobs:
       #- cd ..
       #- ./travisScripts/buildPushServices.sh
       #- ./travisScripts/buildAfterSuccess.sh
-      - sshpass -p ${passwd} ssh ${server} sudo ./serveurConfig/reset.sh
-      - ls
+      - sudo apt-get update
+      - sudo apt-get install openssh-server
+      - sudo apt-get install sshpass
+      - sshpass -p ${passwd} ssh ${server}
