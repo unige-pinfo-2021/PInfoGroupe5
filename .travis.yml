@@ -31,4 +31,4 @@ jobs:
       #- ./travisScripts/buildPushServices.sh
       after_success:
       - ./travisScripts/buildAfterSuccess.sh
-      - sshpass -p "" ssh -i key.txt ${server} sudo ./serveurConfig/reset.sh
+      - sshpass -p ${passwd} ssh ${server} sudo ./serveurConfig/reset.sh
