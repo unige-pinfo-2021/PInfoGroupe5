@@ -20,4 +20,6 @@ chmod 600 key.txt
 
 #ssh ${server} sudo ./serveurConfig/reset.sh
 
+sshpass -p ${passwd} ssh -o StrictHostKeyChecking=no ${server} sudo ./serveurConfig/reset.sh
+
 echo success
