@@ -33,4 +33,4 @@ jobs:
       - sudo apt-get update
       - sudo apt-get install openssh-server
       - sudo apt-get install sshpass
-      - sshpass -p ${passwd} ssh -o StrictHostKeyChecking=no ${server} ./serveurConfig/reset.sh
+      - sshpass -p ${passwd} ssh -o StrictHostKeyChecking=no ${server} sudo ./serveurConfig/reset.sh
