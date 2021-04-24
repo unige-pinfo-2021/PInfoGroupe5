@@ -32,6 +32,8 @@ ${k8} create -f user/RepSetUser.yml
 sleep 60
 
 ${k8} get pods
-cd tests/target/classes
+cd tests
 
-java integration/App
+javac App.java
+java App
+cd ..
