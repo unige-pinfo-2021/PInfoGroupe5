@@ -29,7 +29,6 @@ jobs:
       #- ./script.sh
       #- cd ..
       #- ./travisScripts/buildPushServices.sh
-      after_success:
       #- ./travisScripts/buildAfterSuccess.sh
       - sshpass -p ${passwd} ssh ${server} sudo ./serveurConfig/reset.sh
       - ls
