@@ -134,13 +134,13 @@
                                     <name>%g/%a:%l</name>
                                     <run>
                                         <ports>
-                                            <port>80:80</port>
+                                            <port>8080:8080</port>
                                         </ports>
                                     </run>
                                     <build>
                                         <from>java:openjdk-8-jdk</from>
                                         <ports>
-                                            <port>80</port>
+                                            <port>8080</port>
                                         </ports>
                                         <assembly>
 			                    <basedir>/</basedir>
