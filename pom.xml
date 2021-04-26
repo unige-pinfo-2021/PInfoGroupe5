@@ -12,7 +12,6 @@
     <modules>
         <module>film</module>
         <module>user</module>
-        <module>algorythm_selector</module>
         <module>algorythmic_selector</module>
     </modules>
 
