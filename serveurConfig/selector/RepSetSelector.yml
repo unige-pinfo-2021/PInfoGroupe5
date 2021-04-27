@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: selector
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      service: selector
+  template:
+    metadata:
+      labels:
+        service: selector
+    spec:
+      containers:
+      - name: imageselector
+        image: khptif/algorythmic_selector:latest
+        ports:
+        - containerPort: 8080
