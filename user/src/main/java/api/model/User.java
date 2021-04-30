@@ -71,5 +71,3 @@ public class User {
      public boolean isInGroup(String name){
     	return this.groups.contains(name);
     }
-
-}//end class
