@@ -39,11 +39,6 @@
         <scope>import</scope>
         <type>pom</type>
       </dependency>
-      <dependency>
-    	<groupId>mysql</groupId>
-    	<artifactId>mysql-connector-java</artifactId>
-    	<version>8.0.24</version>       
-	</dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -74,6 +69,10 @@
       <version>8.0</version>
       <scope>provided</scope>
     </dependency>
-    
+     <dependency>
+     <groupId>mysql</groupId>
+     <artifactId>mysql-connector-java</artifactId>
+     <version>8.0.24</version>       
+    </dependency>
   </dependencies>
 </project>
