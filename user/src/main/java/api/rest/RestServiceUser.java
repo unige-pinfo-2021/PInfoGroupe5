@@ -53,8 +53,8 @@ public class RestServiceUser {
 */
    @POST //, PUT
    @Produces(MediaType.APPLICATION_JSON)
-   public ArrayList<User> /*void*/ addUser(String user){
-	this.userService.setUser(user);
+   public ArrayList<User> /*void*/ addUser(String username,String email,String groupe){
+	this.userService.setUser(username,email,groupe);
 	return this.userService.getall();
      }
 

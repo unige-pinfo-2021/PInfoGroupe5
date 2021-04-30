@@ -23,6 +23,13 @@ public class User {
         this.groups = new ArrayList();
     }
 
+    public User(String username, String email, String groupe) {
+        this.username = username;
+        this.email= email;
+        this.groups = new ArrayList();
+        this.addGroup(groupe);
+    }
+    
    public String getUsername(){
 	return this.username;
    }
