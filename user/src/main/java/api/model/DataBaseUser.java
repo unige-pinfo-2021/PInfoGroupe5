@@ -19,11 +19,14 @@ public class DataBaseUser{
 	private String password;
 
 	public DataBaseUser(String path){
-		Properties props =  new DataBaseUserProperties().readProperties(path);
+		//Properties props =  new DataBaseUserProperties().readProperties(path);
 
-		this.url=props.getProperty("db.url");
-		this.username=props.getProperty("db.user");
-		this.password=props.getProperty("db.passwd");
+		//this.url=props.getProperty("db.url");
+		//this.username=props.getProperty("db.user");
+		//this.password=props.getProperty("db.passwd");
+		this.url="jdbc:mysql://129.194.10.130:3306/tinderfilmBD";
+		this.username = "groupe5";
+		this.password = "12345";
 	}//end constructor
 
 
