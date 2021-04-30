@@ -8,7 +8,7 @@ public class UserService{
 	//private ArrayList<User> listofUsers = new ArrayList();
 
 	public UserService(){
-		this.db = new DataBaseUser("src/main/resources/database.properties");
+		this.db = new DataBaseUser("database.properties");
 	}//end constructor
 
 
