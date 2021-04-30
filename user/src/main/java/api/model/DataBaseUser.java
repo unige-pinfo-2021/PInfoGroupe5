@@ -41,9 +41,9 @@ public class DataBaseUser{
 		} catch (Exception e) {
 			   e.printStackTrace();
 
-		}finally{
+		}/*finally{
 			conn.close();
-		} 
+		} */
 
     }//end connect
 
@@ -60,13 +60,13 @@ public class DataBaseUser{
 	}//end INSERT_User
 
 
-	public ArrayList<String> SELECT_User(String username){
+	public ArrayList<ArrayList<String>> SELECT_User(String username){
 		//String query ="SELECT *  FROM Users";
 		String query ="SELECT name email FROM user WHERE name = '" + username + "'' ;";
 		return get_User(query);
 	}//end INSERT_User
 
-	public ArrayList<String> SELECT_All(){
+	public ArrayList<ArrayList<String>> SELECT_All(){
 		//String query ="SELECT *  FROM Users";
 		String query ="SELECT * FROM user ;";
 		return get_User(query);
@@ -85,14 +85,14 @@ public class DataBaseUser{
 			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
 		} catch (Exception e) {
 			 e.printStackTrace();
-		}finally{
+		}/*finally{
 			conn.close();
-		}        
+		}  */      
 
 
     }//end set_User
 
-	public ArrayList<String> get_User(String query){
+	public ArrayList<ArrayList<String>> get_User(String query){
 		ArrayList<ArrayList<String>> params = new ArrayList();
 
 		try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password);

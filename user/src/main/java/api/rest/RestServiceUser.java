@@ -28,14 +28,14 @@ public class RestServiceUser {
     public ArrayList<User> getall() { 
 	return this.userService.getall();
     }
-
+/*
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/id={id}")
     public User getUser(@PathParam("id") int id) { 
 	return this.userService.getUser(id);
     }
-
+*/
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/name={name}")
@@ -44,24 +44,24 @@ public class RestServiceUser {
     }
 
 
-    @GET
+  /*  @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/group={group}")
     public ArrayList<User> getGroupUser(@PathParam("group") String group) { 
 	return this.userService.getGroupUser(group);
     }
-
+*/
    @POST //, PUT
    @Produces(MediaType.APPLICATION_JSON)
-   public ArrayList<User> /*void*/ addUser(User user){
-	this.userService.addUser(user);
+   public ArrayList<User> /*void*/ addUser(String user){
+	this.userService.setUser(user);
 	return this.userService.getall();
      }
 
    @DELETE
    @Produces(MediaType.APPLICATION_JSON)
-   public ArrayList<User> deleteUser(User user){
-	this.userService.deleteUser(user);
+   public ArrayList<User> deleteUser(String user){
+	this.userService.removeUser(user);
 	return this.userService.getall();
      }
     

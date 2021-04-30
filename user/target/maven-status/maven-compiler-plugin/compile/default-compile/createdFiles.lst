@@ -1,4 +1,6 @@
 api/rest/RestApplication.class
+api/model/DataBaseUserProperties.class
 api/model/User.class
-api/model/UserService.class
 api/rest/RestServiceUser.class
+api/model/DataBaseUser.class
+api/model/UserService.class

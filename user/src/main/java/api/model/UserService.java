@@ -17,26 +17,26 @@ public class UserService{
 	}//end existUser
 
 	
-	public void setUserDB(String username){
+	public void setUser(String username){
 		//boolean updt = false; return updt
 		this.db.INSERT_User(username);
 	}//end setUserDB
 
-	public User getUserDB(String username){
-		ArrayList<String> params = db.SELECT_User(username);
+	public User getUser(String username){
+		ArrayList<ArrayList<String>> params = db.SELECT_User(username);
 		return new User(params.get(0).get(0),params.get(0).get(1));
 	}//end removeUserDB
 	public ArrayList<User> getall()
 	{
-		ArrayList<String> params = db.SELECT_All();
-		ArrayList<user> utilisateurs = new ArrayList<user>();
+		ArrayList<ArrayList<String>> params = db.SELECT_All();
+		ArrayList<User> utilisateurs = new ArrayList<User>();
 		for(ArrayList<String> info : params)
 		{
 			utilisateurs.add(new User(info.get(0),info.get(1)));
 		}
 		return utilisateurs;
 	}
-	public void removeUserDB(String username){
+	public void removeUser(String username){
 		//boolean updt = false; return updt
 		this.db.DELETE_User(username);
 	}//end removeUserDB
