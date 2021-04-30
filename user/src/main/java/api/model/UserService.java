@@ -8,7 +8,7 @@ public class UserService{
 	//private ArrayList<User> listofUsers = new ArrayList();
 
 	public UserService(){
-		this.db = new DataBaseUser("database.properties");
+		this.db = new DataBaseUser("src/main/resources/database.properties");
 	}//end constructor
 
 
@@ -17,26 +17,17 @@ public class UserService{
 	}//end existUser
 
 	
-	public void setUser(String username){
+	public void setUserDB(String username){
 		//boolean updt = false; return updt
 		this.db.INSERT_User(username);
 	}//end setUserDB
 
-	public User getUser(String username){
-		ArrayList<ArrayList<String>> params = db.SELECT_User(username);
-		return new User(params.get(0).get(0),params.get(0).get(1));
+	public User getUserDB(String username){
+		ArrayList<String> params = db.SELECT_User(username);
+		return new User(params.get(0));
 	}//end removeUserDB
-	public ArrayList<User> getall()
-	{
-		ArrayList<ArrayList<String>> params = db.SELECT_All();
-		ArrayList<User> utilisateurs = new ArrayList<User>();
-		for(ArrayList<String> info : params)
-		{
-			utilisateurs.add(new User(info.get(0),info.get(1)));
-		}
-		return utilisateurs;
-	}
-	public void removeUser(String username){
+
+	public void removeUserDB(String username){
 		//boolean updt = false; return updt
 		this.db.DELETE_User(username);
 	}//end removeUserDB

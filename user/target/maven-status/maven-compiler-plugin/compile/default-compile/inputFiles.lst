@@ -1,4 +1,6 @@
-/home/fatih/Documents/ProjetInfo/PInfoGroupe5/user/src/main/java/api/rest/RestServiceUser.java
-/home/fatih/Documents/ProjetInfo/PInfoGroupe5/user/src/main/java/api/rest/RestApplication.java
-/home/fatih/Documents/ProjetInfo/PInfoGroupe5/user/src/main/java/api/model/User.java
-/home/fatih/Documents/ProjetInfo/PInfoGroupe5/user/src/main/java/api/model/UserService.java
+/home/frederic/projetInfo/PInfoGroupe5/user/src/main/java/api/rest/RestServiceUser.java
+/home/frederic/projetInfo/PInfoGroupe5/user/src/main/java/api/model/DataBaseUser.java
+/home/frederic/projetInfo/PInfoGroupe5/user/src/main/java/api/rest/RestApplication.java
+/home/frederic/projetInfo/PInfoGroupe5/user/src/main/java/api/model/User.java
+/home/frederic/projetInfo/PInfoGroupe5/user/src/main/java/api/model/DataBaseUserProperties.java
+/home/frederic/projetInfo/PInfoGroupe5/user/src/main/java/api/model/UserService.java

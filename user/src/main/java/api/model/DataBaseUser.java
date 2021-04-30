@@ -19,14 +19,11 @@ public class DataBaseUser{
 	private String password;
 
 	public DataBaseUser(String path){
-		//Properties props =  new DataBaseUserProperties().readProperties(path);
+		Properties props =  new DataBaseUserProperties().readProperties(path);
 
-		//this.url=props.getProperty("db.url");
-		//this.username=props.getProperty("db.user");
-		//this.password=props.getProperty("db.passwd");
-		this.url="jdbc:mysql://129.194.10.130:3306/tinderfilmBD";
-		this.username = "groupe5";
-		this.password = "12345";
+		this.url=props.getProperty("db.url");
+		this.username=props.getProperty("db.user");
+		this.password=props.getProperty("db.passwd");
 	}//end constructor
 
 
@@ -46,43 +43,39 @@ public class DataBaseUser{
 
 		}/*finally{
 			conn.close();
-		} */
+		}*/ 
 
     }//end connect
 
 	
 	public void INSERT_User(String username){
-		String query = "INSERT INTO user (name, email) VALUES('" + username + "'', 'email0' );";
-		set_User(query);
+		String query = "INSERT INTO users(username) VALUES(?)";
+		set_User(query, username);
 	}//end INSERT_User
 
 
 	public void DELETE_User(String username){
-		String query ="DELETE FROM user WHERE name = '" + username + "'' ;";
-		set_User(query);
+		String query ="DELETE FROM Users WHERE username=?";
+		set_User(query, username);
 	}//end INSERT_User
 
 
-	public ArrayList<ArrayList<String>> SELECT_User(String username){
+	public ArrayList<String> SELECT_User(String username){
 		//String query ="SELECT *  FROM Users";
-		String query ="SELECT name email FROM user WHERE name = '" + username + "'' ;";
-		return get_User(query);
+		String query ="SELECT username  FROM Users WHERE username="+"'"+username+"'";
+		return get_User(query, username);
 	}//end INSERT_User
 
-	public ArrayList<ArrayList<String>> SELECT_All(){
-		//String query ="SELECT *  FROM Users";
-		String query ="SELECT * FROM user ;";
-		return get_User(query);
-	}//end INSERT_User
 
 	//public void UPDATE_User(String username){}
 
 
-	 public void set_User(String query){
+	public void set_User(String query, String username){
 		try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password);
 			PreparedStatement pst = conn.prepareStatement(query)){
 
-            pst.executeUpdate();			 
+			pst.setString(1, username);
+            		pst.executeUpdate();			 
 
 		}catch (SQLException e) {
 			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
@@ -90,13 +83,13 @@ public class DataBaseUser{
 			 e.printStackTrace();
 		}/*finally{
 			conn.close();
-		}  */      
+		} */       
 
 
     }//end set_User
 
-	public ArrayList<ArrayList<String>> get_User(String query){
-		ArrayList<ArrayList<String>> params = new ArrayList();
+	public ArrayList<String> get_User(String query, String name){
+		ArrayList<String> params = new ArrayList();
 
 		try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password);
 			PreparedStatement pst = conn.prepareStatement(query);
@@ -104,11 +97,9 @@ public class DataBaseUser{
 
 			while (rs.next()) {
 				//System.out.print(rs+"\n");
-				ArrayList<String> p = new ArrayList<String>();
+            			
 				//System.out.print("\n"+rs.getString(1));
-				p.add(rs.getString("name"));
-				p.add(rs.getString("email"));
-				params.add(p);
+				params.add(rs.getString(1));
             		}
 						 
 
@@ -128,7 +119,7 @@ public class DataBaseUser{
 	public boolean EXIST_User(String name){
 		boolean exist = false;
 
-		String query ="SELECT name FROM user WHERE name="+"'"+name+"';";
+		String query ="SELECT username  FROM Users WHERE username="+"'"+name+"'";
 
 		try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password);
 			PreparedStatement pst = conn.prepareStatement(query);

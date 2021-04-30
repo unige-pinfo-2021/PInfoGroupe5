@@ -23,11 +23,6 @@ public class RestServiceUser {
 	this.userService = new UserService();
     }
     
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<User> getall() { 
-	return this.userService.getall();
-    }
 /*
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -40,7 +35,7 @@ public class RestServiceUser {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/name={name}")
     public User getUser(@PathParam("name") String name) { 
-	return this.userService.getUser(name);
+	return this.userService.getUserDB(name);
     }
 
 
@@ -53,16 +48,16 @@ public class RestServiceUser {
 */
    @POST //, PUT
    @Produces(MediaType.APPLICATION_JSON)
-   public ArrayList<User> /*void*/ addUser(String user){
-	this.userService.setUser(user);
-	return this.userService.getall();
+   public User/*void*/ addUser(String user){
+	this.userService.setUserDB(user);
+	return this.userService.getUserDB(user);
      }
 
    @DELETE
    @Produces(MediaType.APPLICATION_JSON)
-   public ArrayList<User> deleteUser(String user){
-	this.userService.removeUser(user);
-	return this.userService.getall();
+   public int deleteUser(String user){
+	this.userService.removeUserDB(user);
+	return 0;
      }
     
 
