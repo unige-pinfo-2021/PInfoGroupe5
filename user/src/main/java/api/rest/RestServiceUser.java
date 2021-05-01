@@ -64,6 +64,12 @@ public class RestServiceUser {
 	this.userService.removeUserDB(user);
 	return 0;
      }
+   @GET
+   @Produces(MediaType.APPLICATION_JSON)
+   @Path("/name={name}/exist")
+   public boolean existUser(@PathParam("name") String name) { 
+	return this.userService.existUser(name);
+   }
     
 
 }//end class
