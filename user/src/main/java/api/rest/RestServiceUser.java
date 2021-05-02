@@ -53,15 +53,9 @@ public class RestServiceUser {
 */
    @POST //, PUT
    @Produces(MediaType.APPLICATION_JSON)
-<<<<<<< HEAD
-   public ArrayList<User> /*void*/ addUser(String username,String email,String groupe){
-	this.userService.setUser(username,email,groupe);
-	return this.userService.getall();
-=======
    public User /*void*/ addUser(String user){
 	this.userService.setUserDB(user);
 	return userService.getUserDB(user);
->>>>>>> f01df52a27671ee3ca75335aa85a3623188cccd5
      }
 
    @DELETE

@@ -12,7 +12,7 @@
     <modules>
         <module>film</module>
         <module>user</module>
-        <module>group</module>
+        <module> group</module>
         <module>algorythmic_selector</module>
     </modules>
 
