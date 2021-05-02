@@ -8,6 +8,7 @@ public class UserService{
 	private ArrayList<User> listofUsers = new ArrayList();
 
 	public UserService(){
+<<<<<<< HEAD
 		this.listofUsers.add(new User("tom","tom1954@"));
 		this.listofUsers.get(0).addGroup("dessin anime");
 
@@ -20,6 +21,9 @@ public class UserService{
 		this.listofUsers.add(new User("Gerard","Gerars432@"));
 		this.listofUsers.get(3).addGroup("film francais");
 		//this.db = new DataBaseUser("database.properties");
+=======
+		this.db = new DataBaseUser("src/main/resources/database.properties");
+>>>>>>> f01df52a27671ee3ca75335aa85a3623188cccd5
 	}//end constructor
 
 
@@ -29,12 +33,17 @@ public class UserService{
 	}//end existUser
 
 	
+<<<<<<< HEAD
 	public void setUser(String username,String email ,String groupe){
+=======
+	public void setUserDB(String username){
+>>>>>>> f01df52a27671ee3ca75335aa85a3623188cccd5
 		//boolean updt = false; return updt
 		//this.db.INSERT_User(username);
 		this.listofUsers.add(new User(username,email,groupe));
 	}//end setUserDB
 
+<<<<<<< HEAD
 	public User getUser(String username){
 		//ArrayList<ArrayList<String>> params = db.SELECT_User(username);
 		//return new User(params.get(0).get(0),params.get(0).get(1));
@@ -62,6 +71,14 @@ public class UserService{
 	}
 
 	public void removeUser(String username){
+=======
+	public User getUserDB(String username){
+		ArrayList<String> params = db.SELECT_User(username);
+		return new User(params.get(0));
+	}//end removeUserDB
+
+	public void removeUserDB(String username){
+>>>>>>> f01df52a27671ee3ca75335aa85a3623188cccd5
 		//boolean updt = false; return updt
 		//this.db.DELETE_User(username);
 		for(int i = 0;i<this.listofUsers.size();i++)

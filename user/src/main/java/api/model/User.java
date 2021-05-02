@@ -1,22 +1,23 @@
 package api.model;
 
-import java.util.*;
 
-public class User {
+public class User{	
+	
+	private String username;
 
-    private String username;
-    private String email; 
-    private ArrayList<String> groups;
-    //private ArrayList<Films> Historic;
+	public User(String username){
+		this.username = username;
+	}//end constructor
 
-   //private ArrayList<String> preferences;
+	public String getUsername(){
+		return this.username;
+	}//end get
 
-    public User() {
-	this.username = "Unknown";
-        this.email = "default";
-	this.groups = new ArrayList();
-    }
+	public void setUsername(String username){
+		this.username=username;
+	}//end set
 
+<<<<<<< HEAD
     public User(String username, String email) {
         this.username = username;
         this.email= email;
@@ -52,31 +53,10 @@ public class User {
    			flag = (this.username).equals(((User) obj).getUsername()) && (this.email).equals(((User) obj).getEmail());
    		}
    		return flag;
+=======
+	public String descrpt(){
+		return this.username+" ";
+>>>>>>> f01df52a27671ee3ca75335aa85a3623188cccd5
 	}
 
-	/*Gestion des groupes pour un utilisateur*/
-	 public ArrayList<String> getGroupList(){
-		return this.groups;
-    }
-    
-    public boolean addGroup(String name){
-    	if(!this.groups.contains(name)){
-			this.groups.add(name);
-			return true;
-		}
-		return false;
-    }
-    
-     public boolean deleteGroup(String name){
-    	if(this.groups.contains(name)){
-			this.groups.remove(name);
-			return true;
-		}
-		return false;
-    }
-    
-     public boolean isInGroup(String name){
-    	return this.groups.contains(name);
-    }
-
-}
+}//end class

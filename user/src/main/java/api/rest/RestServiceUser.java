@@ -25,8 +25,8 @@ public class RestServiceUser {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<User> getall() { 
-	return this.userService.getall();
+    public String Default() { 
+	return "You reached user";
     }
 /*
     @GET
@@ -40,7 +40,7 @@ public class RestServiceUser {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/name={name}")
     public User getUser(@PathParam("name") String name) { 
-	return this.userService.getUser(name);
+	return this.userService.getUserDB(name);
     }
 
 
@@ -53,17 +53,29 @@ public class RestServiceUser {
 */
    @POST //, PUT
    @Produces(MediaType.APPLICATION_JSON)
+<<<<<<< HEAD
    public ArrayList<User> /*void*/ addUser(String username,String email,String groupe){
 	this.userService.setUser(username,email,groupe);
 	return this.userService.getall();
+=======
+   public User /*void*/ addUser(String user){
+	this.userService.setUserDB(user);
+	return userService.getUserDB(user);
+>>>>>>> f01df52a27671ee3ca75335aa85a3623188cccd5
      }
 
    @DELETE
    @Produces(MediaType.APPLICATION_JSON)
-   public ArrayList<User> deleteUser(String user){
-	this.userService.removeUser(user);
-	return this.userService.getall();
+   public int deleteUser(String user){
+	this.userService.removeUserDB(user);
+	return 0;
      }
+   @GET
+   @Produces(MediaType.APPLICATION_JSON)
+   @Path("/name={name}/exist")
+   public boolean existUser(@PathParam("name") String name) { 
+	return this.userService.existUser(name);
+   }
     
 
 }//end class

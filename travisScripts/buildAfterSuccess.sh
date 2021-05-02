@@ -2,11 +2,13 @@
 
 echo ${DockerPassword} | docker login --username ${DockerUsername} --password-stdin
 
-docker tag api/user khptif/user:latest 
+docker tag api/user khptif/user:latest
+docker tag api/user khptif/group:latest
 docker tag api/film khptif/film:latest 
 docker tag selector/algorythmic_selector khptif/algorythmic_selector:latest
 
 docker push khptif/user:latest
+docker push khptif/group:latest
 docker push khptif/film:latest
 docker push khptif/algorythmic_selector:latest
 

@@ -21,12 +21,12 @@ ${k8} delete rs --all
 ${k8} delete svc --all
 
 ${k8} create -f film/ServiceFilm.yml
-#${k8} create -f group/ServiceGroup.yml
+${k8} create -f group/ServiceGroup.yml
 ${k8} create -f user/ServiceUser.yml
 
 
 ${k8} create -f film/RepSetFilm.yml
-#${k8} create -f group/RepSetGroup.yml
+${k8} create -f group/RepSetGroup.yml
 ${k8} create -f user/RepSetUser.yml
 
 sleep 60
