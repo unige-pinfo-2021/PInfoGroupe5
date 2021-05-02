@@ -26,8 +26,8 @@ public class RestServiceGroup {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String defaut() { 
-	return "you reached group";
+    public String Default() { 
+	return "You reached group";
     }
 /*
     @GET
