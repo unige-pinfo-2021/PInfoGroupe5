@@ -14,13 +14,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.PathParam;
 
+import java.io.IOException;
+
 
 @Path("/group")
 public class RestServiceGroup {
 
     private GroupService groupService;
 
-    public RestServiceGroup(){
+    public RestServiceGroup()throws IOException, InterruptedException
+    {
 	this.groupService = new GroupService();
     }
     
