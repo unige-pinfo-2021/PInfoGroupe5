@@ -43,6 +43,12 @@ public class RestServiceUser {
 	return this.userService.getUserDB(name);
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/all")
+    public Map<String,User> getAll() { 
+	return this.userService.getAll();
+    }
 
   /*  @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -53,9 +59,9 @@ public class RestServiceUser {
 */
    @POST //, PUT
    @Produces(MediaType.APPLICATION_JSON)
-   public User /*void*/ addUser(String user){
-	this.userService.setUserDB(user);
-	return userService.getUserDB(user);
+   public Map<String,User> addUser(String user,String email){
+	this.userService.addUserDB(new User(user, email));
+	return userService.getAll();
      }
 
    @DELETE
