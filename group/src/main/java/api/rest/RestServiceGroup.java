@@ -16,7 +16,7 @@ import javax.ws.rs.PathParam;
 
 import java.io.IOException;
 
-
+@ApplicationScoped
 @Path("/group")
 public class RestServiceGroup {
 
