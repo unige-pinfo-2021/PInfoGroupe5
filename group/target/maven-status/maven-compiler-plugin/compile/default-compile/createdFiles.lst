@@ -1,0 +1,6 @@
+api/rest/RestServiceGroup.class
+api/rest/RestApplication.class
+api/model/GroupService.class
+api/model/DataBaseGroup.class
+api/model/DataBaseGroupProperties.class
+api/model/Group.class

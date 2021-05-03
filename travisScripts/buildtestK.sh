@@ -38,7 +38,7 @@ echo ${DockerPassword} | docker login --username ${DockerUsername} --password-st
 #docker image ls
 
 docker tag api/user khptif/user:testintegration
-docker tag api/user khptif/group:testintegration
+docker tag api/group khptif/group:testintegration
 docker tag api/film khptif/film:testintegration
 docker tag selector/algorythmic_selector khptif/algorythmic_selector:testintegration
 
@@ -48,7 +48,7 @@ docker tag selector/algorythmic_selector khptif/algorythmic_selector:testintegra
 #docker push khptif/web-ui:latest
 
 docker push khptif/user:testintegration
-docker push khptif/gorup:testintegration
+docker push khptif/group:testintegration
 docker push khptif/film:testintegration
 docker push khptif/algorythmic_selector:testintegration
 

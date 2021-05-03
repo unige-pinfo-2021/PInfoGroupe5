@@ -3,7 +3,7 @@
 echo ${DockerPassword} | docker login --username ${DockerUsername} --password-stdin
 
 docker tag api/user khptif/user:latest
-docker tag api/user khptif/group:latest 
+docker tag api/group khptif/group:latest 
 docker tag api/film khptif/film:latest 
 docker tag selector/algorythmic_selector khptif/algorythmic_selector:latest
 
