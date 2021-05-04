@@ -51,7 +51,7 @@ public class Group {
 
    public Map<String,Double> getMoyenne()
    {
-       return this.criteres;
+       return this.moyenne;
    }
 
 
