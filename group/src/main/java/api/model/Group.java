@@ -8,6 +8,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
 import org.json.*;
+import java.net.*;
+import java.io.*;
 
 
 public class Group {
@@ -105,14 +107,27 @@ public class Group {
     /* permet de faire une requête http GET  et retourne la réponse en JSON*/
     private String get(String adresse)throws IOException, InterruptedException 
     {
-    	HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(adresse))
-                .build();
+    	URL obj = new URL(adresse);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		con.setRequestMethod("GET");
+		int responseCode = con.getResponseCode();
+		System.out.println("GET Response Code :: " + responseCode);
+		if (responseCode == HttpURLConnection.HTTP_OK) { // success
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					con.getInputStream()));
+			String inputLine;
+			StringBuffer response = new StringBuffer();
 
-        HttpResponse<String> response = client.send(request,
-                HttpResponse.BodyHandlers.ofString());
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
 
-        return response.body();
+			// print result
+			return response.toString();
+		} else {
+			return "GET request not worked";
+		}
+       
     }
 }
