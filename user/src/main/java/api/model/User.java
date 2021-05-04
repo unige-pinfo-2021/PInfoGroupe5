@@ -2,7 +2,6 @@ package api.model;
 
 import java.util.*;
 
-import org.graalvm.compiler.replacements.nodes.ReadRegisterNode;
 
 public class User{	
 	

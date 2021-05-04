@@ -1,7 +1,7 @@
 package api.model;
 
 import java.util.*;
-
+import java.sql.*;
 public class UserService{
 
 	private DataBaseUser db;
@@ -58,7 +58,7 @@ public class UserService{
 		this.listofUsers.remove(username);
 	}//end removeUserDB
 
-
+	
 	//public void updateUserDB(){}
 
 	/*public ArrayList<User> getlistofUsers(ArrayList<String> usernames){

@@ -78,6 +78,14 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				 <groupId>org.codehaus.mojo</groupId>
+				 <artifactId>exec-maven-plugin</artifactId>
+				 <version>1.2.1</version>
+				 <configuration>
+						 <mainClass>api.model.App</mainClass>
+				 </configuration>
+		 </plugin>
 		</plugins>
 	</build>
 
@@ -88,6 +96,6 @@
 			<version>8.0</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 	</dependencies>
 </project>
