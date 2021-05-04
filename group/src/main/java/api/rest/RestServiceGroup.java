@@ -48,6 +48,14 @@ public class RestServiceGroup {
 	return groupService.getGroup(groupName);
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/moyenne")
+    public Map<String,Double> getmoyenne()
+    { 
+	return groupService.getMoyenne();
+    }
+
 
   /*  @GET
     @Produces(MediaType.APPLICATION_JSON)

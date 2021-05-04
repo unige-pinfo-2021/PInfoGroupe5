@@ -49,11 +49,17 @@ public class Group {
 	this.users.add(userName);
    }
 
+   public Map<String,Double> getMoyenne()
+   {
+       return this.criteres;
+   }
+
 
    // permet de calculer le critere moyen. Pour l'instant, 
    // envoie requete http pour récupérer les données users.
    public void calculCritere()throws IOException, InterruptedException
    {
+       System.out.println("calcul moyenne critere");
        // on définit les différent thèmes de film
        String[] themes = {"humour","horreur","drame","action","aventure"};
        // on initialise le tableau qui contiendra la moyenne
@@ -68,17 +74,21 @@ public class Group {
            String info = this.getUser(user);
            JSONObject jsonObject = new JSONObject(info);
            JSONObject criteres = jsonObject.getJSONObject("critere");
+           System.out.println(criteres.toString());
            for(String theme : themes)
            {
                moyenne.put(theme,moyenne.get(theme)+criteres.getDouble(theme));
            }
         }
+        System.out.println("Vers la Division");
         // division final
         for(String theme : themes)
         {
+            System.out.println("Division");
             moyenne.put(theme, moyenne.get(theme)/this.users.size());
+            System.out.println(theme + " " + moyenne.get(theme));
         }
-
+        System.out.println("fin calcul critere");
         this.criteres = moyenne;
    }
 	/* renvoie le nom des utilisateurs */
@@ -87,7 +97,7 @@ public class Group {
     }
     
     /* renvoie les infos utilisateurs*/
-    private String getUser(String userName)throws IOException, InterruptedException
+    public String getUser(String userName)throws IOException, InterruptedException
     {
         String url = "http://tindfilm/user/name=" + userName;
         String JSONuser = get(url);
