@@ -138,6 +138,11 @@
                                         <ports>
                                             <port>8080:8080</port>
                                         </ports>
+                                        
+  					<extraHosts>
+    						tindfilm:129.194.10.130
+  					</extraHosts>
+					
                                     </run>
                                     <build>
                                         <from>java:openjdk-8-jdk</from>
