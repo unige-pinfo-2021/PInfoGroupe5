@@ -16,7 +16,7 @@ public class Group {
 
     private String groupName;
     // critere = nomCritere : probabilité [0,1]
-    private Map<String,Double> criteres = new HashMap<String,Double>() ; 
+    private Map<String,Double> moyenne = new HashMap<String,Double>() ; 
     private Set<String> users = new HashSet<String>();
     //private ArrayList<Films> Historic;
 
@@ -80,16 +80,12 @@ public class Group {
                moyenne.put(theme,moyenne.get(theme)+criteres.getDouble(theme));
            }
         }
-        System.out.println("Vers la Division");
         // division final
         for(String theme : themes)
         {
-            System.out.println("Division");
             moyenne.put(theme, moyenne.get(theme)/this.users.size());
-            System.out.println(theme + " " + moyenne.get(theme));
         }
-        System.out.println("fin calcul critere");
-        this.criteres = moyenne;
+        this.moyenne = moyenne;
    }
 	/* renvoie le nom des utilisateurs */
 	 public Set<String> getUsersName(){

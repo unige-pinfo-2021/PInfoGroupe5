@@ -45,7 +45,7 @@ public class GroupService{
 
 	public Map<String,Double> getMoyenne()
 	{
-		return this.getMoyenne();
+		return this.test.getMoyenne();
 	}
 
 	public Set<String> addUser(String groupe,String user){
