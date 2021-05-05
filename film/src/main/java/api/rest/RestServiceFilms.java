@@ -15,7 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.PathParam;
 
-@Path("/films")
+@Path("/film")
 public class RestServiceFilms {
 
     private TMDB_Caller filmService;
