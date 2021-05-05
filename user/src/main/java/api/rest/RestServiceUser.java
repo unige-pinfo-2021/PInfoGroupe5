@@ -47,8 +47,8 @@ public class RestServiceUser {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/test")
-    public int test() { 
-	return this.userService.test();
+    public String test() { 
+	return String.valueOf(this.userService.test());
     }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
