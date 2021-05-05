@@ -27,7 +27,7 @@ public class RestServiceUser {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String Default() { 
-	return "You reached user3";
+	return "You reached user4";
     }
 /*
     @GET
@@ -50,6 +50,7 @@ public class RestServiceUser {
     public String test() { 
 	return String.valueOf(this.userService.test());
     }
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/all")
