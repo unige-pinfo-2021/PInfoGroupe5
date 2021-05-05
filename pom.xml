@@ -152,7 +152,7 @@
 
 									</run>
 									<build>
-										<from>java:openjdk-8-jdk</from>
+										<from>java:openjdk-11-jdk</from>
 										<ports>
 											<port>8080</port>
 										</ports>
