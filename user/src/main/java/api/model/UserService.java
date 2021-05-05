@@ -58,7 +58,46 @@ public class UserService{
 		this.listofUsers.remove(username);
 	}//end removeUserDB
 
-	
+	public int  test() {
+		int rowCount = 0;
+		try (
+		         // Step 1: Construct a database 'Connection' object called 'conn'
+		         Connection conn = DriverManager.getConnection(
+		               "jdbc:mysql://129.194.10.130:3306/tinderfilmBD",
+		               "groupe5", "12345");   // For MySQL only
+		               // The format is: "jdbc:mysql://hostname:port/databaseName", "username", "password"
+		 
+		         // Step 2: Construct a 'Statement' object called 'stmt' inside the Connection created
+		         Statement stmt = conn.createStatement();
+		      ) {
+		         // Step 3: Write a SQL query string. Execute the SQL query via the 'Statement'.
+		         //  The query result is returned in a 'ResultSet' object called 'rset'.
+		         String strSelect = "select * from user";
+		         System.out.println("The SQL statement is: " + strSelect + "\n"); // Echo For debugging
+		 
+		         ResultSet rset = stmt.executeQuery(strSelect);
+		 
+		         // Step 4: Process the 'ResultSet' by scrolling the cursor forward via next().
+		         //  For each row, retrieve the contents of the cells with getXxx(columnName).
+		         System.out.println("The records selected are:");
+		         
+		         // Row-cursor initially positioned before the first row of the 'ResultSet'.
+		         // rset.next() inside the whole-loop repeatedly moves the cursor to the next row.
+		         // It returns false if no more rows.
+		         while(rset.next()) {   // Repeatedly process each row
+		            String title = rset.getString("name");  // retrieve a 'String'-cell in the row
+		            String price = rset.getString("email");  // retrieve a 'double'-cell in the row
+		            int    qty   = 0;       // retrieve a 'int'-cell in the row
+		            System.out.println(title + ", " + price + ", " + qty);
+		            ++rowCount;
+		         }
+		         System.out.println("Total number of records = " + rowCount);
+		 
+		      } catch(SQLException ex) {
+		         ex.printStackTrace();
+		      }
+		return rowCount;
+	}
 	//public void updateUserDB(){}
 
 	/*public ArrayList<User> getlistofUsers(ArrayList<String> usernames){

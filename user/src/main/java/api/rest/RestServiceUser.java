@@ -46,6 +46,12 @@ public class RestServiceUser {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("/test")
+    public int test() { 
+	return this.userService.test();
+    }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/all")
     public Map<String,User> getAll() { 
 	return this.userService.getAll();
