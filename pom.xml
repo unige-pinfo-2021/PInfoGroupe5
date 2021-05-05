@@ -164,7 +164,7 @@
 
 									</run>
 									<build>
-										<from>java:openjdk-11-jdk</from>
+										<from>openjdk:11</from>
 										<ports>
 											<port>8080</port>
 										</ports>
