@@ -1,4 +1,4 @@
-package api.model;
+package TMDB;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
