@@ -26,7 +26,7 @@ public class RestServiceFilms {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Movie> getall() throws IOException, InterruptedException { 
+    public List<Movie> getRandomMovies() throws IOException, InterruptedException { 
 	return this.filmService.getRandomMovies_asList(40);
     }
 
@@ -34,12 +34,12 @@ public class RestServiceFilms {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     
-    @Path("/restcall/{type}/{title}")
-    public List<Movie> getrestcall(@PathParam("include_adult") boolean include_adult,@PathParam("vote_average.gte") double vote_average_gte,@PathParam("vote_average.lte") double vote_average_lte,
+    @Path("/restcall/vgt={vote_average.gte}/vlt={vote_average.lte}/page={page}/prgt={primary_release_date.gte}/prlt={primary_release_date.lte}/with_people={with_people}/with_genres={with_genres}/with_keywords={with_keywords}")
+    public List<Movie> getrestcall(@PathParam("vote_average.gte") double vote_average_gte,@PathParam("vote_average.lte") double vote_average_lte,
     		@PathParam("page") int page,@PathParam("primary_release_date.gte") String primary_release_date_gte,@PathParam("primary_release_date.lte") String primary_release_date_lte,@PathParam("with_people") String with_people,
     		@PathParam("with_genres") String with_genres,@PathParam("with_keywords") String with_keywords) throws IOException, InterruptedException { 
     	String requestJson = "{\n"
-				+ "	\"include_adult\": "+ include_adult +",\n"
+				+ "	\"include_adult\": false,\n"
 				+ "	\"vote_average.gte\": "+vote_average_gte+",\n"
 				+ "	\"vote_average.lte\": "+vote_average_lte+",\n"
 				+ "	\"page\": "+page+",\n"
