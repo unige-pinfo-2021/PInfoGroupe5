@@ -18,8 +18,8 @@
 	<name>user</name>
 
 	<properties>
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -78,14 +78,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				 <groupId>org.codehaus.mojo</groupId>
-				 <artifactId>exec-maven-plugin</artifactId>
-				 <version>1.2.1</version>
-				 <configuration>
-						 <mainClass>api.model.App</mainClass>
-				 </configuration>
-		 </plugin>
 		</plugins>
 	</build>
 
@@ -96,6 +88,6 @@
 			<version>8.0</version>
 			<scope>provided</scope>
 		</dependency>
-
+		
 	</dependencies>
 </project>
