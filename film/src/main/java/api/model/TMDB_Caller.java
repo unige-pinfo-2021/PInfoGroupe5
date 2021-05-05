@@ -69,6 +69,11 @@ public class TMDB_Caller {
 		return "https://api.themoviedb.org/3/search/movie?api_key="+apiKey+"&language=en-US&query="+title_to_search;
 	}
 	
+	//findByIdPeople_uri------------------------------------------------------------------------------------------------------
+	public String findByIdPeople_uri(int id) {
+		return "https://api.themoviedb.org/3/movie/"+id+"/credits";
+	}
+	
 	//getAllGenres()----------------------------------------------------------------------------------------------------
 	public List<Genre> getAllGenres() throws IOException, InterruptedException {
 		String uri = listAllGenres_uri();
@@ -321,6 +326,28 @@ public class TMDB_Caller {
 	    return movieList;
 	}
 	
+	//getMoreInfo ----------------------------------------------------------------------------------------------------------------
+	public Movie getMoreInfo(Movie mov) throws IOException, InterruptedException {
+		if(mov.info == null) {
+			mov.info = new Movie_Extender();
+		}
+		
+		String uri = findByIdPeople_uri(mov.id);
+		//System.out.println(uri);
+		
+		HttpClient client = HttpClient.newHttpClient();
+	    HttpRequest request = HttpRequest.newBuilder()
+	          .uri(URI.create(uri))
+	          .build();
+	    
+	    HttpResponse<Supplier<TMDBResult>> response = client.send(request, new JsonBodyHandler<>(TMDBResult.class));
+	    Supplier<TMDBResult> TMDB_result = response.body();
+	    String results_str = TMDB_result.get().results.toPrettyString();
+	    
+	    ObjectMapper mapper = new ObjectMapper();
+	    Movie_Extender movieList = mapper.readValue(results_str, new TypeReference<Movie_Extender>() {});
+		return mov;
+	}
 }//finClass
 
 	
