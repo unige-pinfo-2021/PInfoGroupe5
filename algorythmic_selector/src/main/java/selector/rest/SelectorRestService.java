@@ -27,6 +27,14 @@ public class SelectorRestService
        this.selecteur = new selector();
    }
 
+   class critere {
+    public double humour;
+    public double horreur;
+    public double action;
+    public double drame;
+    public double aventure;
+   }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String Default()
@@ -38,8 +46,9 @@ public class SelectorRestService
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/catalogue")
-    public String getCatalogue(){
-	    return "catalogue";
+    public critere getCatalogue(critere moyenne ){
+
+	    return moyenne;
     }
     
 }//end class

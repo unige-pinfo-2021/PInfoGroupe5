@@ -55,6 +55,14 @@ public class RestServiceGroup {
     { 
 	return groupService.getMoyenne();
     }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/catalogue")
+    public String getCatalogue()throws IOException, InterruptedException
+    { 
+	return groupService.getCatalogue();
+    }
 
 
   /*  @GET

@@ -42,6 +42,12 @@ public class GroupService{
 	{
 		return this.test;
 	}
+	
+	public String getCatalogue()throws IOException, InterruptedException
+	{
+		JSONObject moyennes = new JSONObject(this.test.getMoyenne()); 
+		return post("tindfilm/selector/catalogue",moyennes.toString());
+	}
 
 	public Map<String,Double> getMoyenne()
 	{
@@ -67,6 +73,23 @@ public class GroupService{
 	{
 		return this.test.removeUser(userName);
 	}
+	
+	private static String post(String adresse, String requete)throws IOException, InterruptedException 
+    {
+    	System.out.println(" POST " + adresse);
+    	HttpClient clientPost = HttpClient.newHttpClient();
+        HttpRequest requestPost = HttpRequest.newBuilder()
+                .uri(URI.create(adresse))
+                .POST(HttpRequest.BodyPublishers.ofString(requete))
+                .build();
+
+        HttpResponse<String> responsePost = clientPost.send(requestPost,
+                HttpResponse.BodyHandlers.ofString());
+
+        System.out.println(responsePost.body() + '\n');
+        
+         return responsePost.body();
+    }
 
 	
 }//end class
