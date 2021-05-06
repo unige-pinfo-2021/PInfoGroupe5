@@ -27,7 +27,7 @@ public class RestServiceUser {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String Default() { 
-	return "You reached user6";
+	return "You reached user7";
     }
 /*
     @GET
