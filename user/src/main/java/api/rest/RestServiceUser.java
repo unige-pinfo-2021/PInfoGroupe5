@@ -19,7 +19,11 @@ import javax.ws.rs.PathParam;
 public class RestServiceUser {
 
     private UserService userService;
+    
+    //remove this
     public int i = 0;
+    
+    
     public RestServiceUser(){
 	this.userService = new UserService();
     }
@@ -27,7 +31,7 @@ public class RestServiceUser {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String Default() { 
-	return "You reached user7";
+	return "You reached user9";
     }
 /*
     @GET
@@ -97,6 +101,13 @@ public class RestServiceUser {
    public boolean existUser(@PathParam("name") String name) { 
 	return this.userService.existUser(name);
    }
+   //remove this
+   @GET
+   @Produces(MediaType.APPLICATION_JSON)
+   @Path("/i")
+   public int i() { 
+	return i;
+   }
     
-
+   
 }//end class
