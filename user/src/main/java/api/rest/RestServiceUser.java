@@ -70,9 +70,9 @@ public class RestServiceUser {
    @POST //, PUT
    @Consumes(MediaType.APPLICATION_JSON)
    @Produces(MediaType.APPLICATION_JSON)
-   @Path("/post")
-   public Map<String,User> addUser(String user,String email){
-	this.userService.addUserDB(new User(user, email));
+   @Path("/put/name={name}/email={email}")
+   public Map<String,User> addUser(@PathParam("name") String name,@PathParam("email") String email){
+	this.userService.addUserDB(new User(name, email));
 	return userService.getAll();
      }
 
