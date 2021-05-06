@@ -19,7 +19,7 @@ import javax.ws.rs.PathParam;
 public class RestServiceUser {
 
     private UserService userService;
-
+    public int i = 0;
     public RestServiceUser(){
 	this.userService = new UserService();
     }
@@ -75,7 +75,16 @@ public class RestServiceUser {
 	this.userService.addUserDB(new User(name, email));
 	return userService.getAll();
      }
-
+   
+   @POST //, PUT
+   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces(MediaType.APPLICATION_JSON)
+   @Path("/put1")
+   public Map<String,User> mawa(){
+	i = 1;;
+	return userService.getAll();
+   }
+   
    @DELETE
    @Produces(MediaType.APPLICATION_JSON)
    public int deleteUser(String user){
