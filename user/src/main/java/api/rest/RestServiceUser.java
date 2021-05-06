@@ -50,7 +50,16 @@ public class RestServiceUser {
     public Map<String,User> getAll() { 
 	return this.userService.getAll();
     }
-
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/put/name={name}/email={email}")
+    public int putIn(@PathParam("name") String name,@PathParam("email") String email) { 
+    	User nuser = new User(name,email);
+    	userService.addUserDB(nuser);
+    	return 0;
+    }
+    
   /*  @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/group={group}")
@@ -61,7 +70,7 @@ public class RestServiceUser {
    @POST //, PUT
    @Consumes(MediaType.APPLICATION_JSON)
    @Produces(MediaType.APPLICATION_JSON)
-   @Path("/put")
+   @Path("/post")
    public Map<String,User> addUser(String user,String email){
 	this.userService.addUserDB(new User(user, email));
 	return userService.getAll();
