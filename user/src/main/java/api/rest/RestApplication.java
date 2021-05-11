@@ -1,4 +1,4 @@
-package api.rest; //.films.rest;
+package api.rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
