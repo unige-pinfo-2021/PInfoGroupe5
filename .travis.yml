@@ -13,6 +13,12 @@ env:
 services:
   - docker
 
+addons:
+  sonarcloud:
+    organization: "khptif" # the key of the org you chose at step #3
+    token:
+      secure: ${SONAR_TOKEN} # encrypted value of your token
+ 
 cache:
     directories:
       - .autoconf
@@ -29,6 +35,8 @@ jobs:
       - ./script.sh
       - cd ..
       - ./travisScripts/buildPushServices.sh
+      - sonar-scanner
+      
       after_success:
       - ./travisScripts/buildAfterSuccess.sh
       
