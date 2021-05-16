@@ -2,6 +2,7 @@ package api.model;
 
 import java.util.*;
 import java.util.Properties;
+import java.io.IOException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,6 +19,8 @@ public class DataBaseGroup{
 	private String username;
 	private String password;
 
+	private String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver"; //"org.postgresql.Driver"
+
 	public DataBaseGroup(String path){
 		//Properties props =  new DataBaseUserProperties().readProperties(path);
 
@@ -31,57 +34,108 @@ public class DataBaseGroup{
 
 
 	public void try_connect(){
-		try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password);){
-			    if (conn != null) {
+
+		
+		Connection conn = null;
+		try{
+			Class.forName(JDBC_DRIVER); 
+			conn = DriverManager.getConnection(this.url, this.username, this.password);
+			if (conn != null) 
+			{
 				System.out.println("\n"+"Connection established!");
 
-			    } else {
+			} 
+			else 
+			{
 				System.out.println("Failed to make connection!");
-			    }
+			}
 
 		} catch (SQLException e) {
 			 System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
 		} catch (Exception e) {
 			   e.printStackTrace();
 
-		}/*finally{
-			conn.close();
-		} */
+		}finally{
+			try{
+				conn.close();
+			}catch (Exception e) {
+			 e.printStackTrace();
+			}
+		} 
 
     }//end connect
 
 	
-	public void INSERT_Group(String groupName){
-		//String query = "INSERT INTO user (name, email) VALUES('" + username + "'', 'email0' );";
-		//set_User(query);
+	public void INSERT_Group(String groupeName, String admin, String invitation){
+		if(!this.EXIST_Groupe(groupeName))
+		{
+			String query = "INSERT INTO groupe (groupeName, admin, invitation) VALUES('"+groupeName+"','"+admin+"','"+invitation+"');";
+			this.setBD(query);
+		}
+
 	}//end INSERT_User
 
+	
 
-	public void DELETE_User(String groupName){
-		//String query ="DELETE FROM user WHERE name = '" + username + "'' ;";
-		//set_User(query);
-	}//end INSERT_User
+	public void INSERT_User(String groupeName,String userName)
+	{
+		if(!this.EXIST_User(groupeName, userName))
+		{
+			String query = "INSERT INTO groupeUsers (groupeName, userName) VALUES('" + groupeName + "', '" + userName +"' );";
+			this.setBD(query);
+		}
 
-/*
-	public ArrayList<ArrayList<String>> SELECT_Group(String username){
-		//String query ="SELECT *  FROM Users";
-		String query ="SELECT name email FROM user WHERE name = '" + username + "'' ;";
-		return get_User(query);
-	}//end INSERT_User
-*/
-/*	public ArrayList<ArrayList<String>> SELECT_All(){
-		//String query ="SELECT *  FROM Users";
-		String query ="SELECT * FROM user ;";
-		return get_User(query);
-	}//end INSERT_User
-*/
-	//public void UPDATE_User(String username){}
+	}
 
+	public void DELETE_Group(String groupeName)
+	{
+		String query ="DELETE FROM groupe WHERE groupeName = '" + groupeName + "' ;";
+		this.setBD(query);
+		query ="DELETE FROM groupeUsers WHERE groupeName = '" + groupeName + "' ;";
+		this.setBD(query);
+		query ="DELETE FROM groupeScores WHERE groupeName = '" + groupeName + "' ;";
+		this.setBD(query);
+	}
 
-/*	 public void set_Group(String query){
-		try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query)){
+	public void DELETE_GroupFilmScore(String groupeName)
+	{
+		String query ="DELETE FROM groupeScores WHERE groupeName = '" + groupeName + "';";
+		this.setBD(query);
+	}
 
+	public void DELETE_GroupUsers(String groupName){
+		String query ="DELETE FROM groupeUsers WHERE groupeName = '" + groupName + "';";
+		this.setBD(query);
+	}
+
+	public void DELETE_GroupUser(String groupName,String userName){
+		String query ="DELETE FROM groupeUsers WHERE groupeName = '" + groupName + "' AND userName='" + userName +"';";
+		this.setBD(query);
+	}
+
+	public void Insert_Film(String groupeName, int idFilm)
+	{
+		Integer id = idFilm;
+		String query = "INSERT INTO groupeScores (groupeName, filmID, score ) VALUES ('"+groupeName+"',"+ id.toString()+",0);";
+		this.setBD(query);
+	}
+
+	public void DELETE_Film(String groupeName)
+	{
+		String query = "DELETE FROM groupeScores WHERE groupeName='"+groupeName+"';";
+		this.setBD(query);		
+	}
+
+	 public void setBD(String query)
+	 {
+		 
+		Connection conn = null;
+
+		try
+		{
+			Class.forName(JDBC_DRIVER);
+			conn = DriverManager.getConnection(this.url, this.username, this.password);
+			PreparedStatement pst = conn.prepareStatement(query);
             pst.executeUpdate();			 
 
 		}catch (SQLException e) {
@@ -89,27 +143,52 @@ public class DataBaseGroup{
 		} catch (Exception e) {
 			 e.printStackTrace();
 		}finally{
-			conn.close();
+			try{
+				conn.close();
+			}catch (Exception e) {
+			 e.printStackTrace();
+			}
 		}        
 
 
     }//end set_User
-*/
-/*	public ArrayList<ArrayList<String>> get_User(String query){
-		ArrayList<ArrayList<String>> params = new ArrayList();
 
-		try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password);
+	public ArrayList<Map<String,String>> getBD(String query,String attributs[],String types[],int size)
+	{
+		ArrayList<Map<String,String>> params = new ArrayList();
+		
+		Connection conn = null;
+
+		try 
+		{
+			Class.forName(JDBC_DRIVER); 
+			conn = DriverManager.getConnection(this.url, this.username, this.password);
 			PreparedStatement pst = conn.prepareStatement(query);
-			ResultSet rs = pst.executeQuery()){
+			ResultSet rs = pst.executeQuery();
 
-			while (rs.next()) {
-				//System.out.print(rs+"\n");
-				ArrayList<String> p = new ArrayList<String>();
-				//System.out.print("\n"+rs.getString(1));
-				p.add(rs.getString("name"));
-				p.add(rs.getString("email"));
+			while (rs.next()) 
+			{
+				
+				Map<String,String> p = new HashMap<String,String>();
+				// on ajoute chaque attribut voulu de la ligne
+				for(int i = 0; i<size;i++)
+				{
+					if(types[i] == "string")
+					{
+						p.put(attributs[i],rs.getString(attributs[i]));
+					}
+
+					if(types[i] == "int")
+					{
+						// permet de passer de int à string
+						Integer a = rs.getInt(attributs[i]);
+						p.put(attributs[i],a.toString());
+					}
+					
+				}
+				// on ajoute la ligne
 				params.add(p);
-            		}
+            }
 						 
 
 		}catch (SQLException e) {
@@ -117,29 +196,37 @@ public class DataBaseGroup{
 		} catch (Exception e) {
 			 e.printStackTrace();
 		}finally{
-			conn.close();
+			try{
+				conn.close();
+			}catch (Exception e) {
+			 e.printStackTrace();
+			}
 		}       
 		
 		return params;
 
     }//end get_User
-*/
 
-/*	public boolean EXIST_User(String name){
+	// on vérifie si un groupe existe déjà
+	public boolean EXIST_Groupe(String groupeName)
+	{
 		boolean exist = false;
 
-		String query ="SELECT name FROM user WHERE name="+"'"+name+"';";
+		String query ="SELECT groupeName FROM groupe WHERE groupeName='"+groupeName+"';";
+		Connection conn = null;
 
-		try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password);
+		try 
+		{
+			Class.forName(JDBC_DRIVER); 
+			conn = DriverManager.getConnection(this.url, this.username, this.password);
 			PreparedStatement pst = conn.prepareStatement(query);
-			ResultSet rs = pst.executeQuery()){
-
+			ResultSet rs = pst.executeQuery();
 			if (!rs.next() ){
     				//System.out.println("no data");
 			}else{
 				exist=true;
 				//System.out.println("data exist");
-			}
+		}
 						 
 
 		}catch (SQLException e) {
@@ -147,7 +234,11 @@ public class DataBaseGroup{
 		} catch (Exception e) {
 			 e.printStackTrace();
 		}finally{
-			conn.close();
+			try{
+				conn.close();
+			}catch (Exception e) {
+			 e.printStackTrace();
+			}
 		}
 
 		return exist;     
@@ -155,5 +246,43 @@ public class DataBaseGroup{
 
     }//end get_User
 
-*/
+	// on vérifie si un utilisateur existe déjà dans un groupe
+	public boolean EXIST_User(String groupeName, String userName)
+	{
+		boolean exist = false;
+
+		String query ="SELECT * FROM groupeUsers WHERE groupeName='"+groupeName+"' AND userName='" + userName+"';";
+
+		Connection conn = null;
+
+		try 
+		{
+			Class.forName(JDBC_DRIVER); 
+			conn = DriverManager.getConnection(this.url, this.username, this.password);
+			PreparedStatement pst = conn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			if (!rs.next() ){
+    				//System.out.println("no data");
+			}else{
+				exist=true;
+				//System.out.println("data exist");
+		}
+		}catch (SQLException e) {
+			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
+		} catch (Exception e) {
+			 e.printStackTrace();
+		}finally{
+			try{
+				conn.close();
+			}catch (Exception e) {
+			 e.printStackTrace();
+			}
+		}
+
+		return exist;     
+
+
+    }//end get_User
+
+
 }//end class

@@ -27,14 +27,6 @@ public class SelectorRestService
        this.selecteur = new selector();
    }
 
-   class critere {
-    public double humour;
-    public double horreur;
-    public double action;
-    public double drame;
-    public double aventure;
-   }
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String Default()
@@ -45,10 +37,10 @@ public class SelectorRestService
     @POST 
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/catalogue")
-    public critere getCatalogue(critere moyenne ){
+    public int[] getCatalogue(Map<String,String> inputJSON ){
 
-	    return moyenne;
+	int retour[] = {1,2,3,4,5};
+	return retour;
     }
     
 }//end class
