@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 //import { AppRoutingModule } from './app-routing.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -12,10 +12,18 @@ import { FilmListComponent } from './film-list/film-list.component';
 
 import { FilmService} from './services/film.service';
 import { SingleFilmComponent } from './film-list/single-film/single-film.component';
+import { FooterComponent } from './footer/footer.component';
+import { AuthenticationComponent } from './authentication/authentication.component';
+import { GroupComponent } from './group/group.component';
+import { HomeComponent } from './home/home.component';
+
 
 const appRoutes: Routes = [
 	{path: 'films', component: FilmListComponent},
-	{path: 'films/view/:id', component: SingleFilmComponent }	
+	{path: 'films/view/:id', component: SingleFilmComponent },
+  {path: 'auth', component: AuthenticationComponent },
+  {path: 'group', component: GroupComponent },   
+  {path: '', component: HomeComponent }
 ];
 
 @NgModule({
@@ -23,7 +31,11 @@ const appRoutes: Routes = [
     AppComponent,
     HeaderComponent,
     FilmListComponent,
-    SingleFilmComponent
+    SingleFilmComponent,
+    FooterComponent,
+    AuthenticationComponent,
+    GroupComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +43,8 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+
   ],
   providers: [FilmService],
   bootstrap: [AppComponent]
