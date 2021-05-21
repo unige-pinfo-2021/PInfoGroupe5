@@ -58,13 +58,6 @@ public class RestServiceUser {
 		return this.userService.existUser(username);
     }
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/all")
-    public ArrayList<Map<String,String>> getAll(){ 
-		return this.userService.getAllDB();
-    }
-
    /*@POST //, PUT
    @Produces(MediaType.APPLICATION_JSON)
    //@Consumes(MediaType.APPLICATION_JSON)
