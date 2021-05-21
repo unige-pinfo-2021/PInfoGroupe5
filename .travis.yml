@@ -4,7 +4,6 @@ node_js:
  - 12
 
 
-
 env:
   - NODE_VERSION="12.13.1"
   
@@ -14,8 +13,6 @@ services:
 addons:
   sonarcloud:
     organization: "khptif" # the key of the org you chose at step #3
-    token:
-      secure: ${SONAR_TOKEN} # encrypted value of your token
  
 cache:
     directories:
@@ -33,7 +30,7 @@ jobs:
       - ./script.sh
       - cd ..
       - ./travisScripts/buildPushServices.sh
-      - sonar-scanner
+      - mvn sonar:sonar -Dsonar.projectKey=khptif_PInfoGroupe5  -Dsonar.organization=khptif -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=fd94ae81836ae6771bbd62e5fa1173f2a72770d4
       
       after_success:
       - ./travisScripts/buildAfterSuccess.sh
