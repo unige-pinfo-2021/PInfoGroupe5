@@ -1,8 +1,12 @@
 package api.rest;
 
+import api.model.*;
+
 import java.util.*;
 
-import api.model.*;
+//import api.model.*;
+
+import java.io.IOException;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
@@ -10,60 +14,71 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
+import javax.ws.rs.Consumes;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.PathParam;
 
+
+
 @Path("/user")
 public class RestServiceUser {
 
-    private UserService userService;
+	private UserService userService;
 
-    public RestServiceUser(){
-	this.userService = new UserService();
-    }
-    
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<User> getall() { 
-	return this.userService.getall();
-    }
+	public RestServiceUser(){
+		this.userService = new UserService();
+	 }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/id={id}")
-    public User getUser(@PathParam("id") int id) { 
-	return this.userService.getUser(id);
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello() {
+        return "Hello from users !";
     }
 
     @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/connect")
+    public String getConn(){ 
+		return new DataBaseUser("src/main/resources/database.properties").try_connect();
+    }
+
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/name={name}")
-    public User getUser(@PathParam("name") String name) { 
-	return this.userService.getUser(name);
+    @Path("/{username}")
+    public User getUser(@PathParam("username") String username){ 
+		return this.userService.getUserDB(username);
     }
 
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/group={group}")
-    public ArrayList<User> getGroupUser(@PathParam("group") String group) { 
-	return this.userService.getGroupUser(group);
+    @Path("/exist/{username}")
+    public boolean existUser(@PathParam("username") String username){ 
+		return this.userService.existUser(username);
     }
 
-   @POST //, PUT
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/all")
+    public ArrayList<Map<String,String>> getAll(){ 
+		return this.userService.getAllDB();
+    }
+
+   /*@POST //, PUT
    @Produces(MediaType.APPLICATION_JSON)
-   public ArrayList<User> /*void*/ addUser(User user){
-	this.userService.addUser(user);
-	return this.userService.getall();
-     }
+   //@Consumes(MediaType.APPLICATION_JSON)
+   @Path("/new")
+   public void addUser(User user){
+	this.userService.setUserDB(user);
+	//return user;
+     }*/
 
-   @DELETE
+   /*@DELETE
    @Produces(MediaType.APPLICATION_JSON)
-   public ArrayList<User> deleteUser(User user){
-	this.userService.deleteUser(user);
-	return this.userService.getall();
-     }
-    
-
+   @Path("/delete")
+   public void deleteUser(){
+	this.userService.removeUserDB(new User("Murderer"));
+	//return this.userService.getall();
+     }*/
 }//end class

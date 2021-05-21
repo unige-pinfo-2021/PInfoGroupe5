@@ -2,81 +2,50 @@ package api.model;
 
 import java.util.*;
 
-// Mock, replace by service DataBase
 public class UserService{
 
-	private ArrayList<User> database = new ArrayList();
+	private DataBaseUser db;
+	//private ArrayList<User> listofUsers = new ArrayList();
 
 	public UserService(){
-		User user = new User("user0", "email0");
-		user.addGroup("Group");
-		user.addGroup("all");
-		database.add(user);
+		this.db = new DataBaseUser("src/main/resources/database.properties");
+	}//end constructor
 
-		user = new User("user1", "email1");
-		user.addGroup("all");
-		database.add(user);
 
-		user = new User("user2", "email2");
-		user.addGroup("Group");
-		user.addGroup("all");
-		database.add(user);
+	public boolean existUser(String username){
+		return db.EXIST_User(username);
+	}//end existUser
 
-		user = new User("user5", "email5");
-		user.addGroup("all");
-		database.add(user);
-		/*database.add(new User("user0", "email0"));
-		database.add(new User("user1", "email1"));
-		database.add(new User("user2", "email2"));*/
+	
+	public void setUserDB(User user){
+		//boolean updt = false; return updt
+		this.db.INSERT_User(user.getUsername(),user.getEmail());
+	}//end setUserDB
+
+	public ArrayList<Map<String,String>> getAllDB()
+	{
+		return this.db.SELECT_AllUser();
 	}
 
-	public ArrayList<User> getall(){
-		return this.database;
-	}
+	public User getUserDB(String username){
+		ArrayList<Map<String,String>> params = db.SELECT_User(username);
+		return new User(params.get(0).get("name"),params.get(0).get("email"));
+	}//end removeUserDB
 
-	public User getUser(int id){
-		return (this.database).get(id);
-	}
+	public void removeUserDB(User user){
+		//boolean updt = false; return updt
+		this.db.DELETE_User(user.getUsername());
+	}//end removeUserDB
 
-	public User getUser(String username){
-		for(User user: database){
-			if((user.getUsername()).equals(username)){
-				return user;
-			} 	
+
+	//public void updateUserDB(){}
+
+	/*public ArrayList<User> getlistofUsers(ArrayList<String> usernames){
+		ArrayList<User> users = new ArrayList();
+		for(String username: usernames){
+			users.add(getUserDB(username));
 		}
-		return null;
-	}
-
-	public boolean containsUser(User user){
-		return this.database.contains(user);
-	}
-
-	public boolean addUser(User user){
-		if(!containsUser(user)){
-			this.database.add(user);
-			return true;
-		}
-		return false;
-	}
-
-	public boolean deleteUser(User user){
-		if(containsUser(user)){
-			this.database.remove(user);
-			return true;
-		}
-		return false;
-	}
-
-	// Function that returns group => creer une classe Group ?
-	public ArrayList<User> getGroupUser(String name){
-		ArrayList<User> group = new ArrayList();
-		for(User user : database){
-			if(user.isInGroup(name)){
-				group.add(user);
-			
-			}
-		}
-		return group;
-	}
-
+		return users;
+	}//end getlistofUsers*/
+	
 }//end class

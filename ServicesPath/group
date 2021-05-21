@@ -1,0 +1,74 @@
+
+GET: /group
+
+Renvoie "You reached group"
+
+
+POST: /group/create
+
+crée un nouveau groupe.
+inputJSON: {"groupeName": nomDuGroupe, "admin": le nom du createur du groupe, "invitation": invite}
+invite = la chaine de caractère qui permet de rejoindre un groupe.
+
+
+GET: /group/{groupName}/users
+
+renvoie une liste d'utilisateur sous la forme json suivante:
+{ nomDuGroupe : [liste de utilisateur]}
+
+
+GET: /group/all/users
+
+renvoie une liste des groupes avec leur utilisateurs
+{ nomGroupe1 : [utilisateurs], nomGroupe2 : [utilisateur], etc }
+
+
+POST: /group/{groupeName}/users
+
+ajoute un utilisateur au groupe s'il connait l'invitation
+inputJSON: { "userName": nomUtilisateur, "invitation":invite}
+
+
+DELETE: /group/{groupeName}
+
+efface le groupe. Il faut être admin.
+inputJSON : {"admin": nomAdministrateur}
+
+DELETE: /group/{groupeName}/{userName}
+
+efface l'utilisateur du groupe.
+inputJSON: {"admin": admin}
+
+
+POST: /group/{groupeName}/newCatalogue
+
+constitue un nouveau catalogue pour le groupe et le retourne.
+inputJSON: {"type" : "random" / vide, "admin":admin, "userName": nomUtilisateur}
+retourne une liste de id de film du catalogue.
+Si type : random, constitue un catalogue au hasard.
+Sinon, prend les 5 films avec le meilleur score et les utilisent pour créer un nouveau catalogue.
+
+GET: /group/{groupeName}/{userName}/Catalogue
+
+renvoie le catalogue de film en cours. Renvoie les ids.
+
+
+GET: /group/{groupeName}/scores
+
+return les scores de chaque film. format <Integer,Integer>
+output: {id1 : score1,id2 : score2, etc }
+
+POST: /group/{groupeName}/scores
+
+modifie les scores.
+input: {"idFilm" : id, "increment" : boolean}
+increment: True = +1, False = -1.
+Pas de problème de conccurence.
+
+
+DELETE: /group/{groupeName}/Catalogue
+
+efface le catalogue courant
+input: {"admin": admin}
+
+

@@ -1,0 +1,623 @@
+  <div class="row gtco-testimonials m-0">
+    <div class="col-md-8">
+    <div class="card_Solution container m-3">
+      <div class="media ">
+        <img class="rounded-circle account-img" src="assets/images/group1.jpg">
+
+
+<!--       <img src="" class="rounded-circle account-img"  id="temp_image" width="100">
+ -->
+
+
+
+        <div>
+          <h2 class="account-heading">Group name</h2>
+          <p>
+          <h5 class="text-secondary">Description</h5>
+          </div>
+      </div>
+      <!-- "multipart/form-data" enable to store image datatype like profile picture and QR codes -->
+      <form method="POST" enctype="multipart/form-data"> 
+        <fieldset class="form-group">
+          <legend class="border-bottom mb-4"> Profile Info </legend>
+          <label for="exampleInputEmail1">Name</label>
+          <input class="form-control mb-2" type="text" name="name">
+          <label for="exampleInputEmail1 ">Description</label>
+          <input class="form-control mb-2" type="text" name="name">
+<div class="mb-3">
+
+  <label for="exampleInputEmail1 ">Prefered Types</label>
+  <div class="row ml-3   center">
+
+          <div class="form-check col"> 
+            <label class="container_checkbox mt- mr-3 ml-3"> Action
+                    <input type="checkbox" name="action" class=" checkboxinput form-check-input " >
+                <span class="checkmark"></span>
+            </label>  
+          </div>
+
+
+          <div class="form-check col"> 
+            <label class="container_checkbox  mr-3 ml-3"> Animation
+                    <input type="checkbox" name="action" class=" checkboxinput form-check-input " >
+                <span class="checkmark"></span>
+            </label>  
+          </div>
+
+          <div class="form-check col"> 
+            <label class="container_checkbox  mr-3 ml-3"> Comedy
+                    <input type="checkbox" name="action" class=" checkboxinput form-check-input " >
+                <span class="checkmark"></span>
+            </label>  
+          </div>
+
+
+
+  <div class="w-100"></div>
+
+
+          <div class="form-check col"> 
+            <label class="container_checkbox  mr-3 ml-3"> Horror
+                    <input type="checkbox" name="action" class=" checkboxinput form-check-input " >
+                <span class="checkmark"></span>
+            </label>  
+          </div>
+
+
+          <div class="form-check col"> 
+            <label class="container_checkbox  mr-3 ml-3"> Documentary
+                    <input type="checkbox" name="action" class=" checkboxinput form-check-input " >
+                <span class="checkmark"></span>
+            </label>  
+          </div>
+
+          <div class="form-check col"> 
+            <label class="container_checkbox  mr-3 ml-3"> Musical
+                    <input type="checkbox" name="action" class=" checkboxinput form-check-input " >
+                <span class="checkmark"></span>
+            </label>  
+          </div>
+
+
+</div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+<div ng-app="HelloWorldApp">
+    <div ng-controller="HelloWorldController ">
+
+          <label for="exampleInputEmail1">Picture</label>
+          <p>
+        <input type="file" id="file" onchange="angular.element(this).scope().uploadavtar(this.files)"/>
+    </div>
+    <div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </fieldset>
+        <div class="form-group">
+          <button class="btn-lg btn-primary ml-2 mb-3 float-right" type="submit"> Create </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-md-4" style="background-color: white;">
+    <div class="">
+        <div class="row mt-5 mx-auto d-block bg-red" style="background-color: white;">
+           <a href="http://127.0.0.1:4200/films">
+            <button  onclick="invite()" class="col btn btn-outline-primary">Contribute to Group Recommendations<i class="fas fa-users ml-2"></i> </button></a>
+         </div>
+        <div class="mt-5 card-header bg-light">
+
+
+
+          <h4 style="color: block">My groups
+
+
+<!-- COPY -->
+
+
+
+<!--             <input type="text" id="copyTarget" value="Text to Copy"> <button id="copyButton">Copy</button><br><br>
+            <input type="text" placeholder="Click here and press Ctrl-V to see clipboard contents"> -->
+
+
+
+          </h4>
+        </div>
+        <div id="accordion">
+          <div class="card">
+            <div id="heading1" class=" card-header mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+              <div class="nav-item nav-link mt-1 float-left" >
+                <img class="col rounded-circle account-img-small " src="assets/images/group1.jpg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
+                <small class="ml-4">Groupname </small> 
+              </div> 
+              <div class="nav-item nav-link float-right" href="">
+                <div class="row ">
+
+
+
+
+
+<button type="button" class="col btn-sm btn-primary mt-3" data-toggle="modal" data-target="#exampleModal1" data-whatever="groupUrl">Invite</button>
+
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Groupe:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Url:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Copy Url</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+        <button type="button" class="col btn-sm btn-red mt-3 ml-2" data-toggle="modal" data-target="#exampleModaDelete1" data-whatever="groupUrl">Delete</button>
+
+
+        <div class="modal fade" id="exampleModaDelete1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Group</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Groupe:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn  btn-danger">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+                </div>
+              </div>
+            </div>
+            <div id="collapse1" class="collapse" aria-labelledby="heading1" data-parent="#accordion">
+              <div class="card-body">
+          <div class="row">
+
+            <div class="col">
+                <p><h4>Group name</h4>
+                Description or Message
+                <p>
+            </div>
+
+              <div class="float-right text-primary col mt-3 " >
+                <h2 class="float-right mr-3" >50%</h2>
+              </div>
+
+
+          </div>
+
+
+
+          <div class="card">
+            <div id="heading1" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+              <div class="nav-item nav-link mt-1 float-left" >
+                <img class="col rounded-circle account-img-small " src="assets/images/user1.jpg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
+                <small class="ml-4">Username </small> 
+              </div> 
+              <div class="nav-item nav-link float-right" href="">
+                <div class="row ">
+                  <i class="fas fa-thumbs-up  mt-4"></i>
+                </div>
+              </div>
+            </div>
+            <div id="heading1" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+              <div class="nav-item nav-link mt-1 float-left" >
+                <img class="col rounded-circle account-img-small " src="assets/images/user2.jpeg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;filter: grayscale(100%);">
+                <small class="ml-4 text-dark">Username </small> 
+              </div> 
+              <div class="nav-item nav-link float-right" href="">
+                <div class="row ">
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              </div>
+            </div>
+          </div>
+
+
+
+  <div class="card">
+    <div id="heading2" class=" card-header mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
+      <div class="nav-item nav-link mt-1 float-left" >
+        <img class="col rounded-circle account-img-small " src="assets/images/group2.jpeg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
+        <small class="ml-4">Groupname </small> 
+      </div> 
+      <div class="nav-item nav-link float-right" href="">
+        <div class="row ">
+
+
+
+
+
+
+<button type="button" class="col btn-sm btn-primary mt-3" data-toggle="modal" data-target="#exampleModal2" data-whatever="groupUrl">Invite</button>
+
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Groupe:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Url:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Copy Url</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+        <button type="button" class="col btn-sm btn-red mt-3 ml-2" data-toggle="modal" data-target="#exampleModaDelete2" data-whatever="groupUrl">Delete</button>
+
+
+        <div class="modal fade" id="exampleModaDelete2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Group</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Groupe:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn  btn-danger">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+    <div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordion">
+      <div class="card-body">
+
+
+          <div class="row">
+
+            <div class="col">
+                <p><h4>Group name</h4>
+                Description or Message
+                <p>
+            </div>
+
+              <div class="float-right text-primary col mt-3 " >
+                <h2 class="float-right mr-3" >100%</h2>
+              </div>
+
+
+          </div>
+
+
+          <div class="card">
+            <div id="heading1" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+              <div class="nav-item nav-link mt-1 float-left" >
+                <img class="col rounded-circle account-img-small " src="assets/images/user3.jpeg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
+                <small class="ml-4">Username </small> 
+              </div> 
+              <div class="nav-item nav-link float-right" href="">
+                <div class="row ">
+                  <i class="fas fa-thumbs-up  mt-4"></i>
+                </div>
+              </div>
+            </div>
+            <div id="heading1" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+              <div class="nav-item nav-link mt-1 float-left" >
+                <img class="col rounded-circle account-img-small " src="assets/images/user4.jpeg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
+                <small class="ml-4 ">Username </small> 
+              </div> 
+              <div class="nav-item nav-link float-right" href="">
+                <div class="row ">
+                  <i class="fas fa-thumbs-up  mt-4"></i>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div id="heading3" class=" card-header mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+      <div class="nav-item nav-link mt-1 float-left" >
+        <img class="col rounded-circle account-img-small "src="assets/images/group3.jpeg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
+        <small class="ml-4">Groupname </small> 
+      </div> 
+      <div class="nav-item nav-link float-right" href="">
+        <div class="row ">
+
+
+
+
+        <button type="button" class="col btn-sm btn-primary mt-3" data-toggle="modal" data-target="#exampleModal3" data-whatever="groupUrl">Invite</button>
+
+
+        <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Invite Member</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Groupe:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                  </div>
+                  <div class="form-group">
+                    <label for="message-text" class="col-form-label">Url:</label>
+                    <textarea class="form-control" id="message-text"></textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Copy Url</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <button type="button" class="col btn-sm btn-red mt-3 ml-2" data-toggle="modal" data-target="#exampleModaDelete3" data-whatever="groupUrl">Delete</button>
+
+
+        <div class="modal fade" id="exampleModaDelete3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Group</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Groupe:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn  btn-danger">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        </div>
+      </div>
+    </div>
+    <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordion">
+      <div class="card-body">
+          <div class="row">
+
+            <div class="col">
+                <p><h4>Group name</h4>
+                Description or Message
+                <p>
+            </div>
+
+              <div class="float-right text-muted col mt-3 " >
+                <h2 class="float-right mr-3" >0%</h2>
+              </div>
+
+
+          </div>
+          <div class="card">
+            <div id="heading1" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+              <div class="nav-item nav-link mt-1 float-left" >
+                <img class="col rounded-circle account-img-small " src="assets/images/user1.jpg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;filter: grayscale(100%);">
+                <small class="ml-4 text-dark">Username </small> 
+              </div> 
+              <div class="nav-item nav-link float-right" href="">
+                <div class="row ">
+                </div>
+              </div>
+            </div>
+            <div id="heading1" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+              <div class="nav-item nav-link mt-1 float-left" >
+                <img class="col rounded-circle account-img-small " src="assets/images/user5.jpeg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;filter: grayscale(100%);">
+                <small class="ml-4 text-dark">Username </small> 
+              </div> 
+              <div class="nav-item nav-link float-right" href="">
+                <div class="row ">
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+<script type="text/javascript">
+  
+
+/*https://stackoverflow.com/questions/42754355/angular-upload-image-and-display-to-user
+*/
+
+angular.module('HelloWorldApp', [])
+   .controller('HelloWorldController', function($scope) {
+       $scope.uploadavtar = function(files) {
+        //var fd = new FormData();
+        //Take the first selected file
+        //fd.append("file", files[0]);
+        
+        var imagefile = document.querySelector('#file');
+                if (imagefile.files && imagefile.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#temp_image')
+                            .attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(imagefile.files[0]);
+                    this.imagefile = imagefile.files[0];
+                }else{
+                    console.log("Image not selected");
+                }
+        
+        
+      }
+});
+
+</script>
