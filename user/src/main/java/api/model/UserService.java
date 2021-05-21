@@ -19,12 +19,17 @@ public class UserService{
 	
 	public void setUserDB(User user){
 		//boolean updt = false; return updt
-		this.db.INSERT_User(user.getUsername());
+		this.db.INSERT_User(user.getUsername(),user.getEmail());
 	}//end setUserDB
 
+	public ArrayList<Map<String,String>> getAllDB()
+	{
+		return this.db.SELECT_AllUser();
+	}
+
 	public User getUserDB(String username){
-		ArrayList<String> params = db.SELECT_User(username);
-		return new User(params.get(0));
+		ArrayList<Map<String,String>> params = db.SELECT_User(username);
+		return new User(params.get(0).get("name"),params.get(0).get("email"));
 	}//end removeUserDB
 
 	public void removeUserDB(User user){

@@ -17,14 +17,14 @@ public class Movie {
     public final String overview; 
     public final int[] genre_ids;
     public final int id;
-    
+    public Movie_Extender info = null;
     
     //constracteur----------------------------------------------------------------------------------------
     public Movie(@JsonProperty("title") String title, @JsonProperty("release_date") String release_date, @JsonProperty("poster_path") String poster_path, @JsonProperty("popularity") int popularity,@JsonProperty("overview") String overview,@JsonProperty("genre_ids") int[]
     		genre_ids,@JsonProperty("id") int id) {
         this.title = title;
         this.release_date = release_date;
-        this.poster_path = "https://image.tmdb.org/t/p/original/" +poster_path;
+        this.poster_path = poster_path;
         this.popularity = popularity;
         this.overview = overview;
         this.genre_ids = genre_ids;

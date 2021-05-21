@@ -1,7 +1,7 @@
 [
     {
         "title": "The Powerpuff Girls",
-        "popularity":15,
+        "popularity":0,
         "release_date":"2020-01-01",
 	    "poster_path": "https://image.tmdb.org/t/p/original/8GyTLNcAK075jPOBP2MFFoxTLR7.jpg",
         "overview":"In We’ll always have Paris, the Eifel Tower, Champs-Élysées, magnificent fountains, and trimmed hedges stand as faux French in the hazy rain of Tianducheng. The residential complex located in the suburbs of the Chinese megapolis Hangzhou is one of the countless, largely unpopulated pop-up sites that sprung up overnight through high-speed real-estate speculation. In Raidel’s film, the Eifel Tower is the anti-gravity center of a phantom zone furnished with stark high-rises, parking areas, and gardens—an urban proposition that amounts to nothing.",
@@ -28,7 +28,6 @@
         "genre_ids":[18],
         "id":826312,
         "info":null
-
     },
     {
         "title": "Point Break",

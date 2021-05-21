@@ -18,12 +18,15 @@ npm install
 npm update
 npm run-script build --prod
 
+
 docker image build -t web-ui .
 
 cd ..
     
 # connection au docker hub
-#echo ${DockerPassword} | docker login --username ${DockerUsername} --password-stdin
+echo ${DockerPassword} | docker login --username ${DockerUsername} --password-stdin
+
+
 
 
 # change les noms des images et les envoies au docker hub
@@ -34,15 +37,18 @@ cd ..
 
 #docker image ls
 
-#docker tag api/user khptif/user:latest 
-#docker tag api/film khptif/film:latest 
+docker tag api/user khptif/user:testintegration
+docker tag api/group khptif/group:testintegration
+docker tag api/film khptif/film:testintegration
+docker tag selector/algorythmic_selector khptif/algorythmic_selector:testintegration
 
 #docker push khptif/servicefilm:latest
 #docker push khptif/servicegroupe:latest
 #docker push khptif/serviceuser:latest
 #docker push khptif/web-ui:latest
 
-#docker push khptif/user:latest
-#docker push khptif/film:latest
-
+docker push khptif/user:testintegration
+docker push khptif/group:testintegration
+docker push khptif/film:testintegration
+docker push khptif/algorythmic_selector:testintegration
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Subject } from 'rxjs'; // ERROR import
 import { Observable } from 'rxjs';
-import {HttpClient, HttpClientModule } from '@angular/common/http';
+import {HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 
 import { Film }  from '../models/film.model';
 
@@ -16,9 +16,14 @@ export class FilmService {
   constructor(private http: HttpClient){}
 
   getFilms():Observable<Film[]>{
-        return this.http.get<Film[]>("assets/data.json");
+    let headers = {'Access-Control-Allow-Origin':'*'}
+    return this.http.get<Film[]>("http://tindfilm/film",{headers});
   }
+
   
+  /*DOC */
+  /*http://tindfilm/film*/
+  /*https://angular.io/guide/http*/
 
 
   
@@ -27,6 +32,7 @@ export class FilmService {
     .subscribe(
         data => this.films = data
     );
+  console.log(this.films);
 	return this.films[id];
   }
  

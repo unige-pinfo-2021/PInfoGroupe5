@@ -18,47 +18,55 @@ import javax.ws.rs.PathParam;
 @Path("/film")
 public class RestServiceFilms {
 
-    private TMDB_Caller tmdb_caller;
-
+    private TMDB_Caller filmService;
+    
     public RestServiceFilms(){
-	this.tmdb_caller = new TMDB_Caller("3aacfef6a62a872d2a4717b9b6cd5283");
-    }
-
-
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getdefault() { 
-	return "Hello from Film service";
+	this.filmService =  new TMDB_Caller("3aacfef6a62a872d2a4717b9b6cd5283");
     }
     
+    @GET
+    @Path("/testhead")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response test() throws IOException, InterruptedException { 
+    Response.ResponseBuilder rb = Response.ok(this.filmService.getRandomMovies_asList(40));
+    Response response = rb.header("Access-Control-Allow-Origin", "*")
+            .header("Access-Control-Allow-Credentials", "true")
+            .header("Access-Control-Allow-Headers",
+                    "origin, content-type, accept, authorization")
+            .header("Access-Control-Allow-Methods", 
+                    "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+            .build();
+    return response;
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Movie> getRandomMovies() throws IOException, InterruptedException { 
+	return this.filmService.getRandomMovies_asList(40);
+    }
+
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/TMDB/title={title}")
-    public List<Movie> getTMDBtitle(@PathParam("title") String title) throws IOException, InterruptedException { 
-	return this.tmdb_caller.getMoviesByTitle(title);
+    @Path("/restcall/vgt={vote_average.gte}/vlt={vote_average.lte}/page={page}/prgt={primary_release_date.gte}/prlt={primary_release_date.lte}/with_people={with_people}/with_genres={with_genres}/with_keywords={with_keywords}")
+    public List<Movie> getrestcall(@PathParam("vote_average.gte") double vote_average_gte,@PathParam("vote_average.lte") double vote_average_lte,
+    		@PathParam("page") int page,@PathParam("primary_release_date.gte") String primary_release_date_gte,@PathParam("primary_release_date.lte") String primary_release_date_lte,@PathParam("with_people") String with_people,
+    		@PathParam("with_genres") String with_genres,@PathParam("with_keywords") String with_keywords) throws IOException, InterruptedException { 
+    	String requestJson = "{\n"
+				+ "	\"include_adult\": false,\n"
+				+ "	\"vote_average.gte\": "+vote_average_gte+",\n"
+				+ "	\"vote_average.lte\": "+vote_average_lte+",\n"
+				+ "	\"page\": "+page+",\n"
+				+ "	\"primary_release_date.gte\": "+primary_release_date_gte+",\n"
+				+ "	\"primary_release_date.lte\": "+primary_release_date_lte+",\n"
+				+ "	\"with_people\": "+with_people+",\n"
+				+ "	\"with_genres\": "+with_genres+",\n"
+				+ "	\"with_keywords\": "+with_keywords+"\n"
+				+ "}";
+    	return filmService.executeRequest_asList(requestJson);
     }
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/TMDB/kind={kind}")
-    public List<Movie> getTMDBkind(@PathParam("kind") int kind) throws IOException, InterruptedException { 
-	return this.tmdb_caller.getMoviesByGenre(kind);
-    }
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/TMDB/year={year}")
-    public List<Movie> getTMDByear(@PathParam("year") String year) throws IOException, InterruptedException { 
-	return this.tmdb_caller.getMoviesByYear(year);
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/TMDB/random={random}")
-    public String getTMDBrandom(@PathParam("random") int random) throws IOException, InterruptedException { 
-	return this.tmdb_caller.getRandomMovies_asJsonString(random);
-    }
     
 
 }//end class

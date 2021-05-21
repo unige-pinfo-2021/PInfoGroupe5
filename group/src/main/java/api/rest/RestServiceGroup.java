@@ -1,10 +1,9 @@
 package api.rest;
 
-import api.model.*;
-
 import java.util.*;
 
-import java.io.IOException;
+import api.model.*;
+import jdk.nashorn.internal.objects.annotations.Getter;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
@@ -13,78 +12,141 @@ import javax.ws.rs.POST;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
-
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
+
+import java.io.IOException;
+//import java.lang.invoke.PolymorphicSignature;
 
 
 
 @Path("/group")
 public class RestServiceGroup {
 
-	private GroupService groupService;
+    private GroupService groupService;
 
-	public RestServiceGroup(){
-		this.groupService = new GroupService();
-	 }
+    public RestServiceGroup()throws IOException, InterruptedException
+    {
+	this.groupService = new GroupService();
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String Default() { 
+	return "You reached group";
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/create")
+    public void createGroupe(Map<String,String> inputJSON)
+    {
+        this.groupService.CreateGroupe(inputJSON.get("groupeName"), inputJSON.get("admin"), inputJSON.get("invitation"));
+    }
+
+
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Hello from groups !";
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{groupName}/users")
+    public Map<String,ArrayList<String>> getGroupUsers(@PathParam("groupName") String groupName)throws IOException, InterruptedException
+    { 
+	    return this.groupService.getGroupUsers(groupName);
     }
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    @Path("/connect")
-    public String getConn(){ 
-		return new DataBaseInvit("src/main/resources/database.properties").try_connect();
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/all/users")
+    public Map<String,ArrayList<String>> getAllGroupUsers(@PathParam("groupName") String groupName)throws IOException, InterruptedException
+    { 
+	    return this.groupService.getALLGroupUsers();
     }
 
-
-    @POST
-    //@Produces(MediaType.TEXT_PLAIN)
-    @Path("/new/{groupname}/{username}")
-	public void create_group(@PathParam("groupname") String groupname, @PathParam("username") String username){
-		groupService.create_group(groupname, username);	
-	}//end*/
-	
-
-    @POST
-    //@Produces(MediaType.TEXT_PLAIN)
-    @Path("/{groupname}/new/{username}")
-	public void add_user(@PathParam("groupname") String groupname, @PathParam("username") String username){
-		groupService.add_user(groupname, username);
-	}//end 
-
-	@DELETE
+    
+   @POST //, PUT
    @Produces(MediaType.APPLICATION_JSON)
-   @Path("/{groupname}/delete/{username}")
-	public void delete_user(@PathParam("groupname") String groupname, @PathParam("username") String username){
-		groupService.delete_user(groupname, username);
-	}//end
+   @Consumes(MediaType.APPLICATION_JSON)
+   @Path("/{groupName}/users")
+   public void addUser( Map<String,String> inputJSON, @PathParam("groupName") String groupName)
+   {
+	this.groupService.addUser(groupName, inputJSON.get("userName"),inputJSON.get("invitation"));
+    }
+    
+
+   @DELETE
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   @Path("/{groupName}")
+   public void deleteGroup(Map<String,String> inputJSON,@PathParam("groupName") String groupName)throws IOException, InterruptedException
+    {
+        this.groupService.removeGroup(groupName, inputJSON.get("admin"));
+    }
+
+    @DELETE
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   @Path("/{groupName}/{userName}")
+   public void deleteUser(Map<String,String> inputJSON,@PathParam("groupName") String groupName, @PathParam("userName") String userName)throws IOException, InterruptedException
+    {
+        this.groupService.removeUser(groupName, userName, inputJSON.get("admin"));
+    }
+    
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{groupName}/newCatalogue")
+    public int[] setNewCatalogue(Map<String,String> inputJSON,@PathParam("groupName") String groupeName)throws IOException, InterruptedException
+    { 
+        // catalogue au hasard
+        if(inputJSON.get("type").equals( "random"))
+        {
+            this.groupService.setRandomCatalogue(groupeName, inputJSON.get("admin"));
+            return this.groupService.getCatalogue(groupeName, inputJSON.get("userName"));
+        }
+        // catalogue calculé selon un ensemble d'id de film
+        else
+        {
+            int idFilm [] = this.groupService.getBestFilmId(groupeName,5);// récupère le top 5 des films pour groupeName
+            this.groupService.calculNewCatalogue(groupeName, inputJSON.get("admin"), idFilm);// envoie l'id des films, recoit le catalogue et l'inscrit dans notre BD.
+            return this.groupService.getCatalogue(groupeName, inputJSON.get("userName"));// renvoie les id des nouveaux films.
+        }
+	
+    }
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    @Path("/{groupname}")
-	public ArrayList<String> get_user_list(@PathParam("groupname") String groupname){
-		return  groupService.get_user_list(groupname);
-	} //end 
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{groupName}/{userName}/Catalogue")
+    public int[] getCatalogue(@PathParam("groupName") String groupeName,@PathParam("userName") String userName)throws IOException, InterruptedException
+    { 
+        // retourne catalogue
+        return this.groupService.getCatalogue(groupeName, userName);
+	
+    }
 
+    // changer le score des films
+    @POST 
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{groupeName}/scores")
+    public void setScores(Map<String,String> inputJSON, @PathParam("groupeName") String groupeName)
+    {
+        this.groupService.incrementScore(groupeName, Integer.parseInt(inputJSON.get("idFilm")), Boolean.parseBoolean(inputJSON.get("increment")));
+    }
 
-	//public String get_selected_film(String groupname){}//end
+    @GET
+    @Produces(MediaType.APPLICATION_JSON) 
+    @Path("/{groupeName}/scores")
+    public Map<Integer,Integer> getScores(@PathParam("groupeName") String groupeName)
+    {
+        return this.groupService.getScores(groupeName);
+    }
 
-	//public void create_films(String groupname, ArrayList<String> films){}//end
-
-	//public void update_films(String groupname, ArrayList<Integer> scores){}
-
-	//public void delete_films(String groupname){}//end  
-
-	//public ArrayList<String> get_films(String groupname){}//end
-
-	//public ArrayList<Integer> get_scores(String groupname){}//end	
-
-	//public ArrayList<Integer> get_total_scores(String groupname){}//end
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{groupeName}/Catalogue")
+    public void deleteScores(Map<String,String> inputJSON, @PathParam("groupeName") String groupeName)
+    {
+        this.groupService.deleteCatalogue(groupeName, inputJSON.get("admin"));
+    }
 
 }//end class
