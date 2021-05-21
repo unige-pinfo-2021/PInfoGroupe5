@@ -1,0 +1,69 @@
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+
+
+img {
+    overflow-y: scroll;
+
+
+	object-fit: cover;
+	width: 100%;
+	height: 250px;
+}
+
+.btn_select {
+  height: 80px;
+  line-height: 80px;  
+  width: 80px;  
+  font-size: 2em;
+  font-weight: bold;
+  border-radius: 50%;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+}
+
+
+.like {
+
+	background-color: #4CAF50;
+
+}  
+
+.unlike {
+
+  background-color: red;
+
+}  
+
+
+.info {
+
+  background-color: blue;
+
+}  
+
+.account-img-small {
+  height: 30px;
+  width: 30px;
+  margin-right: 2px;
+  margin-bottom: 1px;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}

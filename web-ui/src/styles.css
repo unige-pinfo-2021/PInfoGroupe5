@@ -1,1 +1,218 @@
-/* You can add global styles to this file, and also import other style files */
+
+
+.contact {
+  background-color: #fff;
+  padding: 15px;
+  max-width: 200px;
+  margin: 30px auto;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  margin: 0;
+  vertical-align: middle;
+}
+
+
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+
+
+img {
+    overflow-y: scroll;
+
+
+	object-fit: cover;
+	width: 100%;
+	height: 250px;
+}
+
+.btn_select {
+  height: 80px;
+  line-height: 80px;  
+  width: 80px;  
+  font-size: 2em;
+  font-weight: bold;
+  border-radius: 50%;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  position:relative;
+
+}
+
+
+.circle{
+  position:relative;
+  width:50%;
+  padding-bottom:50%;
+  background:gold;
+  border-radius:50%;
+}
+.circle h3{
+  position:absolute;
+  top:50%; left:50%;
+  transform: translate(-50%, -50%);
+  margin:0;
+}
+
+
+
+.like {
+
+	background-color: #007bff;
+
+}  
+
+.unlike {
+
+  background-color: red;
+
+}  
+
+
+.info {
+
+  background-color: gray;
+
+}  
+
+.account-img-small {
+  height: 30px;
+  width: 30px;
+  margin-right: 2px;
+  margin-bottom: 1px;
+}/* You can add global styles to this file, and also import other style files */
+
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+
+
+
+/* Non-mobile styles, 750px breakpoint */
+@media only screen and (min-width: 46.875em) {
+  /* Show the sidenav */
+
+}
+
+/* Medium screens breakpoint (1050px) */
+@media only screen and (min-width: 65.625em) {
+  /* Break out main cards into two columns */
+
+
+}
+
+@media only screen and (max-width: 46.875em) {
+  /* Show the sidenav */
+/*  .smallscreen-text-1 {
+    margin-top:10px;
+  }*/
+  .cryptodiv {
+    display:none;
+  }
+  .smallscreen {
+    display:none;
+  }
+}
+
+
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+
+
+
+
+/* Hide the browser's default checkbox */
+.container_checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 23px;
+  width: 23px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container_checkbox:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container_checkbox input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container_checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container_checkbox .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+
+
+/*login */
+.home_pic {
+  background-image: url("assets/images/home.jpg");
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -9999;
+  bottom: 0px; right: 0px;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center; 
+}

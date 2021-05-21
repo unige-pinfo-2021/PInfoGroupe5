@@ -1,0 +1,6 @@
+{
+    "/api": {
+        "target": "`http://tindfilm/film`",
+        "secure": false
+    }
+}

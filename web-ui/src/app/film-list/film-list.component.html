@@ -1,21 +1,616 @@
-<div class="row">
-  <div class="col-xs-12">
+<div class="row m-1">
+  <div class="col-md-8" >    
+    <div
+      class="list-group-item"
+      *ngFor="let film of films; let i = index"
+      >
+      <div class="container pb-5 mb-5">
+        <img class="mt-5 rounded mx-auto d-block images" [src]="film.poster_path" style="width: 40%; height:auto;object-fit: cover; position:center;">
 
-    <div class="list-group">
-      <button
-        class="list-group-item"
-        *ngFor="let film of films; let i = index"
-        (click)="onViewFilm(i)">
-        <h4 class="list-group-item-heading" >
-          {{ film.title }}
-           <!-- <button class="btn btn-default pull-right" (click)="onDeleteFilm(film)">
-            <span class="glyphicon glyphicon-minus"></span>
-          </button> -->
-        </h4>
-        <p class="list-group-item-text">{{ film.producer }}</p>
-	<img class="images" style="max-width:120px;" [src]="film.poster"/>
-      </button>
+
+        <div class="center container">
+          <div class="center">
+            <div class="row mt-2 " style="position: relative;">
+              <button id="sm"  onclick="selectLike()"  class="col btn_select  like "><i class="fas fa-thumbs-up"></i></button>
+              <button id="sm"  onclick="selectDislike()"  class="col btn_select unlike "><i class="fas fa-thumbs-down"></i></button>
+              <button id="sm"  onclick="selectSame()"  class="col btn_select info  " data-toggle="collapse" href="#film.id" role="button" aria-expanded="false" aria-controls="film.id"><i class="fas fa-info"></i></button>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="row">
+          <div class="col">
+            <div class="collapse multi-collapse" id="film.id">
+              <div class="card card-body">
+                <p>
+                  <h5><strong>
+                {{ film.title }}
+                 </strong></h5>
+                <p>
+                <div class="row">
+                  <div class="col-2">Story</div>
+                  <div class="col">{{ film.overview }}</div>
+                </div>
+                <p>
+                <div class="row">
+                  <div class="col-2">Popularity</div>
+                  <div class="col">{{ film.popularity }}</div>
+                </div>
+                <p>
+                <div class="row">
+                  <div class="col-2">Release Date</div>
+                  <div class="col">{{ film.release_date }}</div>
+                </div>
+                <p>
+                <div class="row">
+                  <div class="col-2">More</div>
+                  <div class="col">{{ film.info }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
     </div>
+  </div> 
+  <div class="col-md-4" style="background-color: white;">
+    <div class="">
+        <div class="row mt-5 mx-auto d-block bg-red" style="background-color: white;">
+             <a href="http://127.0.0.1:4200/group"><button  onclick="invite()" class="col btn btn-outline-primary">New Group <i class="fas fa-users ml-2"></i> </button></a>
+         </div>
+        <div class="mt-5 card-header bg-light">
 
+
+
+          <h4 style="color: block">My groups
+
+
+<!-- COPY -->
+
+
+
+<!--             <input type="text" id="copyTarget" value="Text to Copy"> <button id="copyButton">Copy</button><br><br>
+            <input type="text" placeholder="Click here and press Ctrl-V to see clipboard contents"> -->
+
+
+
+          </h4>
+        </div>
+        <div id="accordion">
+          <div class="card">
+            <div id="heading1" class=" card-header mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+              <div class="nav-item nav-link mt-1 float-left" >
+                <img class="col rounded-circle account-img-small " src="assets/images/group1.jpg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
+                <small class="ml-4">Groupname </small> 
+              </div> 
+              <div class="nav-item nav-link float-right" href="">
+                <div class="row ">
+
+
+
+
+
+<button type="button" class="col btn-sm btn-primary mt-3" data-toggle="modal" data-target="#exampleModal1" data-whatever="groupUrl">Invite</button>
+
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <label for="recipient-name" class="col-form-label"><h4>Groupe Name</h4></label>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Url:</label>
+            <textarea class="form-control" id="message-text">http://tindfilm/film/TOKEN
+            </textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Copy Url</button>
+      </div>
+    </div>
   </div>
 </div>
+
+
+
+
+        <button type="button" class="col btn-sm btn-red mt-3 ml-2" data-toggle="modal" data-target="#exampleModaDelete1" data-whatever="groupUrl">Delete</button>
+
+
+        <div class="modal fade" id="exampleModaDelete1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Group</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Groupe:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn  btn-danger">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+                </div>
+              </div>
+            </div>
+            <div id="collapse1" class="collapse" aria-labelledby="heading1" data-parent="#accordion">
+              <div class="card-body">
+          <div class="row">
+
+            <div class="col">
+                <p><h4>Group name</h4>
+                Description or Message
+                <p>
+            </div>
+
+              <div class="float-right text-primary col mt-3 " >
+                <h2 class="float-right mr-3" >50%</h2>
+              </div>
+
+
+          </div>
+
+
+
+          <div class="card">
+            <div id="heading1" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+              <div class="nav-item nav-link mt-1 float-left" >
+                <img class="col rounded-circle account-img-small " src="assets/images/user1.jpg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
+                <small class="ml-4">Username </small> 
+              </div> 
+              <div class="nav-item nav-link float-right" href="">
+                <div class="row ">
+                  <i class="fas fa-thumbs-up  mt-4"></i>
+                </div>
+              </div>
+            </div>
+            <div id="heading1" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+              <div class="nav-item nav-link mt-1 float-left" >
+                <img class="col rounded-circle account-img-small " src="assets/images/user2.jpeg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;filter: grayscale(100%);">
+                <small class="ml-4 text-dark">Username </small> 
+              </div> 
+              <div class="nav-item nav-link float-right" href="">
+                <div class="row ">
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              </div>
+            </div>
+          </div>
+
+
+
+  <div class="card">
+    <div id="heading2" class=" card-header mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
+      <div class="nav-item nav-link mt-1 float-left" >
+        <img class="col rounded-circle account-img-small " src="assets/images/group2.jpeg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
+        <small class="ml-4">Groupname </small> 
+      </div> 
+      <div class="nav-item nav-link float-right" href="">
+        <div class="row ">
+
+
+
+
+
+
+<button type="button" class="col btn-sm btn-primary mt-3" data-toggle="modal" data-target="#exampleModal2" data-whatever="groupUrl">Invite</button>
+
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <label for="recipient-name" class="col-form-label">Groupe Name</label>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Url:</label>
+            <textarea class="form-control" id="message-text">http://tindfilm/film/TOKEN
+            </textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Copy Url</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+        <button type="button" class="col btn-sm btn-red mt-3 ml-2" data-toggle="modal" data-target="#exampleModaDelete2" data-whatever="groupUrl">Delete</button>
+
+
+        <div class="modal fade" id="exampleModaDelete2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Group</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Groupe:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn  btn-danger">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+    <div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordion">
+      <div class="card-body">
+
+
+          <div class="row">
+
+            <div class="col">
+                <p><h4>Group name</h4>
+                Description or Message
+                <p>
+            </div>
+
+              <div class="float-right text-primary col mt-3 " >
+                <h2 class="float-right mr-3" >100%</h2>
+              </div>
+
+
+          </div>
+
+
+          <div class="card">
+            <div id="heading1" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+              <div class="nav-item nav-link mt-1 float-left" >
+                <img class="col rounded-circle account-img-small " src="assets/images/user3.jpeg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
+                <small class="ml-4">Username </small> 
+              </div> 
+              <div class="nav-item nav-link float-right" href="">
+                <div class="row ">
+                  <i class="fas fa-thumbs-up  mt-4"></i>
+                </div>
+              </div>
+            </div>
+            <div id="heading1" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+              <div class="nav-item nav-link mt-1 float-left" >
+                <img class="col rounded-circle account-img-small " src="assets/images/user4.jpeg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
+                <small class="ml-4 ">Username </small> 
+              </div> 
+              <div class="nav-item nav-link float-right" href="">
+                <div class="row ">
+                  <i class="fas fa-thumbs-up  mt-4"></i>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div id="heading3" class=" card-header mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+      <div class="nav-item nav-link mt-1 float-left" >
+        <img class="col rounded-circle account-img-small "src="assets/images/group3.jpeg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;}">
+        <small class="ml-4">Groupname </small> 
+      </div> 
+      <div class="nav-item nav-link float-right" href="">
+        <div class="row ">
+
+
+
+
+        <button type="button" class="col btn-sm btn-primary mt-3" data-toggle="modal" data-target="#exampleModal3" data-whatever="groupUrl">Invite</button>
+
+
+        <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Invite Member</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <label for="recipient-name" class="col-form-label">Groupe Name</label>
+                  <div class="form-group">
+                    <label for="message-text" class="col-form-label">Url:</label>
+                    <textarea class="form-control" id="message-text">http://tindfilm/film/TOKEN
+                    </textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Copy Url</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <button type="button" class="col btn-sm btn-red mt-3 ml-2" data-toggle="modal" data-target="#exampleModaDelete3" data-whatever="groupUrl">Delete</button>
+
+
+        <div class="modal fade" id="exampleModaDelete3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Group</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Groupe:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn  btn-danger">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        </div>
+      </div>
+    </div>
+    <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordion">
+      <div class="card-body">
+          <div class="row">
+
+            <div class="col">
+                <p><h4>Group name</h4>
+                Description or Message
+                <p>
+            </div>
+
+              <div class="float-right text-muted col mt-3 " >
+                <h2 class="float-right mr-3" >0%</h2>
+              </div>
+
+
+          </div>
+          <div class="card">
+            <div id="heading1" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+              <div class="nav-item nav-link mt-1 float-left" >
+                <img class="col rounded-circle account-img-small " src="assets/images/user1.jpg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;filter: grayscale(100%);">
+                <small class="ml-4 text-dark">Username </small> 
+              </div> 
+              <div class="nav-item nav-link float-right" href="">
+                <div class="row ">
+                </div>
+              </div>
+            </div>
+            <div id="heading1" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+              <div class="nav-item nav-link mt-1 float-left" >
+                <img class="col rounded-circle account-img-small " src="assets/images/user5.jpeg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;filter: grayscale(100%);">
+                <small class="ml-4 text-dark">Username </small> 
+              </div> 
+              <div class="nav-item nav-link float-right" href="">
+                <div class="row ">
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<div onload="hello()"></div>
+<script type="text/javascript">
+
+  hello();
+</script>
+<script type="text/javascript">
+  alert("This alert box was called with the onload event");
+</script>
+
+
+<script type="text/javascript">
+  
+
+var copyTextareaBtn = document.querySelector('.js-textareacopybtn');
+
+copyTextareaBtn.addEventListener('click', function(event) {
+  var copyTextarea = document.querySelector('.js-copytextarea');
+  copyTextarea.focus();
+  copyTextarea.select();
+
+  try {
+    var successful = document.execCommand('copy');
+    var msg = successful ? 'successful' : 'unsuccessful';
+    console.log('Copying text command was ' + msg);
+  } catch (err) {
+    console.log('Oops, unable to copy');
+  }
+});
+
+</script>
+
+<script type="text/javascript">
+
+function copyToClipboard(elem) {
+    // create hidden text element, if it doesn't already exist
+    var targetId = "_hiddenCopyText_";
+    var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+    var origSelectionStart, origSelectionEnd;
+    if (isInput) {
+        // can just use the original source element for the selection and copy
+        target = elem;
+        origSelectionStart = elem.selectionStart;
+        origSelectionEnd = elem.selectionEnd;
+    } else {
+        // must use a temporary form element for the selection and copy
+        target = document.getElementById(targetId);
+        if (!target) {
+            var target = document.createElement("textarea");
+            target.style.position = "absolute";
+            target.style.left = "-9999px";
+            target.style.top = "0";
+            target.id = targetId;
+            document.body.appendChild(target);
+        }
+        target.textContent = elem.textContent;
+    }
+    // select the content
+    var currentFocus = document.activeElement;
+    target.focus();
+    target.setSelectionRange(0, target.value.length);
+    
+    // copy the selection
+    var succeed;
+    try {
+        succeed = document.execCommand("copy");
+    } catch(e) {
+        succeed = false;
+    }
+    // restore original focus
+    if (currentFocus && typeof currentFocus.focus === "function") {
+        currentFocus.focus();
+    }
+    
+    if (isInput) {
+        // restore prior selection
+        elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+    } else {
+        // clear temporary content
+        target.textContent = "";
+    }
+    return succeed;
+}
+
+
+document.getElementById("copyButton").addEventListener("click", function() {
+    copyToClipboard(document.getElementById("copyTarget"));
+});
+
+
+</script>

@@ -1,27 +1,53 @@
 [
     {
         "title": "The Powerpuff Girls",
-        "producer": "N/A",
-	"poster": "https://m.media-amazon.com/images/M/MV5BODdmZmFlMGUtZWE5NC00NmU5LTg3NzItOTNjNDc4ZTc2YzI1XkEyXkFqcGdeQXVyNjM1MTQ0NTQ@._V1_SX300.jpg"
+        "popularity":0,
+        "release_date":"2020-01-01",
+	    "poster_path": "https://image.tmdb.org/t/p/original/8GyTLNcAK075jPOBP2MFFoxTLR7.jpg",
+        "overview":"In We’ll always have Paris, the Eifel Tower, Champs-Élysées, magnificent fountains, and trimmed hedges stand as faux French in the hazy rain of Tianducheng. The residential complex located in the suburbs of the Chinese megapolis Hangzhou is one of the countless, largely unpopulated pop-up sites that sprung up overnight through high-speed real-estate speculation. In Raidel’s film, the Eifel Tower is the anti-gravity center of a phantom zone furnished with stark high-rises, parking areas, and gardens—an urban proposition that amounts to nothing.",
+        "genre_ids":[18],
+        "id":826212,
+        "info":null
     },
     {
         "title": "Gen¹³",
-        "producer": "Kevin Altieri",
-	"poster": "https://m.media-amazon.com/images/M/MV5BMTQxYzgwMWMtYTk3Ni00MzFlLWE1NmItOTgwNzM4OTUyZjdkXkEyXkFqcGdeQXVyMTA1OTEwNjE@._V1_SX300.jp"
+        "popularity":0,
+        "release_date":"2020-01-01",
+	    "poster_path": "https://image.tmdb.org/t/p/original/7LlIUjkWukIbMA1NVsUNtUJxMCF.jpg",
+        "overview":"In We’ll always have Paris, the Eifel Tower, Champs-Élysées, magnificent fountains, and trimmed hedges stand as faux French in the hazy rain of Tianducheng. The residential complex located in the suburbs of the Chinese megapolis Hangzhou is one of the countless, largely unpopulated pop-up sites that sprung up overnight through high-speed real-estate speculation. In Raidel’s film, the Eifel Tower is the anti-gravity center of a phantom zone furnished with stark high-rises, parking areas, and gardens—an urban proposition that amounts to nothing.",
+        "genre_ids":[18],
+        "id":826542,
+        "info":null
     },
     {
         "title": "Mr. Robot",
-        "producer": "N/A",
-	"poster": "https://m.media-amazon.com/images/M/MV5BMzgxMmQxZjQtNDdmMC00MjRlLTk1MDEtZDcwNTdmOTg0YzA2XkEyXkFqcGdeQXVyMzQ2MDI5NjU@._V1_SX300.jpg"
+        "popularity":0,
+        "release_date":"2020-01-01",
+	    "poster_path": "https://image.tmdb.org/t/p/original/9XQROX9W1GYXAtztmjqiRWnYYiI.jpg",
+        "overview":"In We’ll always have Paris, the Eifel Tower, Champs-Élysées, magnificent fountains, and trimmed hedges stand as faux French in the hazy rain of Tianducheng. The residential complex located in the suburbs of the Chinese megapolis Hangzhou is one of the countless, largely unpopulated pop-up sites that sprung up overnight through high-speed real-estate speculation. In Raidel’s film, the Eifel Tower is the anti-gravity center of a phantom zone furnished with stark high-rises, parking areas, and gardens—an urban proposition that amounts to nothing.",
+        "genre_ids":[18],
+        "id":826312,
+        "info":null
     },
     {
         "title": "Point Break",
-        "producer": "Kathryn Bigelow",
-	"poster": "https://m.media-amazon.com/images/M/MV5BNWVjZWFmYjItZGJlOC00YTllLWE4YjctMWY2ZTg5ZjE0MDIyXkEyXkFqcGdeQXVyNDk3NzU2MTQ@._V1_SX300.jpg"
+        "popularity":0,
+        "release_date":"2020-01-01",
+	    "poster_path": "https://image.tmdb.org/t/p/original/8GyTLNcAK075jPOBP2MFFoxTLR7.jpg",
+        "overview":"In We’ll always have Paris, the Eifel Tower, Champs-Élysées, magnificent fountains, and trimmed hedges stand as faux French in the hazy rain of Tianducheng. The residential complex located in the suburbs of the Chinese megapolis Hangzhou is one of the countless, largely unpopulated pop-up sites that sprung up overnight through high-speed real-estate speculation. In Raidel’s film, the Eifel Tower is the anti-gravity center of a phantom zone furnished with stark high-rises, parking areas, and gardens—an urban proposition that amounts to nothing.",
+        "genre_ids":[18],
+        "id":826312,
+        "info":null
     },
     {
         "title": "Mulan",
-        "producer": "Tony Bancroft",
-	"poster": "https://m.media-amazon.com/images/M/MV5BODkxNGQ1NWYtNzg0Ny00Yjg3LThmZTItMjE2YjhmZTQ0ODY5XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+        "popularity":0,
+        "release_date":"2020-01-01",
+	    "poster_path": "https://image.tmdb.org/t/p/original/8GyTLNcAK075jPOBP2MFFoxTLR7.jpg",
+        "overview":"In We’ll always have Paris, the Eifel Tower, Champs-Élysées, magnificent fountains, and trimmed hedges stand as faux French in the hazy rain of Tianducheng. The residential complex located in the suburbs of the Chinese megapolis Hangzhou is one of the countless, largely unpopulated pop-up sites that sprung up overnight through high-speed real-estate speculation. In Raidel’s film, the Eifel Tower is the anti-gravity center of a phantom zone furnished with stark high-rises, parking areas, and gardens—an urban proposition that amounts to nothing.",
+        "genre_ids":[18],
+        "id":826552,
+        "info":null
     }
 ]
+
