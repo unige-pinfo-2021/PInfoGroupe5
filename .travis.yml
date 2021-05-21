@@ -12,7 +12,7 @@ services:
 
 addons:
   sonarcloud:
-    organization: "unige-pinfo-2021" # the key of the org you chose at step #3
+    organization: "khptif" # the key of the org you chose at step #3
  
 cache:
     directories:
@@ -30,7 +30,7 @@ jobs:
       - ./script.sh
       - cd ..
       - ./travisScripts/buildPushServices.sh
-      - mvn sonar:sonar -Dsonar.projectKey=unige-pinfo-2021_PInfoGroupe5  -Dsonar.organization=unige-pinfo-2021 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=1f5e5b54691d2c55908a51783053b2afef68ef5c
+      - mvn sonar:sonar -Dsonar.projectKey=khptif_PInfoGroupe5  -Dsonar.organization=khptif -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=1f5e5b54691d2c55908a51783053b2afef68ef5c
       
       after_success:
       - ./travisScripts/buildAfterSuccess.sh
