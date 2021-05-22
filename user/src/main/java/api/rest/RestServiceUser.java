@@ -34,7 +34,7 @@ public class RestServiceUser {
     @Path("/head")
     @Produces(MediaType.APPLICATION_JSON)
     public Response helloHead() throws IOException, InterruptedException { 
-    Response.ResponseBuilder rb = Response.ok("Hello from users !");
+    Response.ResponseBuilder rb = Response.ok(this.hello());
     Response response = rb.header("Access-Control-Allow-Origin", "*")
             .header("Access-Control-Allow-Credentials", "true")
             .header("Access-Control-Allow-Headers",
@@ -49,7 +49,7 @@ public class RestServiceUser {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        return "Hello from users 1!";
+        return "Hello from users !";
     }
     
     @GET
