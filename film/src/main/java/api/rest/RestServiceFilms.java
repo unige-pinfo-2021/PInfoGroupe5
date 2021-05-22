@@ -25,10 +25,10 @@ public class RestServiceFilms {
     }
     
     @GET
-    @Path("/testhead")
+    @Path("/head")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response test() throws IOException, InterruptedException { 
-    Response.ResponseBuilder rb = Response.ok(this.filmService.getRandomMovies_asList(40));
+    public Response getRandomMoviesHead() throws IOException, InterruptedException { 
+    Response.ResponseBuilder rb = Response.ok(this.getRandomMovies());
     Response response = rb.header("Access-Control-Allow-Origin", "*")
             .header("Access-Control-Allow-Credentials", "true")
             .header("Access-Control-Allow-Headers",
@@ -45,7 +45,28 @@ public class RestServiceFilms {
 	return this.filmService.getRandomMovies_asList(40);
     }
 
-
+    
+    
+    @GET
+    @Path("/restcall/vgt={vote_average.gte}/vlt={vote_average.lte}/page={page}/prgt={primary_release_date.gte}/prlt={primary_release_date.lte}/with_people={with_people}/with_genres={with_genres}/with_keywords={with_keywords}/head")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getrestcallHead(@PathParam("vote_average.gte") double vote_average_gte,@PathParam("vote_average.lte") double vote_average_lte,
+    		@PathParam("page") int page,@PathParam("primary_release_date.gte") String primary_release_date_gte,@PathParam("primary_release_date.lte") String primary_release_date_lte,@PathParam("with_people") String with_people,
+    		@PathParam("with_genres") String with_genres,@PathParam("with_keywords") String with_keywords) throws IOException, InterruptedException { 
+    Response.ResponseBuilder rb = Response.ok(this.getrestcall(vote_average_gte,vote_average_lte,page,primary_release_date_gte,primary_release_date_lte,with_people,with_genres,with_keywords));
+    Response response = rb.header("Access-Control-Allow-Origin", "*")
+            .header("Access-Control-Allow-Credentials", "true")
+            .header("Access-Control-Allow-Headers",
+                    "origin, content-type, accept, authorization")
+            .header("Access-Control-Allow-Methods", 
+                    "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+            .build();
+    return response;
+    }
+    
+    
+    
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/restcall/vgt={vote_average.gte}/vlt={vote_average.lte}/page={page}/prgt={primary_release_date.gte}/prlt={primary_release_date.lte}/with_people={with_people}/with_genres={with_genres}/with_keywords={with_keywords}")
