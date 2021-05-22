@@ -30,12 +30,32 @@ public class RestServiceGroup {
 	this.groupService = new GroupService();
     }
     
+    
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String Default() { 
 	return "You reached group";
     }
 
+    @GET
+    @Path("/head")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response DefaultHead() throws IOException, InterruptedException { 
+    Response.ResponseBuilder rb = Response.ok(this.Default());
+    Response response = rb.header("Access-Control-Allow-Origin", "*")
+            .header("Access-Control-Allow-Credentials", "true")
+            .header("Access-Control-Allow-Headers",
+                    "origin, content-type, accept, authorization")
+            .header("Access-Control-Allow-Methods", 
+                    "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+            .build();
+    return response;
+    }
+    
+    
+    
+    
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
