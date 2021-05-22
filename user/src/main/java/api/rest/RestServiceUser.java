@@ -29,42 +29,11 @@ public class RestServiceUser {
 	public RestServiceUser(){
 		this.userService = new UserService();
 	 }
-	
-	@GET
-    @Path("/head")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response helloHead() throws IOException, InterruptedException { 
-    Response.ResponseBuilder rb = Response.ok(this.hello());
-    Response response = rb.header("Access-Control-Allow-Origin", "*")
-            .header("Access-Control-Allow-Credentials", "true")
-            .header("Access-Control-Allow-Headers",
-                    "origin, content-type, accept, authorization")
-            .header("Access-Control-Allow-Methods", 
-                    "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-            .build();
-    return response;
-    }
-	
-	
+
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
         return "Hello from users !";
-    }
-    
-    @GET
-    @Path("/connect/head")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getConnHead() throws IOException, InterruptedException { 
-    Response.ResponseBuilder rb = Response.ok(this.getConn());
-    Response response = rb.header("Access-Control-Allow-Origin", "*")
-            .header("Access-Control-Allow-Credentials", "true")
-            .header("Access-Control-Allow-Headers",
-                    "origin, content-type, accept, authorization")
-            .header("Access-Control-Allow-Methods", 
-                    "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-            .build();
-    return response;
     }
 
     @GET
@@ -75,44 +44,12 @@ public class RestServiceUser {
     }
 
     @GET
-    @Path("/{username}/head")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getUserHead(@PathParam("username") String username) throws IOException, InterruptedException { 
-    Response.ResponseBuilder rb = Response.ok(this.userService.getUserDB(username));
-    Response response = rb.header("Access-Control-Allow-Origin", "*")
-            .header("Access-Control-Allow-Credentials", "true")
-            .header("Access-Control-Allow-Headers",
-                    "origin, content-type, accept, authorization")
-            .header("Access-Control-Allow-Methods", 
-                    "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-            .build();
-    return response;
-    }
-    
-    @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{username}")
     public User getUser(@PathParam("username") String username){ 
 		return this.userService.getUserDB(username);
     }
 
-    
-    @GET
-    @Path("/exist/{username}/head")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response existUserHead(@PathParam("username") String username) throws IOException, InterruptedException { 
-    Response.ResponseBuilder rb = Response.ok(this.userService.existUser(username));
-    Response response = rb.header("Access-Control-Allow-Origin", "*")
-            .header("Access-Control-Allow-Credentials", "true")
-            .header("Access-Control-Allow-Headers",
-                    "origin, content-type, accept, authorization")
-            .header("Access-Control-Allow-Methods", 
-                    "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-            .build();
-    return response;
-    }
-    
-    
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -121,22 +58,6 @@ public class RestServiceUser {
 		return this.userService.existUser(username);
     }
 
-    
-    @GET
-    @Path("/all/head")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllHead() throws IOException, InterruptedException { 
-    Response.ResponseBuilder rb = Response.ok(this.getAll());
-    Response response = rb.header("Access-Control-Allow-Origin", "*")
-            .header("Access-Control-Allow-Credentials", "true")
-            .header("Access-Control-Allow-Headers",
-                    "origin, content-type, accept, authorization")
-            .header("Access-Control-Allow-Methods", 
-                    "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-            .build();
-    return response;
-    }
-    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/all")
