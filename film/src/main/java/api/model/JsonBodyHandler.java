@@ -1,6 +1,5 @@
 package api.model;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
@@ -12,7 +11,7 @@ public class JsonBodyHandler<T> implements HttpResponse.BodyHandler<Supplier<T>>
 
 	
   //an object of class objectMapper	
-  private static final ObjectMapper om = new ObjectMapper();
+ // private static final ObjectMapper om = new ObjectMapper();
   
  
   //variables
