@@ -35,19 +35,6 @@ img {
 	height: 250px;
 }
 
-.btn_select {
-  height: 80px;
-  line-height: 80px;  
-  width: 80px;  
-  font-size: 2em;
-  font-weight: bold;
-  border-radius: 50%;
-  color: white;
-  text-align: center;
-  cursor: pointer;
-  position:relative;
-
-}
 
 
 .circle{
@@ -108,13 +95,71 @@ img {
 @media only screen and (min-width: 46.875em) {
   /* Show the sidenav */
 
+  .group_div {
+    position: fixed;
+    right: 3px;
+  }
+  .keep_ratio_img {
+    display: block;
+    max-width:830px;
+    max-height:895px;
+    width: auto;
+    height: auto;
+  }
+  .btn_select {
+    height: 80px;
+    line-height: 80px;  
+    width: 80px;  
+    font-size: 2em;
+    font-weight: bold;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    position:relative;
+
+  }
+  .im_style {
+  width: 100%; 
+  height:auto;
+  object-fit: cover; 
+  position:center;
+  }
+
 }
 
 /* Medium screens breakpoint (1050px) */
 @media only screen and (min-width: 65.625em) {
   /* Break out main cards into two columns */
-
-
+.group_div {
+    position: fixed;
+    right: 3px;
+  }
+  .keep_ratio_img {
+    display: block;
+    max-width:230px;
+    max-height:395px;
+    width: auto;
+    height: auto;
+  }
+  .btn_select {
+    height: 80px;
+    line-height: 80px;  
+    width: 80px;  
+    font-size: 2em;
+    font-weight: bold;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    position:relative;
+  }
+  .im_style {
+  width: 100%; 
+  height:auto;
+  object-fit: cover; 
+  position:center;
+  }
 }
 
 @media only screen and (max-width: 46.875em) {
@@ -128,6 +173,36 @@ img {
   .smallscreen {
     display:none;
   }
+  .group_div {
+  }
+
+  .keep_ratio_img {
+    display: block;
+    max-width:230px;
+    max-height:395px;
+    width: auto;
+    height: auto;
+  }
+  .btn_select {
+    height: 45px;
+    line-height: 45px;  
+    width: 45px;  
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    position:relative;
+  }
+  .center_icon_btn {
+  }
+  .im_style {
+    width: 90%; 
+    height:auto;
+    object-fit: cover; 
+    position:center;
+  }
 }
 
 
@@ -138,9 +213,6 @@ img {
   margin-right: 20px;
   margin-bottom: 16px;
 }
-
-
-
 
 
 /* Hide the browser's default checkbox */

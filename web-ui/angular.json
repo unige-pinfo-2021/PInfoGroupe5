@@ -27,12 +27,18 @@
               "src/assets"
             ],
             "styles": [
-	        "./node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.css",
-   	      "./node_modules/font-awesome/css/font-awesome.css"
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "src/styles.css",
+   	          "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/aos/dist/aos.css"
             ],
             "scripts": [
-            ]
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/jquery.animate/jquery.animate.js",
+              "./node_modules/aos/dist/aos.css"
+            ],
+            "allowedCommonJsDependencies": ["keycloak-js"]
           },
           "configurations": {
             "production": {
@@ -68,7 +74,8 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "UI:build",
-            "proxyConfig": "src/proxy.conf.json"
+            "proxyConfig": "src/proxy.conf.json",
+            "disableHostCheck": true
           },
           "configurations": {
             "production": {
@@ -94,9 +101,17 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "src/styles.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/aos/dist/aos.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/jquery.animate/jquery.animate.js",
+              "./node_modules/aos/dist/aos.css"
+            ]
           }
         },
         "lint": {
