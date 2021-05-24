@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
- 
 import { ActivatedRoute, Router} from '@angular/router';
-
 import { Film }  from '../../models/film.model';
 import { FilmService } from '../../services/film.service';
 
@@ -24,7 +21,6 @@ export class SingleFilmComponent implements OnInit {
     .subscribe(
         data => this.film = data
     )
-    //console.log(this.film.title);
   }
 
    onBack() {

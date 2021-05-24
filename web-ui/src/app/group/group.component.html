@@ -5,6 +5,54 @@
         <img class="rounded-circle account-img" src="assets/images/group1.jpg">
 
 
+
+
+
+
+
+<!-- 
+
+
+<div>
+  <label for="new-hero">Hero name: </label>
+  <input id="new-hero" #heroName />
+
+  <button class="add-button" (click)="add(heroName.value); heroName.value=''">
+    Add hero
+  </button>
+</div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!--       <img src="" class="rounded-circle account-img"  id="temp_image" width="100">
  -->
 
@@ -17,11 +65,11 @@
           </div>
       </div>
       <!-- "multipart/form-data" enable to store image datatype like profile picture and QR codes -->
-      <form method="POST" enctype="multipart/form-data"> 
+      <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()"> 
         <fieldset class="form-group">
           <legend class="border-bottom mb-4"> Profile Info </legend>
-          <label for="exampleInputEmail1">Name</label>
-          <input class="form-control mb-2" type="text" name="name">
+          <label for="exampleInputEmail1">Group Name</label>
+          <input id="groupName" type="text" formControlName="groupName" class="form-control mb-2" type="text">
           <label for="exampleInputEmail1 ">Description</label>
           <input class="form-control mb-2" type="text" name="name">
 <div class="mb-3">
@@ -79,6 +127,7 @@
           </div>
 
 
+
 </div>
 
 </div>
@@ -133,22 +182,27 @@
 
 
 
-<!--             <input type="text" id="copyTarget" value="Text to Copy"> <button id="copyButton">Copy</button><br><br>
-            <input type="text" placeholder="Click here and press Ctrl-V to see clipboard contents"> -->
+    <!--             <input type="text" id="copyTarget" value="Text to Copy"> <button id="copyButton">Copy</button><br><br>
+                <input type="text" placeholder="Click here and press Ctrl-V to see clipboard contents"> -->
 
 
 
-          </h4>
-        </div>
-        <div id="accordion">
-          <div class="card">
-            <div id="heading1" class=" card-header mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-              <div class="nav-item nav-link mt-1 float-left" >
-                <img class="col rounded-circle account-img-small " src="assets/images/group1.jpg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
-                <small class="ml-4">Groupname </small> 
-              </div> 
-              <div class="nav-item nav-link float-right" href="">
-                <div class="row ">
+    </h4>
+
+    <div id="accordion">
+      <div
+        *ngFor="let group of groups; let i = index"
+        style="border: 0;" 
+        >
+        
+        <div class="card">
+          <div id="heading{{i+1}}" class=" card-header mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+            <div class="nav-item nav-link mt-1 float-left" >
+              <img class="col rounded-circle account-img-small " src="assets/images/group1.jpg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
+              <small class="ml-4">{{group.groupName}} </small> 
+            </div> 
+            <div class="nav-item nav-link float-right" href="">
+              <div class="row ">
 
 
 
@@ -229,7 +283,7 @@
                 </div>
               </div>
             </div>
-            <div id="collapse1" class="collapse" aria-labelledby="heading1" data-parent="#accordion">
+            <div id="collapse{{i+1}}" class="collapse" aria-labelledby="heading{{i+1}}" data-parent="#accordion">
               <div class="card-body">
           <div class="row">
 
@@ -249,7 +303,7 @@
 
 
           <div class="card">
-            <div id="heading1" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+            <div id="heading{{i+1}}" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse{{i+1}}" aria-expanded="true" aria-controls="collapse{{i+1}}">
               <div class="nav-item nav-link mt-1 float-left" >
                 <img class="col rounded-circle account-img-small " src="assets/images/user1.jpg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
                 <small class="ml-4">Username </small> 
@@ -260,7 +314,7 @@
                 </div>
               </div>
             </div>
-            <div id="heading1" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+            <div id="heading{{i+1}}" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse{{i+1}}" aria-expanded="true" aria-controls="collapse{{i+1}}">
               <div class="nav-item nav-link mt-1 float-left" >
                 <img class="col rounded-circle account-img-small " src="assets/images/user2.jpeg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;filter: grayscale(100%);">
                 <small class="ml-4 text-dark">Username </small> 
@@ -291,6 +345,28 @@
               </div>
             </div>
           </div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
