@@ -17,11 +17,37 @@ import javax.ws.rs.PathParam;
 
 import java.io.IOException;
 //import java.lang.invoke.PolymorphicSignature;
+import java.security.acl.Acl;
 
 
 
 @Path("/group")
 public class RestServiceGroup {
+
+    // deux petites classe privée pour construire le message de retour
+    class retourMsg{
+        public String groupName;
+        public String admin;
+        public String invitation;
+        public ArrayList<String> users;
+    }
+
+    class RetourMsg {
+		public boolean reussit = true;
+		public String msg = "";
+	}
+
+    class A
+    {
+        public boolean reussit;
+        public String message = "";
+    }
+
+    class B {
+        public int[] catalogue;
+        public String message = "";
+    }
+    // reto
 
     private GroupService groupService;
 
@@ -36,21 +62,52 @@ public class RestServiceGroup {
 	return "You reached group";
     }
 
+    // créer un nouveau groupe
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/create")
-    public void createGroupe(Map<String,String> inputJSON)
+    public Map<String,String> createGroupe(Map<String,String> inputJSON)
     {
-        this.groupService.CreateGroupe(inputJSON.get("groupeName"), inputJSON.get("admin"), inputJSON.get("invitation"));
+        String erreur = "";
+        boolean retour = this.groupService.CreateGroup(inputJSON.get("groupName"), inputJSON.get("admin"), inputJSON.get("invitation"),erreur);
+        Map<String,String> retourMsg = new HashMap<String,String>();
+        retourMsg.put("reussit", Boolean.toString(retour));
+        retourMsg.put("message", erreur);
+        return retourMsg;
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{groupName}")
+    public Object getGroup(@PathParam("groupName") String groupName)throws IOException, InterruptedException
+    { 
+        retourMsg retour = new retourMsg();
+        
+        Map<String,String> info = this.groupService.getGroup(groupName);
+        retour.groupName = info.get("groupName");
+        retour.admin = info.get("admin");
+        retour.invitation = info.get("invitation");
+        retour.users = this.getGroupUsers(groupName);
 
+	    return retour;
+    }
+
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{groupName}")
+    public Object deleteGroup(Map<String,String> inputJSON,@PathParam("groupName") String groupName)throws IOException, InterruptedException
+     {
+        A retour = new A();
+         retour.reussit = this.groupService.removeGroup(groupName, inputJSON.get("admin"),retour.message);
+         return retour;
+     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{groupName}/users")
-    public Map<String,ArrayList<String>> getGroupUsers(@PathParam("groupName") String groupName)throws IOException, InterruptedException
+    public ArrayList<String> getGroupUsers(@PathParam("groupName") String groupName)throws IOException, InterruptedException
     { 
 	    return this.groupService.getGroupUsers(groupName);
     }
@@ -58,95 +115,105 @@ public class RestServiceGroup {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/all/users")
-    public Map<String,ArrayList<String>> getAllGroupUsers(@PathParam("groupName") String groupName)throws IOException, InterruptedException
+    public Map<String,ArrayList<String>> getAllGroupUsers()throws IOException, InterruptedException
     { 
-	    return this.groupService.getALLGroupUsers();
+	    return this.groupService.getAllGroupUsers();
     }
 
     
    @POST //, PUT
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
-   @Path("/{groupName}/users")
-   public void addUser( Map<String,String> inputJSON, @PathParam("groupName") String groupName)
+   @Path("/users")
+   public Object addUser(Map<String,String> inputJSON)
    {
-	this.groupService.addUser(groupName, inputJSON.get("userName"),inputJSON.get("invitation"));
+      return this.groupService.addUser(inputJSON.get("userName"), inputJSON.get("invitation"));
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{userName}/groups")
+    public ArrayList<String> getGroups(@PathParam("userName") String userName)
+    {
+        return this.groupService.getUserGroups(userName);
     }
     
-
-   @DELETE
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
-   @Path("/{groupName}")
-   public void deleteGroup(Map<String,String> inputJSON,@PathParam("groupName") String groupName)throws IOException, InterruptedException
-    {
-        this.groupService.removeGroup(groupName, inputJSON.get("admin"));
-    }
+    
 
     @DELETE
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    @Path("/{groupName}/{userName}")
-   public void deleteUser(Map<String,String> inputJSON,@PathParam("groupName") String groupName, @PathParam("userName") String userName)throws IOException, InterruptedException
+   public Object deleteUser(Map<String,String> inputJSON,@PathParam("groupName") String groupName, @PathParam("userName") String userName)throws IOException, InterruptedException
     {
-        this.groupService.removeUser(groupName, userName, inputJSON.get("admin"));
+        A retour = new A();
+        retour.reussit = this.groupService.removeUser(groupName, userName,inputJSON.get("admin"), retour.message);
+        return retour;
     }
     
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{groupName}/newCatalogue")
-    public int[] setNewCatalogue(Map<String,String> inputJSON,@PathParam("groupName") String groupeName)throws IOException, InterruptedException
+    public Object setNewCatalogue(Map<String,String> inputJSON,@PathParam("groupName") String groupeName)throws IOException, InterruptedException
     { 
+        A retour = new A();
+       
         // catalogue au hasard
         if(inputJSON.get("type").equals( "random"))
         {
-            this.groupService.setRandomCatalogue(groupeName, inputJSON.get("admin"));
-            return this.groupService.getCatalogue(groupeName, inputJSON.get("userName"));
+            retour.reussit = this.groupService.setRandomCatalogue(groupeName, inputJSON.get("admin"),retour.message);
         }
         // catalogue calculé selon un ensemble d'id de film
         else
         {
-            int idFilm [] = this.groupService.getBestFilmId(groupeName,5);// récupère le top 5 des films pour groupeName
-            this.groupService.calculNewCatalogue(groupeName, inputJSON.get("admin"), idFilm);// envoie l'id des films, recoit le catalogue et l'inscrit dans notre BD.
-            return this.groupService.getCatalogue(groupeName, inputJSON.get("userName"));// renvoie les id des nouveaux films.
+            retour.reussit = this.groupService.calculNewCatalogue(groupeName, inputJSON.get("admin"),retour.message);
         }
-	
+        return retour;
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{groupName}/{userName}/Catalogue")
-    public int[] getCatalogue(@PathParam("groupName") String groupeName,@PathParam("userName") String userName)throws IOException, InterruptedException
+    public Object getCatalogue(@PathParam("groupName") String groupeName,@PathParam("userName") String userName)throws IOException, InterruptedException
     { 
+        B retour = new B();
         // retourne catalogue
-        return this.groupService.getCatalogue(groupeName, userName);
-	
-    }
-
-    // changer le score des films
-    @POST 
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/{groupeName}/scores")
-    public void setScores(Map<String,String> inputJSON, @PathParam("groupeName") String groupeName)
-    {
-        this.groupService.incrementScore(groupeName, Integer.parseInt(inputJSON.get("idFilm")), Boolean.parseBoolean(inputJSON.get("increment")));
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON) 
-    @Path("/{groupeName}/scores")
-    public Map<Integer,Integer> getScores(@PathParam("groupeName") String groupeName)
-    {
-        return this.groupService.getScores(groupeName);
+        retour.catalogue = this.groupService.getCatalogue(groupeName, userName,retour.message);
+        return retour;
     }
 
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/{groupeName}/Catalogue")
-    public void deleteScores(Map<String,String> inputJSON, @PathParam("groupeName") String groupeName)
+    @Path("/{groupName}/Catalogue")
+    public Object deleteScores(Map<String,String> inputJSON, @PathParam("groupName") String groupeName)
     {
-        this.groupService.deleteCatalogue(groupeName, inputJSON.get("admin"));
+        A retour = new A();
+        retour.reussit = this.groupService.deleteCatalogue(groupeName, inputJSON.get("admin"),retour.message);
+        return retour;
     }
+
+
+
+    // changer et get le score des films
+    @POST 
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{groupName}/scores")
+    public Object setScores(Map<String,String> inputJSON, @PathParam("groupName") String groupeName)
+    {
+        A retour = new A();
+        retour.reussit = this.groupService.incrementScore(groupeName,inputJSON.get("userName"), Integer.parseInt(inputJSON.get("idFilm")), Boolean.parseBoolean(inputJSON.get("increment")),retour.message);
+        return retour;
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON) 
+    @Path("/{groupName}/scores")
+    public ArrayList<Map<String,Integer>> getScores(@PathParam("groupName") String groupName)
+    {
+        return this.groupService.getScores(groupName);
+    }
+
+
 
 }//end class
