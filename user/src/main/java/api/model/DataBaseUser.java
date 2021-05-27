@@ -70,14 +70,20 @@ public class DataBaseUser{
 
 	
 	public void INSERT_User(String username, String email){
-		String query = "INSERT INTO user(name, email) VALUES('" + username + "','" + email +"');";
-		set_User(query);
+		//String query = "INSERT INTO user(name, email) VALUES('" + username + "','" + email +"');";
+
+		String query = "INSERT INTO user(name, email) VALUES(?, ?)";
+
+		set_User(query, username, email);
 	}//end INSERT_User
 
 
 	public void DELETE_User(String username){
-		String query ="DELETE FROM user WHERE name='" + username + "';";
-		set_User(query);
+		//String query ="DELETE FROM user WHERE name='" + username + "';";
+
+		String query ="DELETE FROM user WHERE name=?";
+
+		set_User(query, username, null);
 	}//end INSERT_User
 
 
@@ -95,7 +101,7 @@ public class DataBaseUser{
 	//public void UPDATE_User(String username){}
 
 
-	public void set_User(String query){
+	public void set_User(String query, String username, String email){
 		Connection conn = null;
 
 		try {
@@ -104,6 +110,11 @@ public class DataBaseUser{
 			PreparedStatement pst = conn.prepareStatement(query);
 
 			pst.setString(1, username);
+
+			if(email != null){
+				pst.setString(2, email);
+			}
+
             		pst.executeUpdate();			 
 
 		}catch (SQLException e) {
