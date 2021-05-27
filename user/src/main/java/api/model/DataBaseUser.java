@@ -160,7 +160,8 @@ public class DataBaseUser{
 	public boolean EXIST_User(String name){
 		boolean exist = false;
 
-		String query ="SELECT name  FROM Users WHERE name="+"'"+name+"';";
+		//String query ="SELECT name  FROM Users WHERE name="+"'"+name+"';";
+		String query ="SELECT name  FROM user WHERE name="+"'"+name+"';";
 
 		Connection conn = null;
 

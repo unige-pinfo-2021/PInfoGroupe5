@@ -17,9 +17,9 @@ public class UserService{
 	}//end existUser
 
 	
-	public void setUserDB(User user){
+	public void setUserDB(/*User user*/ String username, String email){
 		//boolean updt = false; return updt
-		this.db.INSERT_User(user.getUsername(),user.getEmail());
+		this.db.INSERT_User(/*user.getUsername()*/ username, /*user.getEmail()*/ email);
 	}//end setUserDB
 
 	public ArrayList<Map<String,String>> getAllDB()
@@ -32,9 +32,9 @@ public class UserService{
 		return new User(params.get(0).get("name"),params.get(0).get("email"));
 	}//end removeUserDB
 
-	public void removeUserDB(User user){
+	public void removeUserDB(/*User user*/ String username){
 		//boolean updt = false; return updt
-		this.db.DELETE_User(user.getUsername());
+		this.db.DELETE_User(/*user.getUsername()*/ username);
 	}//end removeUserDB
 
 

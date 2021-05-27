@@ -65,20 +65,21 @@ public class RestServiceUser {
 		return this.userService.getAllDB();
     }
 
+
    /*@POST //, PUT
    @Produces(MediaType.APPLICATION_JSON)
-   //@Consumes(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
    @Path("/new")
-   public void addUser(User user){
-	this.userService.setUserDB(user);
-	//return user;
-     }*/
+   public void addUser(Map<String,String> inputJSON)
+   {
+      this.userService.setUserDB(inputJSON.get("userName"),inputJSON.get("email"));
+    }*/
 
-   /*@DELETE
-   @Produces(MediaType.APPLICATION_JSON)
-   @Path("/delete")
-   public void deleteUser(){
-	this.userService.removeUserDB(new User("Murderer"));
-	//return this.userService.getall();
+
+ /*@DELETE
+   //@Produces(MediaType.APPLICATION_JSON)
+   @Path("/{username}")
+   public void deleteInvit(@PathParam("username") String username){
+	this.userService.removeUserDB(username);
      }*/
 }//end class
