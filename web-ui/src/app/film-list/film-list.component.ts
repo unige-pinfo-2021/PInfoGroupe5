@@ -44,7 +44,6 @@ export class FilmListComponent implements OnInit {
     .subscribe(
         data => this.films = data
     );
-    
   }
 
   dislike() {
