@@ -40,20 +40,14 @@ public class DataBaseGroup{
 		try{
 			Class.forName(JDBC_DRIVER); 
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			if (conn != null) 
-			{
-				System.out.println("\n"+"Connection established!");
-
-			} 
-			else 
-			{
-				System.out.println("Failed to make connection!");
-			}
-
+			System.out.println("\n"+"Connection established!");
+			
 		} catch (SQLException e) {
 			 System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
+			 System.out.println("Failed to make connection!");
 		} catch (Exception e) {
 			   e.printStackTrace();
+			   System.out.println("Failed to make connection!");
 
 		}finally{
 			try{
