@@ -1,7 +1,7 @@
 package api.model;
 import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
+//import java.util.Scanner;
 
 
 public class Rest_Caller {
@@ -10,14 +10,14 @@ public class Rest_Caller {
 		
 		//variables
 		String apiKey = "3aacfef6a62a872d2a4717b9b6cd5283";
-		String title_to_search;
-		int genre_id;
-		String year;
+		//String title_to_search;
+		//int genre_id;
+		//String year;
 	
 		//create object 
 		TMDB_Caller tmdb_caller = new TMDB_Caller(apiKey);
 		
-		Scanner scanner = new Scanner(System.in);
+		//Scanner scanner = new Scanner(System.in);
 		
 		
 //		//display all genres--------------------------------------------------------------------------------------------------
@@ -108,7 +108,7 @@ public class Rest_Caller {
 		Movie.printList(movieList);
 		
 		
-		String responseJsonString = tmdb_caller.getRandomMovies_asJsonString(3);
+		//String responseJsonString = tmdb_caller.getRandomMovies_asJsonString(3);
 		
 		//System.out.println(responseJsonString);
 		
