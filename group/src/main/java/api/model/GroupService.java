@@ -489,12 +489,16 @@ public class GroupService{
 		con.setRequestProperty("Content-Type", "application/json; utf-8");
 		con.setRequestProperty("Accept", "application/json");
 		con.setDoOutput(true);
-
-		try(OutputStream os = con.getOutputStream()) {
+		OutputStream os = con.getOutputStream();
+		try {
 			byte[] input = requete.getBytes("utf-8");
 			os.write(input, 0, input.length);			
+		} catch(IOException e){} 
+		finally {
+			if(os == null) {}
+			else {os.close();}
 		}
-		catch(IOException e){}
+		
 
 		int responseCode = con.getResponseCode();
 		System.out.println("POST Response Code :: " + responseCode);
