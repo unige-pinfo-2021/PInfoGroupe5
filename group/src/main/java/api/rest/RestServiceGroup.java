@@ -3,7 +3,6 @@ package api.rest;
 import java.util.*;
 
 import api.model.*;
-import jdk.nashorn.internal.objects.annotations.Getter;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
