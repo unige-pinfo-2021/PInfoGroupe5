@@ -40,20 +40,17 @@ public class DataBaseUser{
 		try{
 			Class.forName(JDBC_DRIVER); 
 			/*Connection*/ conn = DriverManager.getConnection(this.url, this.username, this.password);
-			    if (conn != null) {
-				System.out.println("\n"+"Connection established!");
-				connected = "Connection established!";
+			System.out.println("\n"+"Connection established!");
+			connected = "Connection established!";
 
-			    } else {
-				System.out.println("Failed to make connection!");
-				connected = "Failed to make connection!";
-			    }
+			    
 
 		} catch (SQLException e) {
 			 System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
+			 connected = "Failed to make connection!";
 		} catch (Exception e) {
 			   e.printStackTrace();
-
+			   connected = "Failed to make connection!";
 		}finally{
 			try{
 				if(conn != null){
