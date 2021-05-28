@@ -18,7 +18,7 @@ import api.model.User;
 class RestServiceUserTest {
 	
 	private RestServiceUser service;
-	private User user1;
+	//private User user1;
 	private User user2;
 	private User user3;
 	/**

@@ -1,9 +1,6 @@
 package api.model;
 
 import java.util.*;
-import java.util.Properties;
-import java.io.IOException;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -147,7 +144,7 @@ public class DataBaseUser{
     }//end set_User
 
 	public ArrayList<Map<String,String>> get_User(String query, String username){
-		ArrayList<Map<String,String>> params = new ArrayList();
+		ArrayList<Map<String,String>> params = new ArrayList<Map<String, String>>();
 
 		Connection conn = null;
 		PreparedStatement pst = null;
