@@ -25,7 +25,7 @@ public class TMDB_Caller {
 	//variables
 	private String apiKey;
 	private int pageSize = 20;
-
+	private Random rand = new Random();
 	
 	//connstracteur---------------------------------------------------------------------------------------------------
 	public TMDB_Caller(String apiKey) {
@@ -195,7 +195,7 @@ public class TMDB_Caller {
 		
 		int listSize = totalMovieList.size();
 		
-		Random rand = new Random();
+		
 		
 		List<Integer> rand_index_list = new ArrayList<>();
 		
