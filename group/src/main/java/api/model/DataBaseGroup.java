@@ -369,11 +369,11 @@ public class DataBaseGroup{
 			// met les valeurs dans le code sql
 			for(int index=0; index < valeursInput.length ; index++)
 			{
-				if(typesInput[index] == "string")
+				if(typesInput[index] !=null  &&  typesInput[index].equals("string"))
 				{
 					pst.setString(index + 1, valeursInput[index]);
 				}
-				else if(typesInput[index] == "int")
+				else if(typesInput[index]!=null && typesInput.equals("int"))
 				{
 					pst.setInt(index + 1, Integer.parseInt(valeursInput[index]));
 				}
@@ -426,11 +426,11 @@ public class DataBaseGroup{
 			for(int index = 0; index < typesInput.length; index++)
 			{
 				// selon le type de valeur, on passe par une fonction spécifique
-				if(typesInput[index] == "string")
+				if(typesInput[index]!=null && typesInput[index].equals("string"))
 				{
 					pst.setString(index + 1, valeursInput[index]);
 				}
-				else if(typesInput[index] == "int")
+				else if(typesInput[index]!=null && typesInput[index].equals("int"))
 				{
 					pst.setInt(index + 1,Integer.parseInt(valeursInput[index]));
 				}
@@ -445,11 +445,11 @@ public class DataBaseGroup{
 				for(int i = 0; i< typesOutput.length;i++)
 				{
 					// selon le type de valeur, on passe par une fonction spécifique
-					if(typesOutput[i] == "string")
+					if(typesOutput[i] !=null && typesOutput[i].equals("string"))
 					{
 						p.put(attributs[i],rs.getString(attributs[i]));
 					}
-					else if(typesOutput[i] == "int")
+					else if(typesOutput[i] !=null && typesOutput[i].equals("int"))
 					{
 						// permet de passer de int à string
 						Integer a = rs.getInt(attributs[i]);
