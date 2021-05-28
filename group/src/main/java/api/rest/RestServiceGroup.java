@@ -3,7 +3,7 @@ package api.rest;
 import java.util.*;
 
 import api.model.*;
-import jdk.nashorn.internal.objects.annotations.Getter;
+//import jdk.nashorn.internal.objects.annotations.Getter;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
@@ -17,7 +17,7 @@ import javax.ws.rs.PathParam;
 
 import java.io.IOException;
 //import java.lang.invoke.PolymorphicSignature;
-import java.security.acl.Acl;
+//import java.security.acl.Acl;
 
 
 
@@ -69,7 +69,12 @@ public class RestServiceGroup {
     @Path("/create")
     public Map<String,String> createGroupe(Map<String,String> inputJSON)
     {
-       return this.groupService.CreateGroup(inputJSON.get("groupName"), inputJSON.get("admin"), inputJSON.get("invitation"));   
+        String erreur = "";
+        boolean retour = this.groupService.CreateGroup(inputJSON.get("groupName"), inputJSON.get("admin"), inputJSON.get("invitation"),erreur);
+        Map<String,String> retourMsg = new HashMap<String,String>();
+        retourMsg.put("reussit", Boolean.toString(retour));
+        retourMsg.put("message", erreur);
+        return retourMsg;
     }
 
     @GET
@@ -94,8 +99,9 @@ public class RestServiceGroup {
     @Path("/{groupName}")
     public Object deleteGroup(Map<String,String> inputJSON,@PathParam("groupName") String groupName)throws IOException, InterruptedException
      {
-       
-         return this.groupService.removeGroup(groupName, inputJSON.get("admin"));
+        A retour = new A();
+         retour.reussit = this.groupService.removeGroup(groupName, inputJSON.get("admin"),retour.message);
+         return retour;
      }
 
     @GET
@@ -140,9 +146,9 @@ public class RestServiceGroup {
    @Path("/{groupName}/{userName}")
    public Object deleteUser(Map<String,String> inputJSON,@PathParam("groupName") String groupName, @PathParam("userName") String userName)throws IOException, InterruptedException
     {
-       
-        return this.groupService.removeUser(groupName, userName,inputJSON.get("admin"));
-        
+        A retour = new A();
+        retour.reussit = this.groupService.removeUser(groupName, userName,inputJSON.get("admin"), retour.message);
+        return retour;
     }
     
     @POST
@@ -151,18 +157,19 @@ public class RestServiceGroup {
     @Path("/{groupName}/newCatalogue")
     public Object setNewCatalogue(Map<String,String> inputJSON,@PathParam("groupName") String groupeName)throws IOException, InterruptedException
     { 
-       
+        A retour = new A();
        
         // catalogue au hasard
         if(inputJSON.get("type").equals( "random"))
         {
-           return this.groupService.setRandomCatalogue(groupeName, inputJSON.get("admin"));
+            retour.reussit = this.groupService.setRandomCatalogue(groupeName, inputJSON.get("admin"),retour.message);
         }
         // catalogue calculé selon un ensemble d'id de film
         else
         {
-            return this.groupService.calculNewCatalogue(groupeName, inputJSON.get("admin"));
+            retour.reussit = this.groupService.calculNewCatalogue(groupeName, inputJSON.get("admin"),retour.message);
         }
+        return retour;
     }
 
     @GET
@@ -172,7 +179,7 @@ public class RestServiceGroup {
     { 
         B retour = new B();
         // retourne catalogue
-        retour.catalogue = this.groupService.getCatalogue(groupeName, userName);
+        retour.catalogue = this.groupService.getCatalogue(groupeName, userName,retour.message);
         return retour;
     }
 
@@ -180,8 +187,10 @@ public class RestServiceGroup {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{groupName}/Catalogue")
     public Object deleteScores(Map<String,String> inputJSON, @PathParam("groupName") String groupeName)
-    {     
-        return this.groupService.deleteCatalogue(groupeName, inputJSON.get("admin"));  
+    {
+        A retour = new A();
+        retour.reussit = this.groupService.deleteCatalogue(groupeName, inputJSON.get("admin"),retour.message);
+        return retour;
     }
 
 
@@ -192,7 +201,9 @@ public class RestServiceGroup {
     @Path("/{groupName}/scores")
     public Object setScores(Map<String,String> inputJSON, @PathParam("groupName") String groupeName)
     {
-        return this.groupService.incrementScore(groupeName,inputJSON.get("userName"), Integer.parseInt(inputJSON.get("idFilm")), Boolean.parseBoolean(inputJSON.get("increment")));
+        A retour = new A();
+        retour.reussit = this.groupService.incrementScore(groupeName,inputJSON.get("userName"), Integer.parseInt(inputJSON.get("idFilm")), Boolean.parseBoolean(inputJSON.get("increment")),retour.message);
+        return retour;
     }
 
     @GET
@@ -203,6 +214,14 @@ public class RestServiceGroup {
         return this.groupService.getScores(groupName);
     }
 
-
-
 }//end class
+
+
+
+
+
+
+
+
+
+
