@@ -57,9 +57,11 @@ public class DataBaseGroup{
 
 		}finally{
 			try{
-				conn.close();
+				if(conn != null){
+					conn.close();
+				 }
 			}catch (Exception e) {
-			 e.printStackTrace();
+			 	e.printStackTrace();
 			}
 		} 
 
@@ -357,12 +359,13 @@ public class DataBaseGroup{
 	 {
 		 
 		Connection conn = null;
+		PreparedStatement pst = null;
 
 		try
 		{
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			/*PreparedStatement*/ pst = conn.prepareStatement(query);
 			// met les valeurs dans le code sql
 			for(int index=0; index < valeursInput.length ; index++)
 			{
@@ -383,7 +386,17 @@ public class DataBaseGroup{
 			 e.printStackTrace();
 		}finally{
 			try{
-				conn.close();
+				if(conn != null){
+					conn.close();
+				}
+			}catch (Exception e) {
+			 e.printStackTrace();
+			}
+
+			try{
+				if(pst != null){
+					pst.close();
+				}
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -400,12 +413,14 @@ public class DataBaseGroup{
 		ArrayList<Map<String,String>> params = new ArrayList();
 		
 		Connection conn = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 
 		try 
 		{
 			Class.forName(JDBC_DRIVER); 
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			/*PreparedStatement*/ pst = conn.prepareStatement(query);
 
 			// on ajoute les valeurs dans le code SQL
 			for(int index = 0; index < typesInput.length; index++)
@@ -421,7 +436,7 @@ public class DataBaseGroup{
 				}
 			}
 
-			ResultSet rs = pst.executeQuery();
+			/*ResultSet*/ rs = pst.executeQuery();
 
 			while (rs.next()) 
 			{
@@ -453,7 +468,25 @@ public class DataBaseGroup{
 			 e.printStackTrace();
 		}finally{
 			try{
-				conn.close();
+				if(conn != null){
+					conn.close();
+				}
+			}catch (Exception e) {
+			 e.printStackTrace();
+			}
+
+			try{
+				if(pst != null){
+					pst.close();
+				}
+			}catch (Exception e) {
+			 e.printStackTrace();
+			}
+
+			try{
+				if(rs != null){
+				rs.close();
+				}
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
