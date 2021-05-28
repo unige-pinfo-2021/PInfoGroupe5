@@ -32,8 +32,10 @@
       <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
     </form>
   <div class="nav-item nav-link gtco-feature ml-0">
-      <a href="http://127.0.0.1:4200/auth"><button class="btn btn btn-outline-dark  " > Login<i class="fas fa-sign-in-alt ml-1" aria-hidden="true"></i></button></a>
-      <button class="btn btn-dark btn " href="" >Sign up<i class="fas fa-user-plus ml-1"aria-hidden="true"></i></button>
+      <button  *ngIf="(auth.isAuthenticated$ | async) === false" class="btn btn btn-outline-dark  " (click)="loginWithRedirect()"> Login<i class="fas fa-sign-in-alt ml-1" aria-hidden="true"></i></button>
+      <button *ngIf="(auth.isAuthenticated$ | async) === false" (click)="signupWithRedirect()" class="btn btn-dark btn " href="" >Sign up<i class="fas fa-user-plus ml-1"aria-hidden="true"></i></button>
+
+      <button *ngIf="auth.isAuthenticated$ | async"  (click)="logout()" class="btn btn-dark btn " href="" >Logout<i class="fas fa-user-plus ml-1"aria-hidden="true"></i></button>
   </div>
   </div>
 

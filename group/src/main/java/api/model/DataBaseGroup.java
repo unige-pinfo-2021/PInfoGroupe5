@@ -314,43 +314,6 @@ public class DataBaseGroup{
 		return reponse;  
 	}
 
-	// ajoute le vote d'un utilisateur
-	public void INSERT_Vote(String groupName,String userName,int filmID, int vote)
-	{
-		String query = "INSERT INTO userVote(groupName, userName, filmID, vote) VALUES (?,?,?,?);";
-		
-		String valeursInput[] = {groupName,userName,Integer.toString(filmID),Integer.toString(vote)};
-		String typesInput[] = {"string","string","int","int"};
-
-		this.setBD(query, valeursInput, typesInput);		
-	}
-
-	// enleve un vote
-	public void DELETE_Vote(String groupName,String userName,int filmID)
-	{
-		String query = "DELETE FROM userVote WHERE groupName=? AND userName=? AND filmID= ?;";
-		
-		String valeursInput[] = {groupName,userName,Integer.toString(filmID)};
-		String typesInput[] = {"string","string","int"};
-
-		this.setBD(query, valeursInput, typesInput);		
-	}
-
-	// vérifie si un utilisateur, au sein d'un groupe a voté pour un film
-	public boolean EXISTE_Vote(String groupName, String userName, int filmID)
-	{
-		String query ="SELECT * FROM groupScores WHERE groupName= ? AND userName=? AND filmID=?;";
-		String attributs[] = {"groupName","userName","filmID","vote"};
-		String typesOutput[] = {"string","string","int","int"};
-		String valeursInput[] = {groupName,userName,Integer.toString(filmID)};
-		String typesInput[] = {"string","string","int"};
-
-		ArrayList<Map<String,String>> reponse = this.getBD(query, attributs, typesOutput, valeursInput, typesInput);
-
-		return reponse.size() > 0; 
-	}
-
-	
 
 	// methode pour écrire dans la base de donnée
 	public void setBD(String query,String valeursInput[], String typesInput[])

@@ -16,31 +16,18 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 import { GroupComponent } from './group/group.component';
 import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
+import { ClipboardModule } from 'ngx-clipboard';
+import { AuthModule } from '@auth0/auth0-angular';
+import { environment as env } from '../environments/environment';
+import { AuthGuard } from '@auth0/auth0-angular';
 
-/*function initializeKeycloak(keycloak: KeycloakService) {
-  return () =>
-    keycloak.init({
-      config: {
-        url: 'http://localhost:8080/auth',
-        realm: 'your-realm',
-        clientId: 'your-client-id',
-      },
-      initOptions: {
-        onLoad: 'check-sso',
-        silentCheckSsoRedirectUri:
-          window.location.origin + '/assets/silent-check-sso.html',
-      },
-    });
-}
-
-*/
 const appRoutes: Routes = [
-	{path: 'films', component: FilmListComponent},
-  {path: 'films/:groupName', component: FilmListComponent},
-	{path: 'films/view/:id', component: SingleFilmComponent },
-  {path: 'auth', component: AuthenticationComponent },
-  {path: 'group', component: GroupComponent },   
-  {path: 'user', component: UserComponent },   
+	{path: 'films', component: FilmListComponent,canActivate: [AuthGuard]},
+  {path: 'films/:groupName', component: FilmListComponent,canActivate: [AuthGuard]},
+	{path: 'films/view/:id', component: SingleFilmComponent,canActivate: [AuthGuard]},
+  {path: 'auth', component: AuthenticationComponent,canActivate: [AuthGuard]},
+  {path: 'group', component: GroupComponent,canActivate: [AuthGuard]},   
+  {path: 'user', component: UserComponent,canActivate: [AuthGuard]},   
   {path: '', component: HomeComponent }
 ];
 
@@ -57,6 +44,7 @@ const appRoutes: Routes = [
     UserComponent
   ],
   imports: [
+
     BrowserModule,
     
     KeycloakAngularModule,
@@ -65,6 +53,12 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
+    ClipboardModule,
+
+    AuthModule.forRoot({
+      ...env.auth,
+    }),
+
 
   ],
   providers: [
@@ -72,14 +66,9 @@ const appRoutes: Routes = [
     GroupService,
 
   ],
+
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
 
-/*
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeKeycloak,
-      multi: true,
-      deps: [KeycloakService],
-    },*/

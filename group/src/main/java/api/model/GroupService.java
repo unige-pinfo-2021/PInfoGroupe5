@@ -12,6 +12,10 @@ import java.io.*;
 
 public class GroupService{
 
+	class RetourMsg {
+		public boolean reussit = true;
+		public String msg = "";
+	}
 
 	private DataBaseGroup db;
 	
@@ -38,23 +42,21 @@ public class GroupService{
 
 
 	// créer un nouveau groupe
-	public Map<String, String> CreateGroup(String groupName,String admin, String invitation)
+	public boolean CreateGroup(String groupName,String admin, String invitation,String erreur)
 	{
-		String erreur = "";
-		boolean reussit = true;
 		if(this.db.EXIST_Groupe(groupName))
 		{
-			erreur += "Nom de groupe déjà existant \n";
-			reussit = false;
+			erreur = "Nom de groupe déjà existant";
+			return false;
 		}
 		if(this.ExisteInvite(invitation))
 		{
-			erreur += "invitation déjà utilisée par un autre groupe \n";
-			reussit = false;
+			erreur = "invitation déjà utilisée par un autre groupe";
+			return false;
 		}
 
 		this.db.INSERT_Group(groupName, admin, invitation);
-		return msgRetour(reussit, erreur);
+		return true;
 	}
 
 	// retourne les infos d'un groupe. S'il n'existe pas, retourne un tableau vide.
@@ -122,33 +124,35 @@ public class GroupService{
 	// ajoute un utilisateur
 	public Map<String,String> addUser(String groupName,String userName,String invitation){
 		
-		String erreur = "";
-		boolean reussit = true;
+		Map<String,String> retour = new HashMap<String,String>();
+		retour.put("msg",""); 
+		retour.put("reussit","true");
 		// vérifie l'invitation
 		if(!this.checkInvite(groupName, invitation))
 		{
-			erreur += "l'invitation '" + invitation +"'' incorrecte pour le groupe : " + groupName + "\n";  
-			reussit = false;
+			retour.put("msg","l'invitation '" + invitation +"'' incorrecte pour le groupe : " + groupName);  
+			retour.put("reussit","false");
 		}
 
 		// vérifie si l'utilisateur n'existe pas déjà dans le groupe
 		if(this.db.EXIST_User(groupName, userName))
 		{
-			erreur += userName + " existe déjà dans le groupe " +groupName + "\n";
-			reussit = false;
+			retour.put("msg",userName + " existe déjà dans le groupe " +groupName);
+			retour.put("reussit","false") ;
 		}
 
 		// ajout de l'utilisateur
 		this.db.INSERT_User(groupName, userName);
-		return msgRetour(reussit, erreur);
+		return retour;
 	}
 
 
 	// ajoute un utilisateur en connaissant que l'invite
 	public Map<String,String> addUser(String userName,String invitation){
 		
-		String erreur = "";
-		boolean reussit = true;
+		Map<String,String> retour = new HashMap<String,String>();
+		retour.put("msg",""); 
+		retour.put("reussit","true");
 		// récupère tous les noms de groupes
 		ArrayList<Map<String,String>> groups = this.getGroupAll();
 		String groupName = "";
@@ -163,14 +167,12 @@ public class GroupService{
 		}
 		if(groupName.equals(""))
 		{
-			erreur +="Aucun groupe n'utilise '"+invitation+"' comme invitation \n";
-			reussit = false;	
+			retour.put("msg","Aucun groupe n'utilise '"+invitation+"' comme invitation");
+			retour.put("reussit","false") ;
+			return retour;
 		}
 
-		Map<String, String> r = this.addUser(groupName, userName, invitation);
-		reussit = true && Boolean.parseBoolean(r.get("reussit"));
-		erreur += r.get("msg");
-		return msgRetour(reussit, erreur);
+		return this.addUser(groupName, userName, invitation);
 		
 	}	
 
@@ -195,67 +197,56 @@ public class GroupService{
 		return retour;
 	}
 
-	public Map<String, String> removeGroup(String groupName,String utilisateur)
+	public boolean removeGroup(String groupName,String utilisateur,String erreur)
 	{
-		String erreur = "";
-		boolean reussit = true;
 		// on vérifie si le groupe existe
 		if(!this.db.EXIST_Groupe(groupName))
 		{
-			erreur += "Le groupe '" + groupName + "' n'existe pas \n";
-			reussit = false;
+			erreur = "Le groupe '" + groupName + "' n'existe pas";
+			return false;
 		}
 
 		// on vérifie s'il est admin
 		if(!this.checkAdmin(groupName, utilisateur))
 		{
-			erreur += "Vous n'êtes pas l'admin du groupe\n";
-			reussit = false;
+			erreur = "Vous n'êtes pas l'admin du groupe";
+			return false;
 		}
 
 
 		this.db.DELETE_Group(groupName);
-		return msgRetour(reussit, erreur);
+		return true;
 	}
 
-	public Map<String, String> removeUser(String groupName,String userName, String utilisateur)
+	public boolean removeUser(String groupName,String userName, String utilisateur,String erreur)
 	{
-		String erreur = "";
-		boolean reussit = true;
-
 		// on vérifie si celui qui veut effacer l'utilisateur du groupe est bien l'admin ou bien l'utilisateur lui-même
 		if(userName.equals(utilisateur) || this.checkAdmin(groupName, utilisateur))
 		{
 			this.db.DELETE_GroupUser(groupName,userName);
-			return msgRetour(reussit, erreur);
+			return true;
 		}
-		erreur += "Vous n'êtes ni l'utilisateur concerné, ni l'admin du groupe\n";
-		return msgRetour(reussit, erreur);
+		erreur = "Vous n'êtes ni l'utilisateur concerné, ni l'admin du groupe";
+		return false;
 	}	
 
 	// on demande un catalogue aléatoire au service "/film" et on ajoute les id des films dans la base de donnée
-	public Map<String, String> setRandomCatalogue(String groupName,String utilisateur)throws IOException, InterruptedException 
+	public boolean setRandomCatalogue(String groupName,String utilisateur,String erreur)throws IOException, InterruptedException 
 	{
-		String erreur = "";
-		boolean reussit = true;
 		// on vérifie si le groupe existe
 		if(!this.db.EXIST_Groupe(groupName))
 		{
-			erreur += "Le groupe '"+groupName+"' n'existe pas\n";
-			reussit=false;
+			erreur = "Le groupe '"+groupName+"' n'existe pas";
+			return false;
 		}
 
 		// on vérifie si celui qui veut créer un catalogue est bien l'admin
 		if(!this.checkAdmin(groupName, utilisateur))
 		{
-			erreur += "Vous n'êtes pas l'admin du groupe";
-			reussit = false;
+			erreur = "Vous n'êtes pas l'admin du groupe";
+			return false;
 		}
 
-		if(!reussit)
-		{
-			return msgRetour(reussit, erreur);
-		}
 		// on efface les anciens films du groupe
 		this.db.DELETE_FilmAll(groupName);
 
@@ -269,31 +260,24 @@ public class GroupService{
 			this.db.Insert_Film(groupName,jsonfilm.getInt("id"));
 		}
 			
-		return msgRetour(reussit, erreur);
+		return true;
 	}
 
 	// créer le catalgue du groupe à partir d'une liste de film au format json
-	public Map<String, String> setCatalogue(String groupName, String utilisateur ,String CatalogueJSON )
+	public boolean setCatalogue(String groupName, String utilisateur ,String CatalogueJSON , String erreur)
 	{
-		String erreur = "";
-		boolean reussit = true;
 		// on vérifie si le groupe existe
 		if(!this.db.EXIST_Groupe(groupName))
 		{
-			erreur += "Le groupe '"+groupName+"' n'existe pas\n";
-			reussit = false;
+			erreur = "Le groupe '"+groupName+"' n'existe pas";
+			return false;
 		}
 
 		// on vérifie si celui qui veut créer un catalogue est bien l'admin
 		if(!this.checkAdmin(groupName, utilisateur))
 		{
-			erreur += "Vous n'êtes pas l'admin du groupe\n";
-			reussit = false;
-		}
-
-		if(!reussit)
-		{
-			return msgRetour(reussit, erreur);
+			erreur = "Vous n'êtes pas l'admin du groupe";
+			return false;
 		}
 
 		// on efface les anciens films du groupe
@@ -308,15 +292,12 @@ public class GroupService{
 			this.db.Insert_Film(groupName,jsonfilm.getInt("id"));
 		}
 			
-		return msgRetour(reussit, erreur);
+		return true;
 	}
 
 	// prépare la requete json à envoyer au service "/selector" afin d'obtenir des films plus pertinants
-	public Map<String, String> calculNewCatalogue(String groupName,String utilisateur )throws IOException, InterruptedException
+	public boolean calculNewCatalogue(String groupName,String utilisateur , String erreur)throws IOException, InterruptedException
 	{
-		String erreur = "";
-		boolean reussit = true;
-
 		ArrayList<Map<String,String>> scores = this.db.SELECT_Score(groupName);
 		int top = 5;
 		if(scores.size() < top)
@@ -326,8 +307,8 @@ public class GroupService{
 
 		if(top < 1)
 		{
-			erreur += "Pas de film pour le groupe '" +groupName+" sur lesquelles se baser.\n";
-			return msgRetour(false, erreur);
+			erreur = "Pas de film pour le groupe '" +groupName+" sur lesquelles se baser.";
+			return false;
 		}
 
 		int idTopFilm[] = new int[top]; 
@@ -343,16 +324,17 @@ public class GroupService{
 		// on envoie la requête et attend le nouveau catalogue
 		String newCatalogue = this.post("http://tindfilm/selector", requete.toString());
 		// on inscrit le catalogue dans la base de donnée
-		return this.setCatalogue(groupName, utilisateur, newCatalogue);
+		return this.setCatalogue(groupName, utilisateur, newCatalogue,erreur);
 		
 	}
 	
 	//retourne les id des films du groupe
-	public int[] getCatalogue(String groupName,String userName)
+	public int[] getCatalogue(String groupName,String userName,String erreur)
 	{
 		// on vérifie si l'utilisateur se trouve dans le groupe
 		if(! this.db.EXIST_User(groupName, userName))
 		{	
+			erreur = userName + " ne se trouve pas dans le groupe " +groupName;
 			return new int[0];
 		}
 
@@ -370,30 +352,22 @@ public class GroupService{
 	}
 
 	// incrémente sans problème de conccurence le score des films. si increment = true, on incremente
-	// sinon on décremente. On ajoute ensuite que l'utilisateur a voté
-	public Map<String, String> incrementScore(String groupName,String userName, int filmID,boolean increment) 
+	// sinon on décremente.
+	public boolean incrementScore(String groupName, String invitation, int idFilm,boolean increment ,String erreur ) 
 	{
-		String erreur = "";
-		boolean reussit = true;
 		if(!this.db.EXIST_Groupe(groupName))
 		{
-			erreur += "Le groupe '"+groupName+" n'existe pas\n";
-			return msgRetour(false,erreur);
+			erreur = "Le groupe '"+groupName+" n'existe pas";
+			return false;
 		}
-		if(!this.db.EXIST_User(groupName, userName))
+		if(!this.checkInvite(groupName, invitation))
 		{
-			erreur += userName + " n'est pas membre du groupe "+groupName + ".\n";
-			return msgRetour(false,erreur);
+			erreur = "pas membre du groupe: "+groupName;
+			return false;
 		}
 
-		this.db.incrementScore(groupName, filmID, increment);
-		int vote = -1;
-		if(increment)
-		{
-			vote =1;
-		}
-		this.db.INSERT_Vote(groupName, userName, filmID, vote);
-		return msgRetour(reussit, erreur);
+		this.db.incrementScore(groupName, idFilm, increment);
+		return true;
 	}
 
 	// retourne le score des film du groupe
@@ -414,27 +388,26 @@ public class GroupService{
 		return retour;
 	}
 
-	public Map<String, String> deleteCatalogue(String groupName,String utilisateur)
+	public boolean deleteCatalogue(String groupName,String utilisateur, String erreur)
 	{
-		String erreur = "";
-		boolean reussit = true;
 		if(!this.checkAdmin(groupName, utilisateur))
 		{
-			erreur += "Vous n'êtes pas l'admin du groupe\n";
-			return msgRetour(false, erreur);
+			erreur = "Vous n'êtes pas l'admin du groupe";
+			return false;
 		}
 
 		this.db.DELETE_FilmAll(groupName);
-		return msgRetour(reussit, erreur);
+		return true;
 	}
 
-	// retourne les votes du groupes. Format: {username : [idFilm , vote]}. vote = +- 1 
+	// retourne les votes du groupes. Format: username : [idFilm , vote]. vote = +- 1 et 0 si pas encore voté
 	public Map<String, Map<Integer,Integer>> getVote(String groupName)
 	{
 		ArrayList<Map<String,String>> votes = this.db.SELECT_Vote(groupName);
 		Map<String, Map<Integer,Integer>> retour = new HashMap<String, Map<Integer,Integer>>();
 		for(Map<String,String> ligne: votes)
 		{
+			String userName = ligne.get("userName");
 			Map<Integer,Integer> vote = new HashMap<Integer,Integer>();
 			vote.put(Integer.parseInt(ligne.get("filmID")), Integer.parseInt(ligne.get("vote")));
 			retour.put(ligne.get("userName"),vote);
@@ -542,20 +515,5 @@ public class GroupService{
 		}	
 	}
 
-	private Map<String,String> msgRetour(boolean reussit,String erreur)
-	{
-		Map<String,String> retour = new HashMap<String,String>();
-		retour.put("msg",erreur);
-		if(reussit)
-		{
-			retour.put("reussit","true");
-		}
-		else
-		{
-			retour.put("reussit","false");
-		}
-		return retour;
-		
-	}
 	
 }//end class

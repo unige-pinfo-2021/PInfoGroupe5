@@ -24,13 +24,22 @@ export class GroupService {
 	  };
 	}
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
 	//get all groups
   getGroups():Observable<Group[]>{
     console.log(this.http.get<Group[]>("assets/groupData.json"));
     return this.http.get<Group[]>("assets/groupData.json");
   }
+
+  //get all groups
+  getGroupInvitation(json:any):Observable<Group[]>{
+    console.log(this.http.get<Group[]>("assets/groupData.json"));
+    return this.http.get<Group[]>("assets/groupData.json");
+  }
+
 
   // create group
   // url > /create

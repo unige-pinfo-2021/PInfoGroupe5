@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs'; // ERROR import
 import { GroupService } from '../services/group.service';
 import { Group }  from '../models/group.model';
 import {Router} from '@angular/router';
+import { ClipboardService } from 'ngx-clipboard';
+
 
 @Component({
   selector: 'app-group',
@@ -20,7 +22,12 @@ export class GroupComponent implements OnInit {
   public userName = "tom"
 
 
-  constructor(private router: Router,private formBuilder: FormBuilder,private groupService: GroupService) { }
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private groupService: GroupService,
+    private _clipboardService: ClipboardService
+  ) { }
 	
 	/*	KeycloakService.auth.authz.loadUserInfo().success(function(data){
 		  $scope.userName =  data.name ;
@@ -28,6 +35,7 @@ export class GroupComponent implements OnInit {
 */
 
   groupSubscription: Subscription;
+  public inviation = this.groupService.createInvitation();
 
   ngOnInit(): void {
     this.groupService.getGroups()
@@ -44,11 +52,10 @@ export class GroupComponent implements OnInit {
   	let groupName = this.checkoutForm.value['groupName'];
   	let formObj = this.checkoutForm.getRawValue();
   	let userName = this.userName;
-    let inviation = this.groupService.createInvitation();
     let dict = {
       "groupeName":groupName,
       "admin":userName,
-      "invitation":inviation
+      "invitation":this.inviation
     };
     let json = JSON.stringify(dict);
     this.groupService.createGroup(json)
@@ -56,6 +63,23 @@ export class GroupComponent implements OnInit {
       	data => this.groups = data
     );
     this.router.navigate(['/films', groupName]);
+  }
+
+/*  copyText(inviation: any ) {
+    this.clipboardApi.copy(inviation)
+    console.log(inviation)
+  }
+*/
+
+
+
+copyToClipboard(item) {
+    document.addEventListener('copy', (e: ClipboardEvent) => {
+      e.clipboardData.setData('text/plain', (item));
+      e.preventDefault();
+      document.removeEventListener('copy', null);
+    });
+    document.execCommand('copy');
   }
 }
 
