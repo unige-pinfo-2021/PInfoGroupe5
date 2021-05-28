@@ -178,7 +178,9 @@ public class DataBaseUser{
 		boolean exist = false;
 
 		//String query ="SELECT name  FROM Users WHERE name="+"'"+name+"';";
-		String query ="SELECT name  FROM user WHERE name="+"'"+name+"';";
+		//String query ="SELECT name  FROM user WHERE name="+"'"+name+"';";
+
+		String query ="SELECT name  FROM user WHERE name=?";
 
 		Connection conn = null;
 
@@ -186,6 +188,9 @@ public class DataBaseUser{
 			Class.forName(JDBC_DRIVER);
 			/*Connection*/ conn = DriverManager.getConnection(this.url, this.username, this.password);
 			PreparedStatement pst = conn.prepareStatement(query);
+
+			pst.setString(1, name);
+
 			ResultSet rs = pst.executeQuery();
 
 			if (!rs.next() ){
