@@ -367,7 +367,7 @@ public class DataBaseGroup{
 				{
 					pst.setString(index + 1, valeursInput[index]);
 				}
-				else if(typesInput[index]!=null && typesInput.equals("int"))
+				else if(typesInput[index]!=null && typesInput[index].equals("int"))
 				{
 					pst.setInt(index + 1, Integer.parseInt(valeursInput[index]));
 				}
