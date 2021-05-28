@@ -59,7 +59,9 @@ public class DataBaseUser{
 
 		}finally{
 			try{
-				conn.close();
+				if(conn != null){
+					conn.close();
+				}
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -104,11 +106,12 @@ public class DataBaseUser{
 
 	public void set_User(String query, String username, String email){
 		Connection conn = null;
+		PreparedStatement pst = null;
 
 		try {
 			Class.forName(JDBC_DRIVER);
 			/*Connection*/ conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			/*PreparedStatement*/ pst = conn.prepareStatement(query);
 
 			pst.setString(1, username);
 
@@ -124,7 +127,17 @@ public class DataBaseUser{
 			 e.printStackTrace();
 		}finally{
 			try{
-				conn.close();
+				if(conn != null){
+					conn.close();
+				}
+			}catch (Exception e) {
+			 e.printStackTrace();
+			}
+
+			try{
+				if(pst != null){
+					pst.close();
+				}
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -135,17 +148,21 @@ public class DataBaseUser{
 
 	public ArrayList<Map<String,String>> get_User(String query, String username){
 		ArrayList<Map<String,String>> params = new ArrayList();
+
 		Connection conn = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
 		try{
 			Class.forName(JDBC_DRIVER); 
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			/*PreparedStatement*/ pst = conn.prepareStatement(query);
 
 			if(username != null){
 				pst.setString(1, username);
 			}
 
-			ResultSet rs = pst.executeQuery();
+			/*ResultSet*/ rs = pst.executeQuery();
 
 			while (rs.next()) {
 				//System.out.print(rs+"\n");
@@ -163,7 +180,25 @@ public class DataBaseUser{
 		
 		finally{
 			try{
-				conn.close();
+				if(conn != null){
+					conn.close();
+				}
+			}catch (Exception e) {
+			 e.printStackTrace();
+			}
+
+			try{
+				if(pst != null){
+					pst.close();
+				}
+			}catch (Exception e) {
+			 e.printStackTrace();
+			}
+
+			try{
+				if(rs != null){
+				rs.close();
+				}
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -183,15 +218,17 @@ public class DataBaseUser{
 		String query ="SELECT name  FROM user WHERE name=?";
 
 		Connection conn = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 
 		try{  
 			Class.forName(JDBC_DRIVER);
 			/*Connection*/ conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			/*PreparedStatement*/ pst = conn.prepareStatement(query);
 
 			pst.setString(1, name);
 
-			ResultSet rs = pst.executeQuery();
+			/*ResultSet*/ rs = pst.executeQuery();
 
 			if (!rs.next() ){
     				//System.out.println("no data");
@@ -207,7 +244,25 @@ public class DataBaseUser{
 			 e.printStackTrace();
 		}finally{
 			try{
-				conn.close();
+				if(conn != null){
+					conn.close();
+				}
+			}catch (Exception e) {
+			 e.printStackTrace();
+			}
+
+			try{
+				if(pst != null){
+					pst.close();
+				}
+			}catch (Exception e) {
+			 e.printStackTrace();
+			}
+
+			try{
+				if(rs != null){
+				rs.close();
+				}
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
