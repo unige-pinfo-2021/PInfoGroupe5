@@ -57,9 +57,11 @@ public class DataBaseGroup{
 
 		}finally{
 			try{
-				conn.close();
+				if(conn != null){
+					conn.close();
+				 }
 			}catch (Exception e) {
-			 e.printStackTrace();
+			 	e.printStackTrace();
 			}
 		} 
 
@@ -314,18 +316,56 @@ public class DataBaseGroup{
 		return reponse;  
 	}
 
+	// ajoute le vote d'un utilisateur
+	public void INSERT_Vote(String groupName,String userName,int filmID, int vote)
+	{
+		String query = "INSERT INTO userVote(groupName, userName, filmID, vote) VALUES (?,?,?,?);";
+		
+		String valeursInput[] = {groupName,userName,Integer.toString(filmID),Integer.toString(vote)};
+		String typesInput[] = {"string","string","int","int"};
+
+		this.setBD(query, valeursInput, typesInput);		
+	}
+
+	// enleve un vote
+	public void DELETE_Vote(String groupName,String userName,int filmID)
+	{
+		String query = "DELETE FROM userVote WHERE groupName=? AND userName=? AND filmID= ?;";
+		
+		String valeursInput[] = {groupName,userName,Integer.toString(filmID)};
+		String typesInput[] = {"string","string","int"};
+
+		this.setBD(query, valeursInput, typesInput);		
+	}
+
+	// vérifie si un utilisateur, au sein d'un groupe a voté pour un film
+	public boolean EXISTE_Vote(String groupName, String userName, int filmID)
+	{
+		String query ="SELECT * FROM groupScores WHERE groupName= ? AND userName=? AND filmID=?;";
+		String attributs[] = {"groupName","userName","filmID","vote"};
+		String typesOutput[] = {"string","string","int","int"};
+		String valeursInput[] = {groupName,userName,Integer.toString(filmID)};
+		String typesInput[] = {"string","string","int"};
+
+		ArrayList<Map<String,String>> reponse = this.getBD(query, attributs, typesOutput, valeursInput, typesInput);
+
+		return reponse.size() > 0; 
+	}
+
+	
 
 	// methode pour écrire dans la base de donnée
 	public void setBD(String query,String valeursInput[], String typesInput[])
 	 {
 		 
 		Connection conn = null;
+		PreparedStatement pst = null;
 
 		try
 		{
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			/*PreparedStatement*/ pst = conn.prepareStatement(query);
 			// met les valeurs dans le code sql
 			for(int index=0; index < valeursInput.length ; index++)
 			{
@@ -346,7 +386,17 @@ public class DataBaseGroup{
 			 e.printStackTrace();
 		}finally{
 			try{
-				conn.close();
+				if(conn != null){
+					conn.close();
+				}
+			}catch (Exception e) {
+			 e.printStackTrace();
+			}
+
+			try{
+				if(pst != null){
+					pst.close();
+				}
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -363,12 +413,14 @@ public class DataBaseGroup{
 		ArrayList<Map<String,String>> params = new ArrayList();
 		
 		Connection conn = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 
 		try 
 		{
 			Class.forName(JDBC_DRIVER); 
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			/*PreparedStatement*/ pst = conn.prepareStatement(query);
 
 			// on ajoute les valeurs dans le code SQL
 			for(int index = 0; index < typesInput.length; index++)
@@ -384,7 +436,7 @@ public class DataBaseGroup{
 				}
 			}
 
-			ResultSet rs = pst.executeQuery();
+			/*ResultSet*/ rs = pst.executeQuery();
 
 			while (rs.next()) 
 			{
@@ -416,7 +468,25 @@ public class DataBaseGroup{
 			 e.printStackTrace();
 		}finally{
 			try{
-				conn.close();
+				if(conn != null){
+					conn.close();
+				}
+			}catch (Exception e) {
+			 e.printStackTrace();
+			}
+
+			try{
+				if(pst != null){
+					pst.close();
+				}
+			}catch (Exception e) {
+			 e.printStackTrace();
+			}
+
+			try{
+				if(rs != null){
+				rs.close();
+				}
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
