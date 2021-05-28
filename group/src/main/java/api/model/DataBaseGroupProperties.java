@@ -23,15 +23,25 @@ public class DataBaseGroupProperties {
         Properties props = new Properties();
         Path myPath = Paths.get(path);
 
+	BufferedReader bf = null;
+
         try {
-            BufferedReader bf = Files.newBufferedReader(myPath, 
+            /*BufferedReader*/ bf = Files.newBufferedReader(myPath, 
              StandardCharsets.UTF_8);
 
             props.load(bf);
         } catch (IOException ex) {
             Logger.getLogger(DataBaseGroupProperties.class.getName()).log(
                     Level.SEVERE, null, ex);
-        }
+        }finally{
+		try{
+			if(bf != null){
+				bf.close();
+			}
+		}catch (Exception e) {
+			 e.printStackTrace();
+		}
+	}
 
         return props;
     }
