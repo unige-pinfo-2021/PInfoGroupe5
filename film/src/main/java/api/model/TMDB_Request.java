@@ -2,7 +2,6 @@ package api.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.sql.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

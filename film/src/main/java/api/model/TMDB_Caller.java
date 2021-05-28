@@ -8,8 +8,6 @@ import java.net.http.HttpResponse;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
@@ -17,7 +15,6 @@ import java.util.function.Supplier;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TMDB_Caller {
@@ -157,18 +154,7 @@ public class TMDB_Caller {
 	
 	//getMoviesByPage()----------------------------------------------------------------------------------------------------
 	public List<Movie> getMoviesByPage_asList(int page) throws IOException, InterruptedException {
-		String uri = searchMoviesByPage_uri(page);
-		//System.out.println(uri);
-		
-		HttpClient client = HttpClient.newHttpClient();
-	    HttpRequest request = HttpRequest.newBuilder()
-	          .uri(URI.create(uri))
-	          .build();
-	    
-	    HttpResponse<Supplier<TMDBResult>> response = client.send(request, new JsonBodyHandler<>(TMDBResult.class));
-	    Supplier<TMDBResult> TMDB_result = response.body();
-	    
-	    String responseJson = getMoviesByPage_asJsonString(page);
+		String responseJson = getMoviesByPage_asJsonString(page);
 	    
 		List<Movie> movieList = jsonStringToList(responseJson);
 

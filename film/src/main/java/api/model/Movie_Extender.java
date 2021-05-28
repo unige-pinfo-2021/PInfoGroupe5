@@ -1,5 +1,4 @@
 package api.model;
-import java.util.List;
 
 public class Movie_Extender {
 	
