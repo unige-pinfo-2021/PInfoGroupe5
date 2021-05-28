@@ -16,8 +16,11 @@ public class selector {
     public selector()throws IOException, InterruptedException
     {
         FileWriter myWriter = new FileWriter("/etc/hosts");
-		myWriter.write("\n 129.194.10.130 tindfilm");
-		myWriter.close();
+        try {myWriter.write("\n 129.194.10.130 tindfilm");
+        } finally {
+        	myWriter.close();
+        }
+		
     }
 
     public String algorithme(String critereJson)throws IOException, InterruptedException
