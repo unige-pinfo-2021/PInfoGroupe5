@@ -24,12 +24,12 @@ public class RestServiceFilms {
 	this.filmService =  new TMDB_Caller("3aacfef6a62a872d2a4717b9b6cd5283");
     }
     
-
+   
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Movie> getRandomMovies() throws IOException, InterruptedException { 
-	return this.filmService.getRandomMovies_asList(40);
+	return this.filmService.getRandomMovies_asList(50);
     }
 
 
