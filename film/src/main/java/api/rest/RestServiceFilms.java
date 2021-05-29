@@ -24,20 +24,7 @@ public class RestServiceFilms {
 	this.filmService =  new TMDB_Caller("3aacfef6a62a872d2a4717b9b6cd5283");
     }
     
-    @GET
-    @Path("/testhead")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response test() throws IOException, InterruptedException { 
-    Response.ResponseBuilder rb = Response.ok(this.filmService.getRandomMovies_asList(40));
-    Response response = rb.header("Access-Control-Allow-Origin", "*")
-            .header("Access-Control-Allow-Credentials", "true")
-            .header("Access-Control-Allow-Headers",
-                    "origin, content-type, accept, authorization")
-            .header("Access-Control-Allow-Methods", 
-                    "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-            .build();
-    return response;
-    }
+
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)

@@ -197,9 +197,12 @@ public class TMDB_Caller {
 			}
 		}
 		
-		for (int i=0; i<count; i++)
+		for (int i=0; i<count; i++) {
+			if (totalMovieList.get(rand_index_list.get(i).intValue()).poster_path.equals("null")) {
+				continue;
+			}
 			randomMovieList.add(totalMovieList.get(rand_index_list.get(i).intValue()));
-		
+		}
 	    return randomMovieList;		    
 	}
 	
