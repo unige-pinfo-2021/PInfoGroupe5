@@ -29,7 +29,7 @@ public class RestServiceFilms {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Movie> getRandomMovies() throws IOException, InterruptedException { 
-	return this.filmService.getRandomMovies_asList(50);
+	return this.filmService.getRandomMovies_asList(80);
     }
 
 

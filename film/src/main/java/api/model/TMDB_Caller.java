@@ -24,6 +24,9 @@ public class TMDB_Caller {
 	private int pageSize = 20;
 	private Random rand = new Random();
 	
+	private final static String APIDISCADRESS = "https://api.themoviedb.org/3/discover/movie?api_key=";
+	private final static String APISEARCHADRESS = "https://api.themoviedb.org/3/search/movie?api_key=";
+	
 	//connstracteur---------------------------------------------------------------------------------------------------
 	public TMDB_Caller(String apiKey) {
 		super();
@@ -35,7 +38,7 @@ public class TMDB_Caller {
 	//listAllGenres_uri-------------------------------------------------------------------------------------------------
 	public String listAllGenres_uri() {
 		//https://api.themoviedb.org/3/genre/movie/list?api_key=3aacfef6a62a872d2a4717b9b6cd5283&language=en-US
-		return "https://api.themoviedb.org/3/genre/movie/list?api_key="+apiKey+"&language=en-US";
+		return APIDISCADRESS+apiKey+"&language=en-US";
 	}
 	
 	
@@ -43,19 +46,19 @@ public class TMDB_Caller {
 	
 	//searchByGenre_uri-------------------------------------------------------------------------------------------------
 	public String searchByGenre_uri(int genre_id) {
-		return "https://api.themoviedb.org/3/discover/movie?api_key="+apiKey+"&language=en-US&sort_by=popularity.desc&page=1&include_adult=false&include_video=false&with_genres=" + genre_id;
+		return APIDISCADRESS+apiKey+"&language=en-US&sort_by=popularity.desc&page=1&include_adult=false&include_video=false&with_genres=" + genre_id;
 	}
 	
 	//searchByYear_uri--------------------------------------------------------------------------------------------------
 	public String searchByYear_uri(String year) {
 		//https://api.themoviedb.org/3/discover/movie?api_key=3aacfef6a62a872d2a4717b9b6cd5283&language=en-US&sort_by=popularity.asc&page=1&year=2020
-		return "https://api.themoviedb.org/3/search/movie?api_key="+apiKey+"&language=en-US&sort_by=popularity.asc&page=1&query=" + year;
+		return APISEARCHADRESS+apiKey+"&language=en-US&sort_by=popularity.asc&page=1&query=" + year;
 	}
 	
 	//searchMoviesByPage_uri--------------------------------------------------------------------------------------------------
 	public String searchMoviesByPage_uri(int page) {
 		//https://api.themoviedb.org/3/discover/movie?api_key=3aacfef6a62a872d2a4717b9b6cd5283&language=en-US&sort_by=popularity.desc&page=1
-		return "https://api.themoviedb.org/3/discover/movie?api_key="+apiKey+"&language=en-US&sort_by=popularity.asc&page=" + page;
+		return APIDISCADRESS+apiKey+"&language=en-US&sort_by=popularity.asc&page=" + page;
 	}
 	
 	
@@ -63,7 +66,7 @@ public class TMDB_Caller {
 	
 	//searchByTitle_uri--------------------------------------------------------------------------------------------------
 	public String searchByTitle_uri(String title_to_search) {
-		return "https://api.themoviedb.org/3/search/movie?api_key="+apiKey+"&language=en-US&query="+title_to_search;
+		return APISEARCHADRESS+apiKey+"&language=en-US&query="+title_to_search;
 	}
 	
 	//findByIdPeople_uri------------------------------------------------------------------------------------------------------
