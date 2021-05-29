@@ -17,7 +17,6 @@ public class Movie {
     public final String overview; 
     public final int[] genre_ids;
     public final int id;
-    public Movie_Extender info = null;
     
     //constracteur----------------------------------------------------------------------------------------
     public Movie(@JsonProperty("title") String title, @JsonProperty("release_date") String release_date, @JsonProperty("poster_path") String poster_path, @JsonProperty("popularity") int popularity,@JsonProperty("overview") String overview,@JsonProperty("genre_ids") int[]

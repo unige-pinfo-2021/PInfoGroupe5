@@ -1,11 +1,12 @@
 package api.model;
-import java.io.IOException;
-import java.util.List;
+//import java.io.IOException;
+//import java.util.List;
 //import java.util.Scanner;
 
 
 public class Rest_Caller {
-
+	//classe de test pour le film service
+/*
 	public static void main(String[] args) throws IOException, InterruptedException {
 		
 		//variables
@@ -113,7 +114,7 @@ public class Rest_Caller {
 		//System.out.println(responseJsonString);
 		
 	}//main
-	
+*/	
 }//Rest_caller
 
 
