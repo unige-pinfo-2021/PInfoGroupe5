@@ -9,11 +9,10 @@ public class selector {
 
     public selector()throws IOException, InterruptedException
     {
-        FileWriter myWriter = new FileWriter("/etc/hosts");
-        try {myWriter.write("\n 129.194.10.130 tindfilm");
-        } finally {
-        	myWriter.close();
-        }
+        
+        try(FileWriter myWriter = new FileWriter("/etc/hosts");) {
+        	myWriter.write("\n 129.194.10.130 tindfilm");
+        } 
 		
     }
 
