@@ -59,20 +59,21 @@ public class RestServiceUser {
     }
 
 
-   /*@POST //, PUT
+   /* LAST UPDTS */
+   @POST //, PUT
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    @Path("/new")
    public void addUser(Map<String,String> inputJSON)
    {
       this.userService.setUserDB(inputJSON.get("userName"),inputJSON.get("email"));
-    }*/
+    }
 
 
- /*@DELETE
+   @DELETE
    //@Produces(MediaType.APPLICATION_JSON)
    @Path("/{username}")
    public void deleteInvit(@PathParam("username") String username){
 	this.userService.removeUserDB(username);
-     }*/
+     }
 }//end class

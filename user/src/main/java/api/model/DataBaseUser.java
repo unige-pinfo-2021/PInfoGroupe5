@@ -7,8 +7,8 @@ import java.sql.SQLException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-/*import java.util.logging.Level;
-import java.util.logging.Logger;*/
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DataBaseUser{
 	
@@ -39,8 +39,7 @@ public class DataBaseUser{
 
 		try{
 			Class.forName(JDBC_DRIVER); 
-			/*Connection*/ conn = DriverManager.getConnection(this.url, this.username, this.password);
-			System.out.println("\n"+"Connection established!");
+			conn = DriverManager.getConnection(this.url, this.username, this.password);
 			connected = "Connection established!";
 
 			    
@@ -48,16 +47,20 @@ public class DataBaseUser{
 		} catch (SQLException e) {
 			 System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
 			 connected = "Failed to make connection!";
+
 		} catch (Exception e) {
-			   e.printStackTrace();
+			   //e.printStackTrace();
+			   Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			   connected = "Failed to make connection!";
 		}finally{
 			try{
 				if(conn != null){
 					conn.close();
 				}
-			}catch (Exception e) {
-			 e.printStackTrace();
+
+			}catch (Exception e){
+			 	//e.printStackTrace();
+				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 		}  
 		return connected;
@@ -84,14 +87,13 @@ public class DataBaseUser{
 
 
 	public ArrayList<Map<String,String>> SELECT_User(String username){
-		//String query ="SELECT *  FROM Users";
 		//String query ="SELECT * FROM user WHERE name="+"'"+username+"';";
 		String query ="SELECT * FROM user WHERE name=?";
 		return get_User(query, username);
 	}//end INSERT_User
 
 	public ArrayList<Map<String,String>> SELECT_AllUser(){
-		String query ="SELECT * FROM user;";
+		String query ="SELECT * FROM user";
 		return get_User(query, null);
 	}//end INSERT_User
 
@@ -104,8 +106,8 @@ public class DataBaseUser{
 
 		try {
 			Class.forName(JDBC_DRIVER);
-			/*Connection*/ conn = DriverManager.getConnection(this.url, this.username, this.password);
-			/*PreparedStatement*/ pst = conn.prepareStatement(query);
+			conn = DriverManager.getConnection(this.url, this.username, this.password);
+			pst = conn.prepareStatement(query);
 
 			pst.setString(1, username);
 
@@ -117,23 +119,30 @@ public class DataBaseUser{
 
 		}catch (SQLException e) {
 			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
+
 		} catch (Exception e) {
-			 e.printStackTrace();
+			 //e.printStackTrace();
+			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
+
 		}finally{
 			try{
 				if(conn != null){
 					conn.close();
 				}
-			}catch (Exception e) {
-			 e.printStackTrace();
+
+			}catch (Exception e){
+			 	//e.printStackTrace();
+				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 
 			try{
 				if(pst != null){
 					pst.close();
 				}
+
 			}catch (Exception e) {
-			 e.printStackTrace();
+			 	//e.printStackTrace();
+				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 		}        
 
@@ -150,26 +159,26 @@ public class DataBaseUser{
 		try{
 			Class.forName(JDBC_DRIVER); 
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			/*PreparedStatement*/ pst = conn.prepareStatement(query);
+			pst = conn.prepareStatement(query);
 
 			if(username != null){
 				pst.setString(1, username);
 			}
 
-			/*ResultSet*/ rs = pst.executeQuery();
+			rs = pst.executeQuery();
 
 			while (rs.next()) {
-				//System.out.print(rs+"\n");
 				Map<String,String> p = new HashMap<String,String>();
-				//System.out.print("\n"+rs.getString(1));
 				p.put("name",rs.getString("name"));
 				p.put("email",rs.getString("email"));
 				params.add(p);
             		}
 		}catch (SQLException e) {
 			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-		} catch (Exception e) {
-			 e.printStackTrace();
+
+		} catch (Exception e){
+			 //e.printStackTrace();
+			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 		}
 		
 		finally{
@@ -178,15 +187,18 @@ public class DataBaseUser{
 					conn.close();
 				}
 			}catch (Exception e) {
-			 e.printStackTrace();
+			 	//e.printStackTrace();
+				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 
 			try{
 				if(pst != null){
 					pst.close();
 				}
+
 			}catch (Exception e) {
-			 e.printStackTrace();
+			 	//e.printStackTrace();
+				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 
 			try{
@@ -194,7 +206,8 @@ public class DataBaseUser{
 				rs.close();
 				}
 			}catch (Exception e) {
-			 e.printStackTrace();
+			 	//e.printStackTrace();
+				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 		}        
 		
@@ -206,7 +219,6 @@ public class DataBaseUser{
 	public boolean EXIST_User(String name){
 		boolean exist = false;
 
-		//String query ="SELECT name  FROM Users WHERE name="+"'"+name+"';";
 		//String query ="SELECT name  FROM user WHERE name="+"'"+name+"';";
 
 		String query ="SELECT name  FROM user WHERE name=?";
@@ -217,12 +229,12 @@ public class DataBaseUser{
 
 		try{  
 			Class.forName(JDBC_DRIVER);
-			/*Connection*/ conn = DriverManager.getConnection(this.url, this.username, this.password);
-			/*PreparedStatement*/ pst = conn.prepareStatement(query);
+			conn = DriverManager.getConnection(this.url, this.username, this.password);
+			pst = conn.prepareStatement(query);
 
 			pst.setString(1, name);
 
-			/*ResultSet*/ rs = pst.executeQuery();
+			rs = pst.executeQuery();
 
 			if (!rs.next() ){
     				//System.out.println("no data");
@@ -234,31 +246,39 @@ public class DataBaseUser{
 
 		}catch (SQLException e) {
 			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
+
 		} catch (Exception e) {
-			 e.printStackTrace();
+			 //e.printStackTrace();
+			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
+
 		}finally{
 			try{
 				if(conn != null){
 					conn.close();
 				}
 			}catch (Exception e) {
-			 e.printStackTrace();
+			 	//e.printStackTrace();
+				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 
 			try{
 				if(pst != null){
 					pst.close();
 				}
+
 			}catch (Exception e) {
-			 e.printStackTrace();
+			 	//e.printStackTrace();
+				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 
 			try{
 				if(rs != null){
-				rs.close();
+					rs.close();
 				}
+
 			}catch (Exception e) {
-			 e.printStackTrace();
+			 	//e.printStackTrace();
+				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 		}
 

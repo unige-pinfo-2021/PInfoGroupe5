@@ -33,7 +33,9 @@ public class DataBaseUserProperties {
 				bf.close();
 			}
 		}catch (Exception e) {
-			 e.printStackTrace();
+			 //e.printStackTrace();
+			Logger.getLogger(DataBaseUserProperties.class.getName()).log(Level.SEVERE, null, e);
+			
 		}
 	}
 

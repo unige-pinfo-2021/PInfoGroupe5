@@ -5,7 +5,6 @@ import java.util.*;
 public class UserService{
 
 	private DataBaseUser db;
-	//private ArrayList<User> listofUsers = new ArrayList();
 
 	public UserService(){
 		this.db = new DataBaseUser("src/main/resources/database.properties");
