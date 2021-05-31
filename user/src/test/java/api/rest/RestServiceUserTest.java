@@ -49,7 +49,7 @@ class RestServiceUserTest {
 	 * Test method for {@link api.rest.RestServiceUser#RestServiceUser()}.
 	 */
 	@Test
-	void testRestServiceUser() {
+	void testRestServiceUser() throws Exception{
 		RestServiceUser service2 = new RestServiceUser();
 		service2.hello();
 		assertEquals("Hello from users !",service2.hello());
@@ -69,7 +69,7 @@ class RestServiceUserTest {
 	 * Test method for {@link api.rest.RestServiceUser#getConn()}.
 	 */
 	@Test
-	void testGetConn() {
+	void testGetConn() throws Exception{
 		service.getConn();
 		assertEquals("Connection established!", service.getConn());
 	}
