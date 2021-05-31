@@ -1,17 +1,17 @@
 package api.rest;//.films.rest;
 
 import java.util.*;
-
 import api.model.*;
 
 import java.io.IOException;
 
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST; 
 import javax.ws.rs.Produces;
 
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.PathParam;
 
 @Path("/film")
@@ -66,7 +66,19 @@ public class RestServiceFilms {
     	return filmService.executeRequest_asList(requestJson);
     }
 
-
+    @GET
+    @Path("/get/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+  //Service film :  GET : /film/get/{id} : retourne le JSON du film avec l'identifiant {id} 
+    public String getMovieById(int id) throws IOException, InterruptedException { 
+    	return this.filmService.getMovieById_asJsonString(id);
+    }
+    @GET
+    @Path("/recommande/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getRecommandationMovies(int id) throws IOException, InterruptedException { 
+    	return this.filmService.getRecommandationMovies_asJsonString(id);
+        
+    }
     
-
 }//end class
