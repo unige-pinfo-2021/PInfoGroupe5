@@ -19,8 +19,7 @@
     <junit.jupiter.version>5.4.0</junit.jupiter.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-	<junit.jupiter.version>5.4.0</junit.jupiter.version>
-	
+
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -80,16 +79,7 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-			<artifactId>maven-surefire-plugin</artifactId>
-            <version>2.22.2</version>
-         </plugin>
-         <plugin>
-             <artifactId>maven-failsafe-plugin</artifactId>
-             <version>2.22.2</version>
-      </plugin>
     </plugins>
-    
   </build>
 
   <dependencies>
@@ -123,23 +113,6 @@
     		<artifactId>mysql-connector-java</artifactId>
     		<version>8.0.24</version><!--$NO-MVN-MAN-VER$-->
 	</dependency>
-<<<<<<< HEAD
-	
-	<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>${junit.jupiter.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>${junit.jupiter.version}</version>
-			<scope>test</scope>
-		</dependency>
-    
-=======
 
->>>>>>> 2a8b2b65155eeeda8aa9fdbafa648b9f91fd22ed
   </dependencies>
 </project>

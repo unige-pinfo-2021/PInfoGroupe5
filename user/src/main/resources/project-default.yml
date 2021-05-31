@@ -1,0 +1,36 @@
+#swarm:
+#  datasources:
+#    jdbc-drivers:
+#      com.mysql:
+#        driver-class-name: com.mysql.jdbc.Driver
+#        xa-datasource-class-name: com.mysql.jdbc.jdbc2.optional.MysqlXADataSource
+#        driver-module-name: com.mysql
+#    data-sources:
+#      ExampleDS:
+#        driver-name: com.mysql
+#        connection-url: jdbc:mysql://129.194.10.130:3306/tinderfilmBD
+#        user-name: groupe5
+#        password: 12345
+
+#swarm:
+thorntail:
+  datasources:
+    jdbc-drivers:
+      org.postgresql:
+        driver-class-name: org.postgresql.Driver
+        xa-datasource-class-name: org.postgresql.xa.PGXADataSource
+        driver-module-name: org.postgresql
+    data-sources:
+      ExampleDS:
+        driver-name: org.postgresql
+        connection-url: jdbc:postgresql://localhost:5432/testdb
+        user-name: 
+        password: 
+
+
+
+
+
+
+
+
