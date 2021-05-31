@@ -26,7 +26,7 @@ public class DataBaseGroupProperties {
 	BufferedReader bf = null;
 
         try {
-            /*BufferedReader*/ bf = Files.newBufferedReader(myPath, 
+            bf = Files.newBufferedReader(myPath, 
              StandardCharsets.UTF_8);
 
             props.load(bf);
@@ -39,7 +39,8 @@ public class DataBaseGroupProperties {
 				bf.close();
 			}
 		}catch (Exception e) {
-			 e.printStackTrace();
+			 //e.printStackTrace();
+			Logger.getLogger(DataBaseGroupProperties.class.getName()).log(Level.SEVERE, null, e);
 		}
 	}
 

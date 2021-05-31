@@ -10,8 +10,9 @@ import java.sql.SQLException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-/*import java.util.logging.Level;
-import java.util.logging.Logger;*/
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DataBaseGroup{
 	
@@ -35,7 +36,6 @@ public class DataBaseGroup{
 
 	public void try_connect(){
 
-		
 		Connection conn = null;
 		try{
 			Class.forName(JDBC_DRIVER); 
@@ -44,10 +44,10 @@ public class DataBaseGroup{
 			
 		} catch (SQLException e) {
 			 System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-			 System.out.println("Failed to make connection!");
+
 		} catch (Exception e) {
-			   e.printStackTrace();
-			   System.out.println("Failed to make connection!");
+			   //e.printStackTrace();
+			   Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
 
 		}finally{
 			try{
@@ -55,7 +55,8 @@ public class DataBaseGroup{
 					conn.close();
 				 }
 			}catch (Exception e) {
-			 	e.printStackTrace();
+			 	//e.printStackTrace();
+				Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
 			}
 		} 
 
@@ -359,7 +360,7 @@ public class DataBaseGroup{
 		{
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			/*PreparedStatement*/ pst = conn.prepareStatement(query);
+			pst = conn.prepareStatement(query);
 			// met les valeurs dans le code sql
 			for(int index=0; index < valeursInput.length ; index++)
 			{
@@ -372,19 +373,24 @@ public class DataBaseGroup{
 					pst.setInt(index + 1, Integer.parseInt(valeursInput[index]));
 				}
 			}
-            pst.executeUpdate();			 
+
+            		pst.executeUpdate();			 
 
 		}catch (SQLException e) {
 			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
+
 		} catch (Exception e) {
-			 e.printStackTrace();
+			 //e.printStackTrace();
+			Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
+
 		}finally{
 			try{
 				if(conn != null){
 					conn.close();
 				}
 			}catch (Exception e) {
-			 e.printStackTrace();
+			 	//e.printStackTrace();
+				Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
 			}
 
 			try{
@@ -392,12 +398,13 @@ public class DataBaseGroup{
 					pst.close();
 				}
 			}catch (Exception e) {
-			 e.printStackTrace();
+			 	//e.printStackTrace();
+				Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
 			}
 		}        
 
 
-    }//end set_User
+    }//end 
 
 	// methode pour lire dans la base de donnée
 	// retourne un tableau de chaque ligne retournée. Une ligne est représenté par un tableau associative de clé
@@ -414,7 +421,7 @@ public class DataBaseGroup{
 		{
 			Class.forName(JDBC_DRIVER); 
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			/*PreparedStatement*/ pst = conn.prepareStatement(query);
+			pst = conn.prepareStatement(query);
 
 			// on ajoute les valeurs dans le code SQL
 			for(int index = 0; index < typesInput.length; index++)
@@ -430,7 +437,7 @@ public class DataBaseGroup{
 				}
 			}
 
-			/*ResultSet*/ rs = pst.executeQuery();
+			rs = pst.executeQuery();
 
 			while (rs.next()) 
 			{
@@ -458,15 +465,19 @@ public class DataBaseGroup{
 
 		}catch (SQLException e) {
 			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
+
 		} catch (Exception e) {
-			 e.printStackTrace();
+			 //e.printStackTrace();
+			Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
+
 		}finally{
 			try{
 				if(conn != null){
 					conn.close();
 				}
 			}catch (Exception e) {
-			 e.printStackTrace();
+			 	//e.printStackTrace();
+				Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
 			}
 
 			try{
@@ -474,7 +485,8 @@ public class DataBaseGroup{
 					pst.close();
 				}
 			}catch (Exception e) {
-			 e.printStackTrace();
+			 	//e.printStackTrace();
+				Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
 			}
 
 			try{
@@ -482,13 +494,14 @@ public class DataBaseGroup{
 				rs.close();
 				}
 			}catch (Exception e) {
-			 e.printStackTrace();
+			 	//e.printStackTrace();
+				Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
 			}
 		}       
 		
 		return params;
 
-    }//end get_User
+    }//end 
 
 
 
