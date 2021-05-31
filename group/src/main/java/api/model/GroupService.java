@@ -18,7 +18,7 @@ public class GroupService{
 
 	private DataBaseGroup db;
 	
-	public GroupService()throws IOException, InterruptedException
+	public GroupService() throws Exception, IOException, InterruptedException
 	{
 		FileWriter myWriter = new FileWriter("/etc/hosts");
 		try {

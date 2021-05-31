@@ -9,7 +9,7 @@ public class UserService{
 	private DataBaseUser db;
 
 	public UserService() throws Exception{
-		this.db = new DataBaseUser("src/main/resources/database.properties");
+		this.db = new DataBaseUser();
 	}//end constructor
 
 

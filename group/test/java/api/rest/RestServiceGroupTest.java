@@ -59,7 +59,7 @@ class RestServiceGroupTest {
 	 * @throws IOException 
 	 */
 	@Test
-	void testRestServiceGroup() throws IOException, InterruptedException {
+	void testRestServiceGroup() throws Exception, IOException, InterruptedException {
 		RestServiceGroup service2 = new RestServiceGroup();
 		service2.Default();
 		assertEquals("You reached group",service2.Default());

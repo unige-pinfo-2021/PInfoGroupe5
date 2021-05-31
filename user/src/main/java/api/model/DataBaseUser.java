@@ -21,7 +21,7 @@ public class DataBaseUser{
 
 	private String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver"; //"org.postgresql.Driver"
 
-	public DataBaseUser(String path) throws Exception{
+	public DataBaseUser() throws Exception{
 
 		Encryption encrypt = new Encryption();
 		this.url = encrypt.getu();

@@ -47,7 +47,7 @@ public class RestServiceGroup {
 
     private GroupService groupService;
 
-    public RestServiceGroup()throws IOException, InterruptedException
+    public RestServiceGroup()throws Exception, IOException, InterruptedException
     {
 	this.groupService = new GroupService();
     }
