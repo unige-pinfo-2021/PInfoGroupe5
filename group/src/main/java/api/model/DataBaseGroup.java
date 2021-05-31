@@ -22,15 +22,13 @@ public class DataBaseGroup{
 
 	private String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver"; //"org.postgresql.Driver"
 
-	public DataBaseGroup(String path){
-		//Properties props =  new DataBaseUserProperties().readProperties(path);
+	public DataBaseGroup(String path) throws Exception{
 
-		//this.url=props.getProperty("db.url");
-		//this.username=props.getProperty("db.user");
-		//this.password=props.getProperty("db.passwd");
-		this.url="jdbc:mysql://129.194.10.130:3306/tinderfilmBD";
-		this.username = "groupe5";
-		this.password = "12345";
+		Encryption encrypt = new Encryption();
+		this.url = encrypt.getu();
+		this.username = encrypt.getg();
+		this.password = encrypt.getp();
+
 	}//end constructor
 
 
