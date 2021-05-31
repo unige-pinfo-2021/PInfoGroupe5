@@ -1,6 +1,9 @@
 package api.model;
 
 import java.util.*;
+
+import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,16 +21,21 @@ public class DataBaseUser{
 
 	private String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver"; //"org.postgresql.Driver"
 
-	public DataBaseUser(String path){
+	public DataBaseUser(String path) throws Exception{
 		/*Properties props =  new DataBaseUserProperties().readProperties(path);
 
 		this.url=props.getProperty("db.url");
 		this.username=props.getProperty("db.user");
 		this.password=props.getProperty("db.passwd");*/
 
-		this.url="jdbc:mysql://129.194.10.130:3306/tinderfilmBD";
+		/*this.url="jdbc:mysql://129.194.10.130:3306/tinderfilmBD";
 		this.username = "groupe5";
-		this.password = "12345";
+		this.password = "12345";*/
+
+		Encryption encrypt = new Encryption();
+		this.url = encrypt.getu();
+		this.username = encrypt.getg();
+		this.password = encrypt.getp();
 
 	}//end constructor
 

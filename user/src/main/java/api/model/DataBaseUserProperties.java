@@ -20,7 +20,7 @@ public class DataBaseUserProperties {
 	BufferedReader bf = null;
 
         try {
-            /*BufferedReader*/ bf = Files.newBufferedReader(myPath, 
+            bf = Files.newBufferedReader(myPath, 
              StandardCharsets.UTF_8);
 
             props.load(bf);

@@ -6,6 +6,8 @@ import java.util.*;
 
 //import api.model.*;
 
+import java.io.IOException;
+
 import javax.ws.rs.Path;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -22,7 +24,7 @@ public class RestServiceUser {
 
 	private UserService userService;
 
-	public RestServiceUser(){
+	public RestServiceUser() throws Exception{
 		this.userService = new UserService();
 	 }
 
@@ -35,7 +37,7 @@ public class RestServiceUser {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/connect")
-    public String getConn(){ 
+    public String getConn() throws Exception{ 
 		return new DataBaseUser("src/main/resources/database.properties").try_connect();
     }
 
