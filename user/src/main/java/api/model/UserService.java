@@ -2,13 +2,14 @@ package api.model;
 
 import java.util.*;
 
+import java.io.IOException;
+
 public class UserService{
 
 	private DataBaseUser db;
-	//private ArrayList<User> listofUsers = new ArrayList();
 
-	public UserService(){
-		this.db = new DataBaseUser("src/main/resources/database.properties");
+	public UserService() throws Exception{
+		this.db = new DataBaseUser();
 	}//end constructor
 
 

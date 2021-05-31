@@ -9,7 +9,6 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <groupId>api</groupId>
   <artifactId>user</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>war</packaging>
@@ -17,6 +16,7 @@
   <name>user</name>
 
   <properties>
+    <junit.jupiter.version>5.4.0</junit.jupiter.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
 	<junit.jupiter.version>5.4.0</junit.jupiter.version>
@@ -41,6 +41,7 @@
         <type>pom</type>
       </dependency>
 
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -58,7 +59,7 @@
     		<artifactId>mysql-connector-java</artifactId>
     		<version>8.0.24</version>
 	</dependency>
-	
+
     </dependencies>
   </dependencyManagement>
 
@@ -70,7 +71,7 @@
         <groupId>io.thorntail</groupId>
         <artifactId>thorntail-maven-plugin</artifactId>
         <version>${version.thorntail}</version>
-        
+
         <executions>
           <execution>
             <goals>
@@ -104,12 +105,25 @@
        <artifactId>json</artifactId>
        <version>20210307</version>
      </dependency>-->
+    <dependency>
+   		<groupId>org.junit.jupiter</groupId>
+   		<artifactId>junit-jupiter-engine</artifactId>
+   		<version>${junit.jupiter.version}</version>
+   		<scope>test</scope>
+   	</dependency>
+   	<dependency>
+   		<groupId>org.junit.jupiter</groupId>
+   		<artifactId>junit-jupiter-api</artifactId>
+   		<version>${junit.jupiter.version}</version>
+   		<scope>test</scope>
+   	</dependency>
 
 	<dependency>
     		<groupId>mysql</groupId>
     		<artifactId>mysql-connector-java</artifactId>
-    		<version>8.0.24</version>
+    		<version>8.0.24</version><!--$NO-MVN-MAN-VER$-->
 	</dependency>
+<<<<<<< HEAD
 	
 	<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -124,5 +138,8 @@
 			<scope>test</scope>
 		</dependency>
     
+=======
+
+>>>>>>> 2a8b2b65155eeeda8aa9fdbafa648b9f91fd22ed
   </dependencies>
 </project>

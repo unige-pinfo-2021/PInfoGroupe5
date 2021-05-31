@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder} from '@angular/forms';
-import { Subscription } from 'rxjs'; // ERROR import 
+import { Subscription } from 'rxjs'; // ERROR import
 import { GroupService } from '../services/group.service';
 import { Group }  from '../models/group.model';
 import {Router} from '@angular/router';
@@ -20,18 +20,16 @@ export class GroupComponent implements OnInit {
   public groups = [];
   public mobile = false;
   public userName = "tom"
-
-
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private groupService: GroupService,
     private _clipboardService: ClipboardService
   ) { }
-	
+
 	/*	KeycloakService.auth.authz.loadUserInfo().success(function(data){
 		  $scope.userName =  data.name ;
-		}) 
+		})
 */
 
   groupSubscription: Subscription;
@@ -50,8 +48,10 @@ export class GroupComponent implements OnInit {
 
   onSubmit(): void {
   	let groupName = this.checkoutForm.value['groupName'];
+    console.log(groupName);
   	let formObj = this.checkoutForm.getRawValue();
   	let userName = this.userName;
+    console.log(groupName);
     let dict = {
       "groupeName":groupName,
       "admin":userName,
@@ -82,4 +82,3 @@ copyToClipboard(item) {
     document.execCommand('copy');
   }
 }
-

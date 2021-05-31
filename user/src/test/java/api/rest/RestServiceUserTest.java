@@ -18,7 +18,11 @@ import api.model.User;
 class RestServiceUserTest {
 	
 	private RestServiceUser service;
+<<<<<<< HEAD
 	private User user1;
+=======
+	//private User user1;
+>>>>>>> 2a8b2b65155eeeda8aa9fdbafa648b9f91fd22ed
 	private User user2;
 	private User user3;
 	/**
@@ -49,7 +53,11 @@ class RestServiceUserTest {
 	 * Test method for {@link api.rest.RestServiceUser#RestServiceUser()}.
 	 */
 	@Test
+<<<<<<< HEAD
 	void testRestServiceUser() {
+=======
+	void testRestServiceUser() throws Exception{
+>>>>>>> 2a8b2b65155eeeda8aa9fdbafa648b9f91fd22ed
 		RestServiceUser service2 = new RestServiceUser();
 		service2.hello();
 		assertEquals("Hello from users !",service2.hello());
@@ -69,7 +77,11 @@ class RestServiceUserTest {
 	 * Test method for {@link api.rest.RestServiceUser#getConn()}.
 	 */
 	@Test
+<<<<<<< HEAD
 	void testGetConn() {
+=======
+	void testGetConn() throws Exception{
+>>>>>>> 2a8b2b65155eeeda8aa9fdbafa648b9f91fd22ed
 		service.getConn();
 		assertEquals("Connection established!", service.getConn());
 	}
@@ -85,7 +97,11 @@ class RestServiceUserTest {
 		assertEquals(user2.getEmail(),service.getUser(user2.getUsername()).getEmail());
 				
 		assertEquals(user3.getUsername(),service.getUser(user3.getUsername()).getUsername());
+<<<<<<< HEAD
 		assertEquals(user3.getEmail(),service.getUser(user3.getEmail()).getEmail());
+=======
+		assertEquals(user3.getEmail(),service.getUser(user3.getUsername()).getEmail());
+>>>>>>> 2a8b2b65155eeeda8aa9fdbafa648b9f91fd22ed
 	}
 
 	/**

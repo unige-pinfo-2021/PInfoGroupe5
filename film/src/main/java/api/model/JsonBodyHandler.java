@@ -10,8 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class JsonBodyHandler<T> implements HttpResponse.BodyHandler<Supplier<T>> {
 
 	
-  //an object of class objectMapper	
- // private static final ObjectMapper om = new ObjectMapper();
+  
   
  
   //variables

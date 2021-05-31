@@ -1,12 +1,6 @@
 package selector.model;
 
-import java.util.*;
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.HashMap;
 import org.json.*;
 import java.net.*;
 import java.io.*;
@@ -15,11 +9,10 @@ public class selector {
 
     public selector()throws IOException, InterruptedException
     {
-        FileWriter myWriter = new FileWriter("/etc/hosts");
-        try {myWriter.write("\n 129.194.10.130 tindfilm");
-        } finally {
-        	myWriter.close();
-        }
+        
+        try(FileWriter myWriter = new FileWriter("/etc/hosts");) {
+        	myWriter.write("\n 129.194.10.130 tindfilm");
+        } 
 		
     }
 
