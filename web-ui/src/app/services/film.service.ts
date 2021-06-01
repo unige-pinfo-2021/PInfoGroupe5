@@ -26,17 +26,25 @@ export class FilmService {
     };
   }
 
-  constructor(private http: HttpClient){}
+  constructor(
+    private http: HttpClient
+  ){}
 
   getFilms():Observable<Film[]>{
+  // WORKS FINE
     return this.http.get<Film[]>("http://tindfilm/film");
   }
 
-  scoreFilm(json:any, groupName: any): Observable<any> {
+  scoreFilm(score:any, groupName: any): Observable<any> {
+  // post film score
     let url = 'http://tindfilm/group/'+groupName+'/scores';
-    return this.http.post<any>(url,json,httpOptions)
-    }
- 
+    return this.http.post<any>(url,score,httpOptions)
+      .pipe(
+        catchError(this.handleError('addScores', score))
+      );
+  }
+
+
   getSingleFilm(id: number){
 	this.getFilms()
     .subscribe(
