@@ -130,6 +130,11 @@ public class DataBaseUser{
 					conn.close();
 				}
 
+			}catch (Exception e){
+				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
+			}
+
+			try{
 				if(pst != null){
 					pst.close();
 				}
@@ -177,10 +182,20 @@ public class DataBaseUser{
 					conn.close();
 				}
 
+			}catch (Exception e) {
+				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
+			}
+
+			try{
 				if(pst != null){
 					pst.close();
 				}
 
+			}catch (Exception e) {
+				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
+			}
+
+			try{
 				if(rs != null){
 					rs.close();
 				}
@@ -231,10 +246,20 @@ public class DataBaseUser{
 					conn.close();
 				}
 
+			}catch (Exception e) {
+				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
+			}
+
+			try{
 				if(pst != null){
 					pst.close();
 				}
 
+			}catch (Exception e) {
+				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
+			}
+
+			try{
 				if(rs != null){
 					rs.close();
 				}
