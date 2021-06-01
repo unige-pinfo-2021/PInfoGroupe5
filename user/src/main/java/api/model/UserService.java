@@ -10,33 +10,33 @@ public class UserService{
 
 	public UserService() throws Exception{
 		this.db = new DataBaseUser();
-	}//end constructor
+	}
 
 
 	public boolean existUser(String username){
-		return db.EXIST_User(username);
-	}//end existUser
+		return db.EXIST(username);
+	}
 
 	
-	public void setUserDB(/*User user*/ String username, String email){
+	public void setUserDB(String username, String email){
 		//boolean updt = false; return updt
-		this.db.INSERT_User(/*user.getUsername()*/ username, /*user.getEmail()*/ email);
-	}//end setUserDB
+		this.db.INSERT(username,  email);
+	}
 
 	public ArrayList<Map<String,String>> getAllDB()
 	{
-		return this.db.SELECT_AllUser();
+		return this.db.SELECTALL();
 	}
 
 	public User getUserDB(String username){
-		ArrayList<Map<String,String>> params = db.SELECT_User(username);
+		ArrayList<Map<String,String>> params = db.SELECT(username);
 		return new User(params.get(0).get("name"),params.get(0).get("email"));
-	}//end removeUserDB
+	}
 
-	public void removeUserDB(/*User user*/ String username){
+	public void removeUserDB(String username){
 		//boolean updt = false; return updt
-		this.db.DELETE_User(/*user.getUsername()*/ username);
-	}//end removeUserDB
+		this.db.DELETE(username);
+	}
 
 
 	//public void updateUserDB(){}

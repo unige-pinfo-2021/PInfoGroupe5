@@ -29,7 +29,7 @@ public class DataBaseUser{
 	}//end constructor
 
 
-	public String try_connect(){
+	public String connect(){
 		String connected= "try to make connection!";
 
 		Connection conn = null;
@@ -42,7 +42,8 @@ public class DataBaseUser{
 			    
 
 		} catch (SQLException e) {
-			 System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
+			 //System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
+			 Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			 connected = "Failed to make connection!";
 
 		} catch (Exception e) {
@@ -63,32 +64,32 @@ public class DataBaseUser{
     } 
 
 	
-	public void INSERT_User(String username, String email){
+	public void INSERT(String username, String email){
 		String query = "INSERT INTO user(name, email) VALUES(?, ?)";
-		set_User(query, username, email);
+		set(query, username, email);
 	}
 
 
-	public void DELETE_User(String username){
+	public void DELETE(String username){
 		String query ="DELETE FROM user WHERE name=?";
-		set_User(query, username, null);
+		set(query, username, null);
 	}
 
 
-	public ArrayList<Map<String,String>> SELECT_User(String username){
+	public ArrayList<Map<String,String>> SELECT(String username){
 		String query ="SELECT * FROM user WHERE name=?";
-		return get_User(query, username);
+		return get(query, username);
 	}
 
-	public ArrayList<Map<String,String>> SELECT_AllUser(){
+	public ArrayList<Map<String,String>> SELECTALL(){
 		String query ="SELECT * FROM user";
-		return get_User(query, null);
+		return get(query, null);
 	}
 
 	//public void UPDATE_User(String username){}
 
 
-	public void set_User(String query, String username, String email){
+	public void set(String query, String username, String email){
 		Connection conn = null;
 		PreparedStatement pst = null;
 
@@ -106,7 +107,8 @@ public class DataBaseUser{
             		pst.executeUpdate();			 
 
 		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
+			//System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
+			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 
 		} catch (Exception e) {
 			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
@@ -134,7 +136,7 @@ public class DataBaseUser{
 
     }
 
-	public ArrayList<Map<String,String>> get_User(String query, String username){
+	public ArrayList<Map<String,String>> get(String query, String username){
 		ArrayList<Map<String,String>> params = new ArrayList<Map<String, String>>();
 
 		Connection conn = null;
@@ -159,7 +161,8 @@ public class DataBaseUser{
 				params.add(p);
             		}
 		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
+			//System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
+			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 
 		} catch (Exception e){
 			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
@@ -197,7 +200,7 @@ public class DataBaseUser{
     }
 
 
-	public boolean EXIST_User(String name){
+	public boolean EXIST(String name){
 		boolean exist = false;
 
 		String query ="SELECT name  FROM user WHERE name=?";
@@ -224,7 +227,8 @@ public class DataBaseUser{
 						 
 
 		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
+			//System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
+			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 
 		} catch (Exception e) {
 			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);

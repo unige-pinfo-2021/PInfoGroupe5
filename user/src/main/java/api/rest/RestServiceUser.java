@@ -38,7 +38,7 @@ public class RestServiceUser {
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/connect")
     public String getConn() throws Exception{ 
-		return new DataBaseUser().try_connect();
+		return new DataBaseUser().connect();
     }
 
     @GET
