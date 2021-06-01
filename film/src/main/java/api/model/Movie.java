@@ -31,9 +31,10 @@ public class Movie {
     }
     
     
-    public static void printList(List<Movie> movieList) {
+    public static String printList(List<Movie> movieList) {
+		String print = "";
 		for (int i=0; i<movieList.size(); i++) {
-			System.out.println( movieList.get(i).title + " --> "+ movieList.get(i).release_date);
+			print += movieList.get(i).title + " --> "+ movieList.get(i).release_date)+" \n";
 		}
     }
     

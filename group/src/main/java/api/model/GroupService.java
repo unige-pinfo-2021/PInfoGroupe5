@@ -2,7 +2,7 @@ package api.model;
 
 import java.util.*;
 import java.io.IOException;
-import java.net.URI;
+
 import java.util.HashMap;
 import org.json.*;
 import java.io.FileWriter;
@@ -29,8 +29,6 @@ public class GroupService{
 		this.db = new DataBaseGroup();
 		} 
 		catch (IOException e) {
-			System.out.println("An error occurred.");
-			//e.printStackTrace();
 			Logger.getLogger(GroupService.class.getName()).log(Level.WARNING, null, e);
 		}
 		finally
