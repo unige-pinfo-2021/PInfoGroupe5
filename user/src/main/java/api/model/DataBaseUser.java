@@ -26,7 +26,7 @@ public class DataBaseUser{
 		this.username = encrypt.getg();
 		this.password = encrypt.getp();
 
-	}//end constructor
+	}
 
 
 	public String connect(){
@@ -42,7 +42,6 @@ public class DataBaseUser{
 			    
 
 		} catch (SQLException e) {
-			 //System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
 			 Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			 connected = "Failed to make connection!";
 
@@ -63,16 +62,28 @@ public class DataBaseUser{
 
     } 
 
-	
-	public void INSERT(String username, String email){
-		String query = "INSERT INTO user(name, email) VALUES(?, ?)";
-		set(query, username, email);
+	public boolean INSERT(String username, String email){
+		boolean flag = false;
+
+		if(!EXIST(username)){
+			String query = "INSERT INTO user(name, email) VALUES(?, ?)";
+			set(query, username, email);
+			flag = true;
+		}
+
+		return flag;
 	}
 
 
-	public void DELETE(String username){
-		String query ="DELETE FROM user WHERE name=?";
-		set(query, username, null);
+	public boolean DELETE(String username){
+		boolean flag = false;
+
+		if(EXIST(username)){
+			String query ="DELETE FROM user WHERE name=?";
+			set(query, username, null);
+			flag = true;
+		}
+		return flag;
 	}
 
 
@@ -107,7 +118,6 @@ public class DataBaseUser{
             		pst.executeUpdate();			 
 
 		}catch (SQLException e) {
-			//System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
 			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 
 		} catch (Exception e) {
@@ -161,7 +171,6 @@ public class DataBaseUser{
 				params.add(p);
             		}
 		}catch (SQLException e) {
-			//System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
 			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 
 		} catch (Exception e){
@@ -227,7 +236,6 @@ public class DataBaseUser{
 						 
 
 		}catch (SQLException e) {
-			//System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
 			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 
 		} catch (Exception e) {

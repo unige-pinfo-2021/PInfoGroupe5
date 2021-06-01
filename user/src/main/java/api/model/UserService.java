@@ -18,9 +18,8 @@ public class UserService{
 	}
 
 	
-	public void setUserDB(String username, String email){
-		//boolean updt = false; return updt
-		this.db.INSERT(username,  email);
+	public boolean setUserDB(String username, String email){
+		return this.db.INSERT(username,  email);
 	}
 
 	public ArrayList<Map<String,String>> getAllDB()
@@ -33,9 +32,8 @@ public class UserService{
 		return new User(params.get(0).get("name"),params.get(0).get("email"));
 	}
 
-	public void removeUserDB(String username){
-		//boolean updt = false; return updt
-		this.db.DELETE(username);
+	public boolean removeUserDB(String username){
+		return this.db.DELETE(username);
 	}
 
 
