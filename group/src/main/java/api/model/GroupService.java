@@ -26,7 +26,7 @@ public class GroupService{
 			myWriter.write("\n 129.194.10.130 tindfilm");
 			
 		
-		this.db = new DataBaseGroup("database.properties");
+		this.db = new DataBaseGroup();
 		} 
 		catch (IOException e) {
 			System.out.println("An error occurred.");
