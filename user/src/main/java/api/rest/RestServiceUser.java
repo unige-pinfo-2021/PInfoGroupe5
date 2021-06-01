@@ -4,10 +4,6 @@ import api.model.*;
 
 import java.util.*;
 
-//import api.model.*;
-
-import java.io.IOException;
-
 import javax.ws.rs.Path;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;

@@ -2,7 +2,6 @@ package api.model;
 
 import java.util.*;
 
-import java.io.IOException;
 
 public class UserService{
 
@@ -39,12 +38,5 @@ public class UserService{
 
 	//public void updateUserDB(){}
 
-	/*public ArrayList<User> getlistofUsers(ArrayList<String> usernames){
-		ArrayList<User> users = new ArrayList();
-		for(String username: usernames){
-			users.add(getUserDB(username));
-		}
-		return users;
-	}//end getlistofUsers*/
 	
 }//end class

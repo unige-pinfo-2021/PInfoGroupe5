@@ -1,6 +1,5 @@
 package api.model;
 
-import java.io.IOException;
 
 import java.util.Base64;
 
@@ -49,13 +48,12 @@ public class Encryption{
 
 	    byte[] secret = Base64.getDecoder().decode(str);
 
-	    String decrypted = new String(c.doFinal(secret));
-	    return decrypted;
+	    return new String(c.doFinal(secret));
+
 	}
 
 	private Key newKey(){
-		Key key = new SecretKeySpec(KEY.getBytes(), ALGORITHM);
-		return key;
+		return new SecretKeySpec(KEY.getBytes(), ALGORITHM);
 	}
 
 
