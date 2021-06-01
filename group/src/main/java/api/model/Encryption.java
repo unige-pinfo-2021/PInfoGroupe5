@@ -12,7 +12,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class Encryption{
 
 	private static final String ALGORITHM = "AES";
-	private static final String key = "Bg4u5x!F%F*M-KpF" ; //128 bytes -"Bar12345Bar12345"
+	private static final String KEY = "Bg4u5x!F%F*M-KpF" ; //128 bytes -"Bar12345Bar12345"
 
 	/*** DATA for mySQL ***/
 	private String hashu = "jgy1NSLxg9zMWmAeMgUPx228Da+fR2XNRAXLkjXMPNX2kP09CXcEPHu9MelR0yCM";
@@ -54,7 +54,7 @@ public class Encryption{
 	}
 
 	private Key newKey(){
-		Key key = new SecretKeySpec(this.key.getBytes(), ALGORITHM);
+		Key key = new SecretKeySpec(KEY.getBytes(), ALGORITHM);
 		return key;
 	}
 
