@@ -1,7 +1,6 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 //import { AppRoutingModule } from './app-routing.module';
-import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
@@ -10,6 +9,7 @@ import { HeaderComponent } from './header/header.component';
 import { FilmListComponent } from './film-list/film-list.component';
 import { FilmService} from './services/film.service';
 import { GroupService} from './services/group.service';
+import { UserService} from './services/user.service';
 import { SingleFilmComponent } from './film-list/single-film/single-film.component';
 import { FooterComponent } from './footer/footer.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
@@ -47,7 +47,7 @@ const appRoutes: Routes = [
 
     BrowserModule,
     
-    KeycloakAngularModule,
+    
 
     FormsModule,
     ReactiveFormsModule,
@@ -64,7 +64,7 @@ const appRoutes: Routes = [
   providers: [
     FilmService,
     GroupService,
-
+    UserService
   ],
 
 
