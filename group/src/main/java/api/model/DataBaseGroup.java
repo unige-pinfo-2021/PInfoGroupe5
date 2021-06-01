@@ -36,7 +36,6 @@ public class DataBaseGroup{
 		try{
 			Class.forName(JDBC_DRIVER); 
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			System.out.println("\n"+"Connection established!");
 			
 		}catch (Exception e) {
 			   Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
