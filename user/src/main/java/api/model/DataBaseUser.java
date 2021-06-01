@@ -2,8 +2,6 @@ package api.model;
 
 import java.util.*;
 
-import java.io.IOException;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -48,7 +46,6 @@ public class DataBaseUser{
 			 connected = "Failed to make connection!";
 
 		} catch (Exception e) {
-			   //e.printStackTrace();
 			   Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			   connected = "Failed to make connection!";
 		}finally{
@@ -58,43 +55,35 @@ public class DataBaseUser{
 				}
 
 			}catch (Exception e){
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 		}  
 		return connected;
 
-    }//end connect
+    } 
 
 	
 	public void INSERT_User(String username, String email){
-		//String query = "INSERT INTO user(name, email) VALUES('" + username + "','" + email +"');";
-
 		String query = "INSERT INTO user(name, email) VALUES(?, ?)";
-
 		set_User(query, username, email);
-	}//end INSERT_User
+	}
 
 
 	public void DELETE_User(String username){
-		//String query ="DELETE FROM user WHERE name='" + username + "';";
-
 		String query ="DELETE FROM user WHERE name=?";
-
 		set_User(query, username, null);
-	}//end INSERT_User
+	}
 
 
 	public ArrayList<Map<String,String>> SELECT_User(String username){
-		//String query ="SELECT * FROM user WHERE name="+"'"+username+"';";
 		String query ="SELECT * FROM user WHERE name=?";
 		return get_User(query, username);
-	}//end INSERT_User
+	}
 
 	public ArrayList<Map<String,String>> SELECT_AllUser(){
 		String query ="SELECT * FROM user";
 		return get_User(query, null);
-	}//end INSERT_User
+	}
 
 	//public void UPDATE_User(String username){}
 
@@ -120,7 +109,6 @@ public class DataBaseUser{
 			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
 
 		} catch (Exception e) {
-			 //e.printStackTrace();
 			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 
 		}finally{
@@ -130,7 +118,6 @@ public class DataBaseUser{
 				}
 
 			}catch (Exception e){
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 
@@ -140,13 +127,12 @@ public class DataBaseUser{
 				}
 
 			}catch (Exception e) {
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 		}        
 
 
-    }//end set_User
+    }
 
 	public ArrayList<Map<String,String>> get_User(String query, String username){
 		ArrayList<Map<String,String>> params = new ArrayList<Map<String, String>>();
@@ -176,7 +162,6 @@ public class DataBaseUser{
 			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
 
 		} catch (Exception e){
-			 //e.printStackTrace();
 			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 		}
 		
@@ -186,7 +171,6 @@ public class DataBaseUser{
 					conn.close();
 				}
 			}catch (Exception e) {
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 
@@ -196,7 +180,6 @@ public class DataBaseUser{
 				}
 
 			}catch (Exception e) {
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 
@@ -205,20 +188,17 @@ public class DataBaseUser{
 				rs.close();
 				}
 			}catch (Exception e) {
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 		}        
 		
 		return params;
 
-    }//end get_User
+    }
 
 
 	public boolean EXIST_User(String name){
 		boolean exist = false;
-
-		//String query ="SELECT name  FROM user WHERE name="+"'"+name+"';";
 
 		String query ="SELECT name  FROM user WHERE name=?";
 
@@ -247,7 +227,6 @@ public class DataBaseUser{
 			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
 
 		} catch (Exception e) {
-			 //e.printStackTrace();
 			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 
 		}finally{
@@ -256,7 +235,6 @@ public class DataBaseUser{
 					conn.close();
 				}
 			}catch (Exception e) {
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 
@@ -266,7 +244,6 @@ public class DataBaseUser{
 				}
 
 			}catch (Exception e) {
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 
@@ -276,7 +253,6 @@ public class DataBaseUser{
 				}
 
 			}catch (Exception e) {
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 		}
@@ -284,7 +260,7 @@ public class DataBaseUser{
 		return exist;     
 
 
-    }//end get_User
+    }
 
 
 }//end class
