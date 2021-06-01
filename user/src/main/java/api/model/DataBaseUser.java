@@ -82,8 +82,18 @@ public class DataBaseUser{
 
 
 	public ArrayList<Map<String,String>> SELECT(String username){
-		String query ="SELECT * FROM user WHERE name=?";
-		return get(query, username);
+		ArrayList<Map<String,String>> params = new ArrayList<Map<String, String>>();
+
+		Map<String,String> p = new HashMap<String,String>();
+		p.put("name","Unknown");
+		p.put("email","Default");
+		params.add(p);
+
+		if(EXIST(username)){
+			String query ="SELECT * FROM user WHERE name=?";
+			params = get(query, username);
+		}
+		return params;
 	}
 
 	public ArrayList<Map<String,String>> SELECTALL(){
@@ -120,18 +130,14 @@ public class DataBaseUser{
 					conn.close();
 				}
 
-			}catch (Exception e){
-				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
-			}
-
-			try{
 				if(pst != null){
 					pst.close();
 				}
 
-			}catch (Exception e) {
+			}catch (Exception e){
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
+
 		}        
 
 
@@ -170,26 +176,19 @@ public class DataBaseUser{
 				if(conn != null){
 					conn.close();
 				}
-			}catch (Exception e) {
-				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
-			}
 
-			try{
 				if(pst != null){
 					pst.close();
 				}
 
+				if(rs != null){
+					rs.close();
+				}
+
 			}catch (Exception e) {
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 
-			try{
-				if(rs != null){
-				rs.close();
-				}
-			}catch (Exception e) {
-				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
-			}
 		}        
 		
 		return params;
@@ -231,20 +230,11 @@ public class DataBaseUser{
 				if(conn != null){
 					conn.close();
 				}
-			}catch (Exception e) {
-				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
-			}
 
-			try{
 				if(pst != null){
 					pst.close();
 				}
 
-			}catch (Exception e) {
-				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
-			}
-
-			try{
 				if(rs != null){
 					rs.close();
 				}
@@ -252,11 +242,10 @@ public class DataBaseUser{
 			}catch (Exception e) {
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
+
 		}
 
 		return exist;     
-
-
     }
 
 
