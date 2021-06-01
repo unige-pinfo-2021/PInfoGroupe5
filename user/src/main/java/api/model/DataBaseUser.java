@@ -37,15 +37,9 @@ public class DataBaseUser{
 		try{
 			Class.forName(JDBC_DRIVER); 
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			connected = "Connection established!";
+			connected = "Connection established!";	    
 
-			    
-
-		} catch (SQLException e) {
-			 Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
-			 connected = "Failed to make connection!";
-
-		} catch (Exception e) {
+		}catch (Exception e){
 			   Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			   connected = "Failed to make connection!";
 		}finally{
@@ -117,10 +111,7 @@ public class DataBaseUser{
 
             		pst.executeUpdate();			 
 
-		}catch (SQLException e) {
-			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
-
-		} catch (Exception e) {
+		}catch (Exception e) {
 			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 
 		}finally{
@@ -170,10 +161,7 @@ public class DataBaseUser{
 				p.put("email",rs.getString("email"));
 				params.add(p);
             		}
-		}catch (SQLException e) {
-			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
-
-		} catch (Exception e){
+		}catch (Exception e){
 			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 		}
 		
@@ -235,10 +223,7 @@ public class DataBaseUser{
 			}
 						 
 
-		}catch (SQLException e) {
-			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
-
-		} catch (Exception e) {
+		}catch (Exception e) {
 			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 
 		}finally{
