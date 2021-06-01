@@ -69,7 +69,6 @@ public class RestServiceFilms {
     @GET
     @Path("/get/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-  //Service film :  GET : /film/get/{id} : retourne le JSON du film avec l'identifiant {id} 
     public String getMovieById(int id) throws IOException, InterruptedException { 
     	return this.filmService.getMovieById_asJsonString(id);
     }
