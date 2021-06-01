@@ -17,11 +17,15 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.security.SecureRandom ;
+
 public class TMDB_Caller {
 
 	private String apiKey;
 	private int pageSize = 20;
-	private Random rand = new Random();
+
+	//private Random rand = new Random();
+	private SecureRandom rand = new SecureRandom();
 
 	private final static String APIDISCADRESS = "https://api.themoviedb.org/3/discover/movie?api_key=";
 	private final static String APISEARCHADRESS = "https://api.themoviedb.org/3/search/movie?api_key=";
