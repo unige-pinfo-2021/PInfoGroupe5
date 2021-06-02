@@ -35,7 +35,8 @@ public class SelectorRestService
     @POST 
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public int[] getCatalogue(Map<String,Integer> inputJSON ){
+    public int[] getCatalogue(Map<String,Integer> inputJSON )throws IOException, InterruptedException 
+    {
     
     // on récupère les films et on les met dans un tablau int
     Integer[] film = new Integer[5];

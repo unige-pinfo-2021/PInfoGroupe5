@@ -18,7 +18,7 @@ public class selector {
 		
     }
 
-	public int[] recommendations (Integer[] filmID)
+	public int[] recommendations (Integer[] filmID)throws IOException, InterruptedException 
 	{
 		int[][] recomm = new int[5][20];
 
@@ -37,7 +37,7 @@ public class selector {
 		return algorithme(recomm);
 	}
 
-    public int[] algorithme(int[][] recommendation)throws IOException, InterruptedException
+    public int[] algorithme(int[][] recommendation)
     {
 		int[] retour = new int[40];
 		// on compte les réccurences des films [idFilm] = nombre de réccurrences
