@@ -73,11 +73,12 @@ public class DataBaseInvit{
 		String query = "INSERT INTO Invits(ID, film, score, totalscore) VALUES(?, ?, 0,?)";
 
 		Connection conn = null;
+		PreparedStatement pst = null;
 
 		try {
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			pst = conn.prepareStatement(query);
 
 			pst.setString(1, ID);
 			pst.setString(2, film); //film
@@ -92,6 +93,7 @@ public class DataBaseInvit{
 		}finally{
 			try{
 				if (conn != null) conn.close();
+				if (pst != null) pst.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -106,11 +108,11 @@ public class DataBaseInvit{
 		ArrayList<String> params = new ArrayList();
 
 		Connection conn = null;
-
+		PreparedStatement pst = null;
 		try{ 
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			pst = conn.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
 
 			while (rs.next()) {
@@ -129,6 +131,7 @@ public class DataBaseInvit{
 		}finally{
 			try{
 				if (conn != null) conn.close();
+				if (pst != null) pst.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -145,11 +148,11 @@ public class DataBaseInvit{
 		ArrayList<ArrayList<String>> params = new ArrayList();
 
 		Connection conn = null;
-
+		PreparedStatement pst = null;
 		try{ 
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			pst = conn.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
 
 			while (rs.next()) {
@@ -172,6 +175,7 @@ public class DataBaseInvit{
 		}finally{
 			try{
 				if (conn != null) conn.close();
+				if (pst != null) pst.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -188,11 +192,11 @@ public class DataBaseInvit{
 		ArrayList<String> params = new ArrayList();
 
 		Connection conn = null;
-
+		PreparedStatement pst = null;
 		try{ 
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			pst = conn.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
 
 			while (rs.next()) {
@@ -211,6 +215,7 @@ public class DataBaseInvit{
 		}finally{
 			try{
 				if (conn != null) conn.close();
+				if (pst != null) pst.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -226,11 +231,11 @@ public class DataBaseInvit{
 		ArrayList<Integer> params = new ArrayList();
 
 		Connection conn = null;
-
+		PreparedStatement pst = null;
 		try{ 
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			pst = conn.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
 
 			while (rs.next()) {
@@ -249,6 +254,7 @@ public class DataBaseInvit{
 		}finally{
 			try{
 				if (conn != null) conn.close();
+				if (pst != null) pst.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -263,11 +269,11 @@ public class DataBaseInvit{
 		String query = "DELETE FROM Invits WHERE ID=?";
 
 		Connection conn = null;
-
+		PreparedStatement pst = null;
 		try {
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			pst = conn.prepareStatement(query);
 
 			pst.setString(1, ID);
             		pst.executeUpdate();			 
@@ -279,6 +285,7 @@ public class DataBaseInvit{
 		}finally{
 			try{
 				if (conn != null) conn.close();
+				if (pst != null) pst.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -294,11 +301,11 @@ public class DataBaseInvit{
 		String query ="SELECT ID  FROM Invits WHERE ID="+"'"+ID+"'";
 
 		Connection conn = null;
-
+		PreparedStatement pst = null;
 		try{  
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			pst = conn.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
 
 			if (!rs.next() ){
@@ -316,6 +323,7 @@ public class DataBaseInvit{
 		}finally{
 			try{
 				if (conn != null) conn.close();
+				if (pst != null) pst.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -335,11 +343,11 @@ public class DataBaseInvit{
 		//System.out.println(params.get(0)+" "+params.get(5));
 
 		Connection conn = null;
-
+		PreparedStatement pst = null;
 		try {
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			pst = conn.prepareStatement(query);
 
 
 			pst.setInt(1, Integer.valueOf(params.get(2))+score_updt); //score
@@ -354,6 +362,7 @@ public class DataBaseInvit{
 		}finally{
 			try{
 				if (conn != null) conn.close();
+				if (pst != null) pst.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
