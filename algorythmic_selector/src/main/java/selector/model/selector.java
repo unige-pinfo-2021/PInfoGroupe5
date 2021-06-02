@@ -3,6 +3,8 @@ package selector.model;
 import java.io.IOException;
 import org.json.*;
 import java.net.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.io.*;
 
 public class selector {
@@ -16,13 +18,48 @@ public class selector {
 		
     }
 
-    public String algorithme(String critereJson)throws IOException, InterruptedException
+    public int[] algorithme(int[][] recommendation)throws IOException, InterruptedException
     {
-        JSONObject critere = new JSONObject(critereJson);
+		int[] retour = new int[40];
+		// on compte les réccurences des films [idFilm] = nombre de réccurrences
+		Map<Integer,Integer> reccurrence = new HashMap<Integer,Integer>(); 
 
-        String catalogue = get("tindfilm/film");
-        return catalogue;
+		for(int[] liste : recommendation)
+		{
+			for (int id : liste) 
+			{
+				if(reccurrence.containsKey(id))// vérifie si le film déjà rencontré
+				{
+					int nouvelleValeure = reccurrence.get(id) + 1;
+					reccurrence.put(id,nouvelleValeure);
+				}
+				else
+				{
+					reccurrence.put(id,1);
+				}
+			}
+		}
 
+		int indexRetour = 0; // permet d'indexer le tableau de retour
+		// on parcours plusieurs fois le tableau des réccurrences pour y ajouter des films.
+		// on commence avec les plus réccurrents
+
+		for(int r = 5; r >0; r --)
+		{
+			for(int idFilm : reccurrence.keySet())// on parcours le tableau associatif
+			{
+				if(reccurrence.get(idFilm) == r)
+				{
+					retour[indexRetour] = idFilm;
+					indexRetour ++;
+					if(indexRetour < 40)
+					{
+						return retour; // le tableau est rempli avec assez de film
+					}
+				}
+			}
+		}
+		return retour;
     }
 
     private String get(String adresse)throws IOException, InterruptedException 
