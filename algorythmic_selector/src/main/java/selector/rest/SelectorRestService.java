@@ -35,10 +35,17 @@ public class SelectorRestService
     @POST 
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public int[] getCatalogue(Map<String,String> inputJSON ){
-
-	int retour[] = {1,2,3,4,5};
-	return retour;
+    public int[] getCatalogue(Map<String,Integer> inputJSON ){
+    
+    // on récupère les films et on les met dans un tablau int
+    Integer[] film = new Integer[5];
+    Integer i = 0;
+    for(i = 0; i< 5; i++)
+    {
+        film[i] = inputJSON.get(Integer.toString(i));
+    }
+    // on lance la fonction de recommendation
+	return this.selecteur.recommendations(film);
     }
     
 }//end class

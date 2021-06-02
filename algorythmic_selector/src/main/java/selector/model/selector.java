@@ -18,6 +18,25 @@ public class selector {
 		
     }
 
+	public int[] recommendations (Integer[] filmID)
+	{
+		int[][] recomm = new int[5][20];
+
+		String url = "http://tindfilm/film/recommande/";
+		for(int i = 0; i <5; i++)
+		{
+			String r = this.get(url + Integer.toString(filmID[i]));
+			JSONArray rec = new JSONArray(r);
+			for(int j=0; j<rec.length();j++)
+			{
+				JSONObject film = rec.getJSONObject(i);
+				recomm[i][j] = film.getInt("id");
+			}
+		}
+
+		return algorithme(recomm);
+	}
+
     public int[] algorithme(int[][] recommendation)throws IOException, InterruptedException
     {
 		int[] retour = new int[40];
