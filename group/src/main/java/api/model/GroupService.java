@@ -113,8 +113,15 @@ public class GroupService{
 
 		for(Map<String,String> ligne : infos)
 		{
-			String groupName = ligne.get("groupName");
-			retour.put(groupName,this.getGroupUsers(groupName));
+			if(ligne.get("groupName") == null)// pour éviter que le groupName soit null et donne une erreur
+			{
+				continue;
+			}
+			else
+			{
+				String groupName = ligne.get("groupName");
+				retour.put(groupName,this.getGroupUsers(groupName));
+			}
 		}
 
 		return retour;
