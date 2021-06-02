@@ -29,6 +29,7 @@ public class TMDB_Caller {
 
 	private final static String APIDISCADRESS = "https://api.themoviedb.org/3/discover/movie?api_key=";
 	private final static String APISEARCHADRESS = "https://api.themoviedb.org/3/search/movie?api_key=";
+	private final static String APISEARCHID="https://api.themoviedb.org/3/movie/";
 
 	public TMDB_Caller(String apiKey) {
 		super();
@@ -65,7 +66,7 @@ public class TMDB_Caller {
 	}
 
 	public String findByIdPeople_uri(int id) {
-		return "https://api.themoviedb.org/3/movie/"+id+"/credits";
+		return APISEARCHID+id+"/credits";
 	}
 
 
@@ -83,9 +84,9 @@ public class TMDB_Caller {
 		String genres_str = allGenres_result.get().genres.toPrettyString();
 
 		ObjectMapper mapper = new ObjectMapper();
-		List<Genre> genreList = mapper.readValue(genres_str, new TypeReference<List<Genre>>() {});
 
-		return genreList;
+		return mapper.readValue(genres_str, new TypeReference<List<Genre>>() {});
+
 	}
 
 
@@ -103,9 +104,9 @@ public class TMDB_Caller {
 		String results_str = TMDB_result.get().results.toPrettyString();
 
 		ObjectMapper mapper = new ObjectMapper();
-		List<Movie> movieList = mapper.readValue(results_str, new TypeReference<List<Movie>>() {});
 
-		return movieList;
+		return mapper.readValue(results_str, new TypeReference<List<Movie>>() {});
+
 	}
 
 
@@ -122,9 +123,8 @@ public class TMDB_Caller {
 
 		String results_str = TMDB_result.get().results.toPrettyString();
 		ObjectMapper mapper = new ObjectMapper();
-		List<Movie> movieList = mapper.readValue(results_str, new TypeReference<List<Movie>>() {});
 
-		return movieList;
+		return mapper.readValue(results_str, new TypeReference<List<Movie>>() {});
 
 	}
 
@@ -140,18 +140,15 @@ public class TMDB_Caller {
 		HttpResponse<Supplier<TMDBResult>> response = client.send(request, new JsonBodyHandler<>(TMDBResult.class));
 		Supplier<TMDBResult> TMDB_result = response.body();
 
-		String results_str = TMDB_result.get().results.toPrettyString();
+		return TMDB_result.get().results.toPrettyString();
 
-		return results_str;
 	}
 
 
 	public List<Movie> getMoviesByPage_asList(int page) throws IOException, InterruptedException {
 		String responseJson = getMoviesByPage_asJsonString(page);
 
-		List<Movie> movieList = jsonStringToList(responseJson);
-
-		return movieList;
+		return jsonStringToList(responseJson);
 	}
 
 	
@@ -204,9 +201,7 @@ public class TMDB_Caller {
 
 		ObjectMapper mapper = new ObjectMapper();
 
-		String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(movieList);
-
-		return jsonString;
+		return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(movieList);
 	}
 
 
@@ -224,9 +219,8 @@ public class TMDB_Caller {
 		String results_str = TMDB_result.get().results.toPrettyString();
 
 		ObjectMapper mapper = new ObjectMapper();
-		List<Movie> movieList = mapper.readValue(results_str, new TypeReference<List<Movie>>() {});
 
-		return movieList;
+		return mapper.readValue(results_str, new TypeReference<List<Movie>>() {});
 	}
 
 
@@ -236,26 +230,7 @@ public class TMDB_Caller {
 		mapper.setDateFormat(df);
 		TMDB_Request requestData = mapper.readValue(requestJson, TMDB_Request.class);
 
-		//		JsonNode request = mapper.readTree(requestJson);
-		//		boolean include_adult = request.get("include_adult").asBoolean();
-
-		//		boolean include_adult = requestData.include_adult;
-		//		float vote_average_gte = requestData.vote_average_gte;
-		//		float vote_average_lte = requestData.vote_average_lte;
-		//		int page = requestData.page;
-		//		Date primary_release_date_gte = requestData.primary_release_date_gte;
-		//		Date primary_release_date_lte = requestData.primary_release_date_lte;
-		//		List<Integer> with_genres = requestData.with_genres;
-		//		
-		//		System.out.println(include_adult);
-		//		System.out.println(vote_average_gte);
-		//		System.out.println(vote_average_lte);
-		//		System.out.println(page);
-		//		System.out.println(primary_release_date_gte);
-		//		System.out.println(primary_release_date_lte);
-		//		System.out.println(with_genres);
-
-		String uri = "https://api.themoviedb.org/3/discover/movie?api_key=" + apiKey + "&language=en-US&sort_by=popularity.asc";
+		String uri = APIDISCADRESS+ apiKey + "&language=en-US&sort_by=popularity.asc";
 
 		uri += "&include_adult=" + requestData.include_adult;
 		uri += "&vote_average.gte=" + requestData.vote_average_gte;
@@ -282,24 +257,20 @@ public class TMDB_Caller {
 		HttpResponse<Supplier<TMDBResult>> response = client.send(request, new JsonBodyHandler<>(TMDBResult.class));
 		Supplier<TMDBResult> TMDB_result = response.body();
 
-		String results_str = TMDB_result.get().results.toPrettyString();
+		return TMDB_result.get().results.toPrettyString();
 
-		return results_str;
 	}
 
 	private List<Movie> jsonStringToList(String jsonString) throws JsonMappingException, JsonProcessingException  {
 		ObjectMapper mapper = new ObjectMapper();
-		List<Movie> movieList = mapper.readValue(jsonString, new TypeReference<List<Movie>>() {});
+		return mapper.readValue(jsonString, new TypeReference<List<Movie>>() {});
 
-		return movieList;
 	}
 
 
 	public List<Movie> executeRequest_asList(String requestJson) throws IOException, InterruptedException  {
 		String responseJson = executeRequest_asJsonString(requestJson);
-		List<Movie> movieList = jsonStringToList(responseJson);
-
-		return movieList;
+		return jsonStringToList(responseJson);
 	}
 	
 
@@ -311,29 +282,26 @@ public class TMDB_Caller {
 				.uri(URI.create(uri))
 				.build();
 
-		//		    HttpResponse<Supplier<String>> response = client.send(request, new JsonBodyHandler<>(String.class));
 		HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-		//		    Supplier<String> result = response.body();
 		String result_str = response.body().toString();
 
-		//		    String result_str = result.get();
 
 		ObjectMapper mapper = new ObjectMapper();
-		Movie movie = mapper.readValue(result_str, new TypeReference<Movie>() {});
-		return movie;
+		return mapper.readValue(result_str, new TypeReference<Movie>() {});
 	}
+
 	public String getMovieById_uri(int id) {
 		//https://api.themoviedb.org/3/movie/25?api_key=3aacfef6a62a872d2a4717b9b6cd5283&language=en-US
-		return "https://api.themoviedb.org/3/movie/" + id + "?api_key=" + apiKey + "&language=en-US" ;
+		return APISEARCHID+ id + "?api_key=" + apiKey + "&language=en-US" ;
 	} 
 
 
 	public String getMovieById_asJsonString(int id) throws IOException, InterruptedException {
 		Movie movie = getMovieById(id);
 		ObjectMapper mapper = new ObjectMapper();
-		String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(movie);
-		return jsonString;
+		return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(movie);
 	}
+
 	public String getRecommandationMovies_asJsonString(int Movie_Id) throws IOException, InterruptedException {
 		String uri = RecommandationMovies_uri(Movie_Id);
 		System.out.println(uri);
@@ -346,15 +314,14 @@ public class TMDB_Caller {
 		HttpResponse<Supplier<TMDBResult>> response = client.send(request, new JsonBodyHandler<>(TMDBResult.class));
 		Supplier<TMDBResult> TMDB_result = response.body();
 
-		String results_str = TMDB_result.get().results.toPrettyString();
-		return results_str;
+		return TMDB_result.get().results.toPrettyString();
 
 	}
 	
 
 	public String RecommandationMovies_uri(int Movie_Id) {
 		//https://api.themoviedb.org/3/movie/125/recommendations?api_key=3aacfef6a62a872d2a4717b9b6cd5283&language=en-US
-		return "https://api.themoviedb.org/3/movie/"+ Movie_Id+"/recommendations?api_key="+ apiKey + "&language=en-US&sort_by=popularity.asc";
+		return APISEARCHID+ Movie_Id+"/recommendations?api_key="+ apiKey + "&language=en-US&sort_by=popularity.asc";
 	}
 }//finClass
 
