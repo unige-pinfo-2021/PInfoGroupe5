@@ -22,15 +22,23 @@ public class DataBaseProperties {
 
         Properties props = new Properties();
         Path myPath = Paths.get(path);
-
+        BufferedReader bf = null;
         try {
-            BufferedReader bf = Files.newBufferedReader(myPath, 
+            bf = Files.newBufferedReader(myPath, 
              StandardCharsets.UTF_8);
 
             props.load(bf);
         } catch (IOException ex) {
             Logger.getLogger(DataBaseProperties.class.getName()).log(
                     Level.SEVERE, null, ex);
+        } finally {
+
+			if (bf != null)
+				try {
+					bf.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
         }
 
         return props;

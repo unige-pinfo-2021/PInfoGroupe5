@@ -97,6 +97,12 @@ public class DataBaseInvit{
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
+			if (pst != null)
+				try {
+					pst.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}        
 
 
