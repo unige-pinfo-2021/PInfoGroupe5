@@ -1,6 +1,5 @@
 package api.model;
 
-import java.io.IOException;
 
 import java.util.Base64;
 
@@ -12,7 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class Encryption{
 
 	private static final String ALGORITHM = "AES";
-	private static final String key = "Bg4u5x!F%F*M-KpF" ; //128 bytes -"Bar12345Bar12345"
+	private static final String KEY = "Bg4u5x!F%F*M-KpF" ; //128 bytes -"Bar12345Bar12345"
 
 	/*** DATA for mySQL ***/
 	private String hashu = "jgy1NSLxg9zMWmAeMgUPx228Da+fR2XNRAXLkjXMPNX2kP09CXcEPHu9MelR0yCM";
@@ -49,13 +48,12 @@ public class Encryption{
 
 	    byte[] secret = Base64.getDecoder().decode(str);
 
-	    String decrypted = new String(c.doFinal(secret));
-	    return decrypted;
+	    return new String(c.doFinal(secret));
+
 	}
 
 	private Key newKey(){
-		Key key = new SecretKeySpec(this.key.getBytes(), ALGORITHM);
-		return key;
+		return new SecretKeySpec(KEY.getBytes(), ALGORITHM);
 	}
 
 

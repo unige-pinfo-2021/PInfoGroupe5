@@ -17,64 +17,58 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.security.SecureRandom ;
+
 public class TMDB_Caller {
 
-	//variables
 	private String apiKey;
 	private int pageSize = 20;
-	private Random rand = new Random();
+
+	//private Random rand = new Random();
+	private SecureRandom rand = new SecureRandom();
 
 	private final static String APIDISCADRESS = "https://api.themoviedb.org/3/discover/movie?api_key=";
 	private final static String APISEARCHADRESS = "https://api.themoviedb.org/3/search/movie?api_key=";
 
-	//connstracteur---------------------------------------------------------------------------------------------------
 	public TMDB_Caller(String apiKey) {
 		super();
 		this.apiKey = apiKey;
 	}
 
-	///////////     Genres      /////////////
 
-	//listAllGenres_uri-------------------------------------------------------------------------------------------------
 	public String listAllGenres_uri() {
 		//https://api.themoviedb.org/3/genre/movie/list?api_key=3aacfef6a62a872d2a4717b9b6cd5283&language=en-US
 		return APIDISCADRESS+apiKey+"&language=en-US";
 	}
 
 
-	/////////////     Discover      /////////////
 
-	//searchByGenre_uri-------------------------------------------------------------------------------------------------
 	public String searchByGenre_uri(int genre_id) {
 		return APIDISCADRESS+apiKey+"&language=en-US&sort_by=popularity.desc&page=1&include_adult=false&include_video=false&with_genres=" + genre_id;
 	}
 
-	//searchByYear_uri--------------------------------------------------------------------------------------------------
+
 	public String searchByYear_uri(String year) {
 		//https://api.themoviedb.org/3/discover/movie?api_key=3aacfef6a62a872d2a4717b9b6cd5283&language=en-US&sort_by=popularity.asc&page=1&year=2020
 		return APISEARCHADRESS+apiKey+"&language=en-US&sort_by=popularity.asc&page=1&query=" + year;
 	}
 
-	//searchMoviesByPage_uri--------------------------------------------------------------------------------------------------
+
 	public String searchMoviesByPage_uri(int page) {
 		//https://api.themoviedb.org/3/discover/movie?api_key=3aacfef6a62a872d2a4717b9b6cd5283&language=en-US&sort_by=popularity.desc&page=1
 		return APIDISCADRESS+apiKey+"&language=en-US&sort_by=popularity.asc&page=" + page;
 	}
 
 
-	/////////////     Search      /////////////
-
-	//searchByTitle_uri--------------------------------------------------------------------------------------------------
 	public String searchByTitle_uri(String title_to_search) {
 		return APISEARCHADRESS+apiKey+"&language=en-US&query="+title_to_search;
 	}
 
-	//findByIdPeople_uri------------------------------------------------------------------------------------------------------
 	public String findByIdPeople_uri(int id) {
 		return "https://api.themoviedb.org/3/movie/"+id+"/credits";
 	}
 
-	//getAllGenres()----------------------------------------------------------------------------------------------------
+
 	public List<Genre> getAllGenres() throws IOException, InterruptedException {
 		String uri = listAllGenres_uri();
 
@@ -94,11 +88,9 @@ public class TMDB_Caller {
 		return genreList;
 	}
 
-	//getMovieByGenre()----------------------------------------------------------------------------------------------------
+
 	public List<Movie> getMoviesByGenre(int genre_id) throws IOException, InterruptedException {
 		String uri = searchByGenre_uri(genre_id);
-		//uri = "https://api.themoviedb.org/3/discover/movie?api_key=3aacfef6a62a872d2a4717b9b6cd5283&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&with_genre=14&page=1";
-		//System.out.println(uri);
 
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = HttpRequest.newBuilder()
@@ -116,10 +108,9 @@ public class TMDB_Caller {
 		return movieList;
 	}
 
-	//getMoviesByYear()----------------------------------------------------------------------------------------------------
+
 	public List<Movie> getMoviesByYear(String year) throws IOException, InterruptedException {
 		String uri = searchByYear_uri(year);
-		//System.out.println(uri);
 
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = HttpRequest.newBuilder()
@@ -137,10 +128,9 @@ public class TMDB_Caller {
 
 	}
 
-	//getMoviesByPage()----------------------------------------------------------------------------------------------------
+
 	public String getMoviesByPage_asJsonString(int page) throws IOException, InterruptedException {
 		String uri = searchMoviesByPage_uri(page);
-		//System.out.println(uri);
 
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = HttpRequest.newBuilder()
@@ -155,7 +145,7 @@ public class TMDB_Caller {
 		return results_str;
 	}
 
-	//getMoviesByPage()----------------------------------------------------------------------------------------------------
+
 	public List<Movie> getMoviesByPage_asList(int page) throws IOException, InterruptedException {
 		String responseJson = getMoviesByPage_asJsonString(page);
 
@@ -164,7 +154,7 @@ public class TMDB_Caller {
 		return movieList;
 	}
 
-	//getRandomMovies_asList()----------------------------------------------------------------------------------------------------
+	
 	public List<Movie> getRandomMovies_asList(int count) throws IOException, InterruptedException {
 		int total_count = count * 5;
 		int n_pages = (int)java.lang.Math.ceil((double)total_count/pageSize);
@@ -181,7 +171,6 @@ public class TMDB_Caller {
 		}
 
 		// select some movies randomly
-
 		int listSize = totalMovieList.size();
 
 
@@ -209,7 +198,7 @@ public class TMDB_Caller {
 		return randomMovieList;		    
 	}
 
-	//getRandomMovies_asJsonString()----------------------------------------------------------------------------------------------------
+
 	public String getRandomMovies_asJsonString(int count) throws IOException, InterruptedException {
 		List<Movie> movieList = getRandomMovies_asList(count);
 
@@ -220,11 +209,9 @@ public class TMDB_Caller {
 		return jsonString;
 	}
 
-	//getMoviesByTitle()----------------------------------------------------------------------------------------------------
+
 	public List<Movie> getMoviesByTitle(String title) throws IOException, InterruptedException {
 		String uri = searchByTitle_uri(title);
-		//uri = "https://api.themoviedb.org/3/search/movie?api_key=3aacfef6a62a872d2a4717b9b6cd5283&language=en-US&query="; 
-		//System.out.println(uri);
 
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = HttpRequest.newBuilder()
@@ -242,7 +229,7 @@ public class TMDB_Caller {
 		return movieList;
 	}
 
-	//searchByTitle_uri--------------------------------------------------------------------------------------------------
+
 	private String uriFromJson(String requestJson) throws JsonMappingException, JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -278,17 +265,14 @@ public class TMDB_Caller {
 		uri += "&primary_release_date.lte=" + df.format(requestData.primary_release_date_lte);
 		uri += "&with_genres=" + requestData.with_genres.toString().replaceAll("\\s+","");
 
-		//		System.out.println("");
-		//		System.out.println(uri);
 
 		return uri;
 	}
 
-	//executeRequest_asJsonString()----------------------------------------------------------------------------------------------------
+
 	public String executeRequest_asJsonString(String requestJson) throws IOException, InterruptedException {
 		String uri = uriFromJson(requestJson);
 
-		//System.out.println(uri);
 
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = HttpRequest.newBuilder()
@@ -310,19 +294,17 @@ public class TMDB_Caller {
 		return movieList;
 	}
 
-	//executeRequest_asList()----------------------------------------------------------------------------------------------------
+
 	public List<Movie> executeRequest_asList(String requestJson) throws IOException, InterruptedException  {
 		String responseJson = executeRequest_asJsonString(requestJson);
 		List<Movie> movieList = jsonStringToList(responseJson);
 
 		return movieList;
 	}
-	//getMoviesById()----------------------------------------------------------------------------------------------------
+	
 
 	public Movie getMovieById(int id) throws IOException, InterruptedException {
 		String uri = getMovieById_uri(id);
-		//uri = "https://api.themoviedb.org/3/search/movie?api_key=3aacfef6a62a872d2a4717b9b6cd5283&language=en-US&query="; 
-		//System.out.println(uri);
 
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = HttpRequest.newBuilder()
@@ -344,7 +326,8 @@ public class TMDB_Caller {
 		//https://api.themoviedb.org/3/movie/25?api_key=3aacfef6a62a872d2a4717b9b6cd5283&language=en-US
 		return "https://api.themoviedb.org/3/movie/" + id + "?api_key=" + apiKey + "&language=en-US" ;
 	} 
-	//getMovieById_asJsonString()----------------------------------------------------------------------------------------------------
+
+
 	public String getMovieById_asJsonString(int id) throws IOException, InterruptedException {
 		Movie movie = getMovieById(id);
 		ObjectMapper mapper = new ObjectMapper();
@@ -367,7 +350,8 @@ public class TMDB_Caller {
 		return results_str;
 
 	}
-	//recommandationMovies_uri...........................................................................................................
+	
+
 	public String RecommandationMovies_uri(int Movie_Id) {
 		//https://api.themoviedb.org/3/movie/125/recommendations?api_key=3aacfef6a62a872d2a4717b9b6cd5283&language=en-US
 		return "https://api.themoviedb.org/3/movie/"+ Movie_Id+"/recommendations?api_key="+ apiKey + "&language=en-US&sort_by=popularity.asc";

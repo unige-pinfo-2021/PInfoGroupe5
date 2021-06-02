@@ -2,7 +2,7 @@ package api.model;
 
 import java.util.*;
 import java.io.IOException;
-import java.net.URI;
+
 import java.util.HashMap;
 import org.json.*;
 import java.io.FileWriter;
@@ -26,11 +26,9 @@ public class GroupService{
 			myWriter.write("\n 129.194.10.130 tindfilm");
 			
 		
-		this.db = new DataBaseGroup("database.properties");
+		this.db = new DataBaseGroup();
 		} 
 		catch (IOException e) {
-			System.out.println("An error occurred.");
-			//e.printStackTrace();
 			Logger.getLogger(GroupService.class.getName()).log(Level.WARNING, null, e);
 		}
 		finally
@@ -505,7 +503,7 @@ public class GroupService{
 		
 		
 		int responseCode = con.getResponseCode();
-		System.out.println("POST Response Code :: " + responseCode);
+		
 		if (responseCode == HttpURLConnection.HTTP_OK) { // success
 			try(BufferedReader br = new BufferedReader(
 				new InputStreamReader(con.getInputStream(), "utf-8"))) {
@@ -514,7 +512,7 @@ public class GroupService{
 				  while ((responseLine = br.readLine()) != null) {
 					  response.append(responseLine.trim());
 				  }
-				  System.out.println(response.toString());
+				  
 				  return response.toString();
 			  }
 		} else 
@@ -530,7 +528,7 @@ public class GroupService{
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setRequestMethod("GET");
 		int responseCode = con.getResponseCode();
-		System.out.println("GET Response Code :: " + responseCode);
+		
 		if (responseCode == HttpURLConnection.HTTP_OK) { // success
 			BufferedReader in = new BufferedReader(new InputStreamReader(
 					con.getInputStream()));

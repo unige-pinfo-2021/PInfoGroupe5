@@ -2,8 +2,6 @@ package api.model;
 
 import java.util.*;
 
-import java.io.IOException;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -28,10 +26,10 @@ public class DataBaseUser{
 		this.username = encrypt.getg();
 		this.password = encrypt.getp();
 
-	}//end constructor
+	}
 
 
-	public String try_connect(){
+	public String connect(){
 		String connected= "try to make connection!";
 
 		Connection conn = null;
@@ -39,16 +37,9 @@ public class DataBaseUser{
 		try{
 			Class.forName(JDBC_DRIVER); 
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			connected = "Connection established!";
+			connected = "Connection established!";	    
 
-			    
-
-		} catch (SQLException e) {
-			 System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-			 connected = "Failed to make connection!";
-
-		} catch (Exception e) {
-			   //e.printStackTrace();
+		}catch (Exception e){
 			   Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			   connected = "Failed to make connection!";
 		}finally{
@@ -58,48 +49,62 @@ public class DataBaseUser{
 				}
 
 			}catch (Exception e){
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 		}  
 		return connected;
 
-    }//end connect
+    } 
 
-	
-	public void INSERT_User(String username, String email){
-		//String query = "INSERT INTO user(name, email) VALUES('" + username + "','" + email +"');";
+	public boolean INSERT(String username, String email){
+		boolean flag = false;
 
-		String query = "INSERT INTO user(name, email) VALUES(?, ?)";
+		if(!EXIST(username)){
+			String query = "INSERT INTO user(name, email) VALUES(?, ?)";
+			set(query, username, email);
+			flag = true;
+		}
 
-		set_User(query, username, email);
-	}//end INSERT_User
-
-
-	public void DELETE_User(String username){
-		//String query ="DELETE FROM user WHERE name='" + username + "';";
-
-		String query ="DELETE FROM user WHERE name=?";
-
-		set_User(query, username, null);
-	}//end INSERT_User
+		return flag;
+	}
 
 
-	public ArrayList<Map<String,String>> SELECT_User(String username){
-		//String query ="SELECT * FROM user WHERE name="+"'"+username+"';";
-		String query ="SELECT * FROM user WHERE name=?";
-		return get_User(query, username);
-	}//end INSERT_User
+	public boolean DELETE(String username){
+		boolean flag = false;
 
-	public ArrayList<Map<String,String>> SELECT_AllUser(){
+		if(EXIST(username)){
+			String query ="DELETE FROM user WHERE name=?";
+			set(query, username, null);
+			flag = true;
+		}
+		return flag;
+	}
+
+
+	public ArrayList<Map<String,String>> SELECT(String username){
+		ArrayList<Map<String,String>> params = new ArrayList<Map<String, String>>();
+
+		Map<String,String> p = new HashMap<String,String>();
+		p.put("name","Unknown");
+		p.put("email","Default");
+		params.add(p);
+
+		if(EXIST(username)){
+			String query ="SELECT * FROM user WHERE name=?";
+			params = get(query, username);
+		}
+		return params;
+	}
+
+	public ArrayList<Map<String,String>> SELECTALL(){
 		String query ="SELECT * FROM user";
-		return get_User(query, null);
-	}//end INSERT_User
+		return get(query, null);
+	}
 
 	//public void UPDATE_User(String username){}
 
 
-	public void set_User(String query, String username, String email){
+	public void set(String query, String username, String email){
 		Connection conn = null;
 		PreparedStatement pst = null;
 
@@ -116,11 +121,7 @@ public class DataBaseUser{
 
             		pst.executeUpdate();			 
 
-		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-
-		} catch (Exception e) {
-			 //e.printStackTrace();
+		}catch (Exception e) {
 			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 
 		}finally{
@@ -130,7 +131,6 @@ public class DataBaseUser{
 				}
 
 			}catch (Exception e){
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 
@@ -139,16 +139,16 @@ public class DataBaseUser{
 					pst.close();
 				}
 
-			}catch (Exception e) {
-			 	//e.printStackTrace();
+			}catch (Exception e){
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
+
 		}        
 
 
-    }//end set_User
+    }
 
-	public ArrayList<Map<String,String>> get_User(String query, String username){
+	public ArrayList<Map<String,String>> get(String query, String username){
 		ArrayList<Map<String,String>> params = new ArrayList<Map<String, String>>();
 
 		Connection conn = null;
@@ -172,11 +172,7 @@ public class DataBaseUser{
 				p.put("email",rs.getString("email"));
 				params.add(p);
             		}
-		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-
-		} catch (Exception e){
-			 //e.printStackTrace();
+		}catch (Exception e){
 			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 		}
 		
@@ -185,8 +181,8 @@ public class DataBaseUser{
 				if(conn != null){
 					conn.close();
 				}
+
 			}catch (Exception e) {
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 
@@ -196,29 +192,27 @@ public class DataBaseUser{
 				}
 
 			}catch (Exception e) {
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 
 			try{
 				if(rs != null){
-				rs.close();
+					rs.close();
 				}
+
 			}catch (Exception e) {
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
+
 		}        
 		
 		return params;
 
-    }//end get_User
+    }
 
 
-	public boolean EXIST_User(String name){
+	public boolean EXIST(String name){
 		boolean exist = false;
-
-		//String query ="SELECT name  FROM user WHERE name="+"'"+name+"';";
 
 		String query ="SELECT name  FROM user WHERE name=?";
 
@@ -243,11 +237,7 @@ public class DataBaseUser{
 			}
 						 
 
-		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-
-		} catch (Exception e) {
-			 //e.printStackTrace();
+		}catch (Exception e) {
 			Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 
 		}finally{
@@ -255,8 +245,8 @@ public class DataBaseUser{
 				if(conn != null){
 					conn.close();
 				}
+
 			}catch (Exception e) {
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 
@@ -266,7 +256,6 @@ public class DataBaseUser{
 				}
 
 			}catch (Exception e) {
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
 
@@ -276,15 +265,13 @@ public class DataBaseUser{
 				}
 
 			}catch (Exception e) {
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseUser.class.getName()).log(Level.SEVERE, null, e);
 			}
+
 		}
 
 		return exist;     
-
-
-    }//end get_User
+    }
 
 
 }//end class

@@ -15,13 +15,10 @@ public class TMDB_Request {
     public final int page;
     public final java.util.Date primary_release_date_gte;
     public final java.util.Date primary_release_date_lte;
-//    public final String[] with_people;
     public final List<Integer> with_genres;
-//    public final String[] with_keywords;
     
     
     
-    //constracteur----------------------------------------------------------------------------------------
     public TMDB_Request(@JsonProperty("include_adult") boolean include_adult,
     					@JsonProperty("vote_average.gte") float vote_average_gte,
     					@JsonProperty("vote_average.lte") float vote_average_lte,

@@ -107,7 +107,7 @@ img {
     height: auto;
   }
   .btn_select {
-    height: 80px;
+    height: 200px;
     line-height: 80px;  
     width: 80px;  
     font-size: 2em;
@@ -116,7 +116,7 @@ img {
     color: white;
     text-align: center;
     cursor: pointer;
-    position:relative;
+    position:absolute;
 
   }
   .im_style {
@@ -125,7 +125,12 @@ img {
   object-fit: cover; 
   position:center;
   }
-
+  .account-img {
+      height: 125px;
+      width: 125px;
+      margin-right: 20px;
+      margin-bottom: 16px;
+    }
 }
 
 /* Medium screens breakpoint (1050px) */
@@ -160,6 +165,13 @@ img {
   object-fit: cover; 
   position:center;
   }
+  .account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+  }
+
 }
 
 @media only screen and (max-width: 46.875em) {
@@ -175,7 +187,6 @@ img {
   }
   .group_div {
   }
-
   .keep_ratio_img {
     display: block;
     max-width:230px;
@@ -184,7 +195,7 @@ img {
     height: auto;
   }
   .btn_select {
-    height: 45px;
+    height: 90px;
     line-height: 45px;  
     width: 45px;  
     font-size: 1em;
@@ -203,16 +214,15 @@ img {
     object-fit: cover; 
     position:center;
   }
+  .account-img {
+    height: 55px;
+    width: 115px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+  }
 }
 
 
-
-.account-img {
-  height: 125px;
-  width: 125px;
-  margin-right: 20px;
-  margin-bottom: 16px;
-}
 
 
 /* Hide the browser's default checkbox */
@@ -270,7 +280,6 @@ img {
 }
 
 
-
 /*login */
 .home_pic {
   background-image: url("assets/images/home.jpg");
@@ -287,4 +296,25 @@ img {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center; 
+}
+
+
+.buttonn:after {
+  content: "";
+  background: #90EE90;
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px!important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+}
+
+.button:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
 }

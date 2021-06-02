@@ -19,8 +19,11 @@ export class UserComponent implements OnInit {
   groupSubscription: Subscription;
   public mobile = false;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService) { }
-
+  constructor(
+    private router: Router, 
+    private formBuilder: FormBuilder, 
+    private userService: UserService
+  ) { }
 
   ngOnInit(): void {
     this.userService.getAllUsers()
@@ -31,5 +34,25 @@ export class UserComponent implements OnInit {
       this.mobile = true;
     }
     console.log("test")
+  }
+
+  pipUserCheck(dict:any):void {
+    let userName = dict.userName
+    let userEmail = dict.email
+
+    // get userName from DB and compare
+    var result = this.userService.getUser(userName)
+      .subscribe(data => this.users = data)
+
+    // get userEmail from DB and compare
+
+/*    if (this.userService == true){
+
+    } else {
+
+    }*/
+
+    // if false > create new user
+
   }
 }

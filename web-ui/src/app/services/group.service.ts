@@ -1,10 +1,8 @@
 import { Injectable, ErrorHandler} from '@angular/core';
-
 import { Group }  from '../models/group.model';
 import { Observable, throwError, of} from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import {HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
-
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -30,6 +28,7 @@ export class GroupService {
 
 	//get all groups
   getGroups():Observable<Group[]>{
+  // WORKS FINE
     console.log(this.http.get<Group[]>("assets/groupData.json"));
     return this.http.get<Group[]>("assets/groupData.json");
   }
@@ -40,17 +39,13 @@ export class GroupService {
     return this.http.get<Group[]>("assets/groupData.json");
   }
 
-
-  // create group
-  // url > /create
-  // data > {groupeName,admin,invitation}
-	createGroup(json:any): Observable<any> {
-      console.log(this.http.post<any>('http://tindfilm/group/create', json, httpOptions))
-	    return this.http.post<any>('http://tindfilm/group/create', json, httpOptions)
-/*	    .pipe(
-	      catchError(this.handleError('createGroupError'))
-	    );*/
-    }
+  createGroup(group: any): Observable<any> {
+  // WORKS FINE
+    return this.http.post<any>('http://tindfilm/group/create', group, httpOptions)
+      .pipe(
+        catchError(this.handleError('addGroup', group))
+      );
+  }
 
    // create invitation
   createInvitation(){
@@ -63,11 +58,23 @@ export class GroupService {
       return firstPartId + secondPartID;
   }
 
+  /*
+  GET: /group/{userName}/groups
+  retourne la liste des groupes de l'utilisateur
+  */
+  //get all groups
+  getUserGroups(userName: string):Observable<Group[]>{
+    let url = "http://tindfilm/group/"+userName+"/groups"
+/*    console.log(this.http.get<Group[]>(url));
+*/  return this.http.get<Group[]>(url);
+  }
 
-  
 
 
 
+
+
+ 
   // delete 
 
 

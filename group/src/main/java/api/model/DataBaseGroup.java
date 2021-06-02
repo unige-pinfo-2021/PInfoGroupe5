@@ -1,8 +1,6 @@
 package api.model;
 
 import java.util.*;
-import java.util.Properties;
-import java.io.IOException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,7 +20,7 @@ public class DataBaseGroup{
 
 	private String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver"; //"org.postgresql.Driver"
 
-	public DataBaseGroup(String path) throws Exception{
+	public DataBaseGroup() throws Exception{
 
 		Encryption encrypt = new Encryption();
 		this.url = encrypt.getu();
@@ -32,19 +30,14 @@ public class DataBaseGroup{
 	}//end constructor
 
 
-	public void try_connect(){
+	public void connect(){
 
 		Connection conn = null;
 		try{
 			Class.forName(JDBC_DRIVER); 
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			System.out.println("\n"+"Connection established!");
 			
-		} catch (SQLException e) {
-			 System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-
-		} catch (Exception e) {
-			   //e.printStackTrace();
+		}catch (Exception e) {
 			   Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
 
 		}finally{
@@ -53,7 +46,6 @@ public class DataBaseGroup{
 					conn.close();
 				 }
 			}catch (Exception e) {
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
 			}
 		} 
@@ -374,11 +366,7 @@ public class DataBaseGroup{
 
             		pst.executeUpdate();			 
 
-		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-
-		} catch (Exception e) {
-			 //e.printStackTrace();
+		}catch (Exception e) {
 			Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
 
 		}finally{
@@ -386,8 +374,8 @@ public class DataBaseGroup{
 				if(conn != null){
 					conn.close();
 				}
+
 			}catch (Exception e) {
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
 			}
 
@@ -395,10 +383,11 @@ public class DataBaseGroup{
 				if(pst != null){
 					pst.close();
 				}
+
 			}catch (Exception e) {
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
 			}
+
 		}        
 
 
@@ -461,11 +450,7 @@ public class DataBaseGroup{
             }
 						 
 
-		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-
-		} catch (Exception e) {
-			 //e.printStackTrace();
+		}catch (Exception e) {
 			Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
 
 		}finally{
@@ -473,8 +458,8 @@ public class DataBaseGroup{
 				if(conn != null){
 					conn.close();
 				}
+
 			}catch (Exception e) {
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
 			}
 
@@ -482,19 +467,20 @@ public class DataBaseGroup{
 				if(pst != null){
 					pst.close();
 				}
+
 			}catch (Exception e) {
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
 			}
-
+			
 			try{
 				if(rs != null){
-				rs.close();
+					rs.close();
 				}
+
 			}catch (Exception e) {
-			 	//e.printStackTrace();
 				Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
-			}
+			}	
+
 		}       
 		
 		return params;

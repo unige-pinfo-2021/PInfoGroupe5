@@ -4,10 +4,6 @@ import api.model.*;
 
 import java.util.*;
 
-//import api.model.*;
-
-import java.io.IOException;
-
 import javax.ws.rs.Path;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -38,7 +34,7 @@ public class RestServiceUser {
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/connect")
     public String getConn() throws Exception{ 
-		return new DataBaseUser().try_connect();
+		return new DataBaseUser().connect();
     }
 
     @GET
@@ -69,16 +65,16 @@ public class RestServiceUser {
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    @Path("/new")
-   public void addUser(Map<String,String> inputJSON)
+   public boolean addUser(Map<String,String> inputJSON)
    {
-      this.userService.setUserDB(inputJSON.get("userName"),inputJSON.get("email"));
+      return this.userService.setUserDB(inputJSON.get("userName"),inputJSON.get("email"));
     }
 
 
    @DELETE
-   //@Produces(MediaType.APPLICATION_JSON)
+   @Produces(MediaType.APPLICATION_JSON)
    @Path("/{username}")
-   public void deleteInvit(@PathParam("username") String username){
-	this.userService.removeUserDB(username);
+   public boolean deleteInvit(@PathParam("username") String username){
+	return this.userService.removeUserDB(username);
      }
 }//end class
