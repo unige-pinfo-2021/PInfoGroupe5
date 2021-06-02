@@ -18,7 +18,6 @@ public class Movie {
     public final int[] genre_ids;
     public final int id;
     
-    //constracteur----------------------------------------------------------------------------------------
     public Movie(@JsonProperty("title") String title, @JsonProperty("release_date") String release_date, @JsonProperty("poster_path") String poster_path, @JsonProperty("popularity") int popularity,@JsonProperty("overview") String overview,@JsonProperty("genre_ids") int[]
     		genre_ids,@JsonProperty("id") int id) {
         this.title = title;
@@ -31,10 +30,12 @@ public class Movie {
     }
     
     
-    public static void printList(List<Movie> movieList) {
+    public static String printList(List<Movie> movieList) {
+		String descrpt = "";
 		for (int i=0; i<movieList.size(); i++) {
-			System.out.println( movieList.get(i).title + " --> "+ movieList.get(i).release_date);
+			descrpt += movieList.get(i).title + " --> "+ movieList.get(i).release_date+"\n";
 		}
+		return descrpt;
     }
     
 }//finClass
