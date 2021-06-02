@@ -93,10 +93,16 @@ public class DataBaseInvit{
 		}finally{
 			try{
 				if (conn != null) conn.close();
-				if (pst != null) pst.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
+			if (pst != null)
+				try {
+					pst.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+
 			if (pst != null)
 				try {
 					pst.close();
@@ -137,10 +143,16 @@ public class DataBaseInvit{
 		}finally{
 			try{
 				if (conn != null) conn.close();
-				if (pst != null) pst.close();
+				
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
+			if (pst != null)
+				try {
+					pst.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}        
 		
 		return params;
@@ -181,10 +193,16 @@ public class DataBaseInvit{
 		}finally{
 			try{
 				if (conn != null) conn.close();
-				if (pst != null) pst.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
+
+			if (pst != null)
+				try {
+					pst.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}        
 		
 		return params;
@@ -221,10 +239,15 @@ public class DataBaseInvit{
 		}finally{
 			try{
 				if (conn != null) conn.close();
-				if (pst != null) pst.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
+			if (pst != null)
+				try {
+					pst.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}        
 		
 		return params;
@@ -260,10 +283,16 @@ public class DataBaseInvit{
 		}finally{
 			try{
 				if (conn != null) conn.close();
-				if (pst != null) pst.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
+
+			if (pst != null)
+				try {
+					pst.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}        
 		
 		return params;
@@ -291,10 +320,16 @@ public class DataBaseInvit{
 		}finally{
 			try{
 				if (conn != null) conn.close();
-				if (pst != null) pst.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
+
+			if (pst != null)
+				try {
+					pst.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}        
 
 
@@ -329,10 +364,16 @@ public class DataBaseInvit{
 		}finally{
 			try{
 				if (conn != null) conn.close();
-				if (pst != null) pst.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
+
+			if (pst != null)
+				try {
+					pst.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}
 
 		return exist;     
@@ -368,10 +409,16 @@ public class DataBaseInvit{
 		}finally{
 			try{
 				if (conn != null) conn.close();
-				if (pst != null) pst.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
+
+			if (pst != null)
+				try {
+					pst.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}        
 
 
