@@ -17,6 +17,9 @@ public class DataBaseUser{
 	private String username;
 	private String password;
 
+	private static final String ATTRIBUT1 = "name";
+	private static final String ATTRIBUT2 = "email";
+
 	private String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver"; //"org.postgresql.Driver"
 
 	public DataBaseUser() throws Exception{
@@ -85,8 +88,8 @@ public class DataBaseUser{
 		ArrayList<Map<String,String>> params = new ArrayList<Map<String, String>>();
 
 		Map<String,String> p = new HashMap<String,String>();
-		p.put("name","Unknown");
-		p.put("email","Default");
+		p.put(ATTRIBUT1,"Unknown");
+		p.put(ATTRIBUT2,"Default");
 		params.add(p);
 
 		if(EXIST(username)){
@@ -168,8 +171,8 @@ public class DataBaseUser{
 
 			while (rs.next()) {
 				Map<String,String> p = new HashMap<String,String>();
-				p.put("name",rs.getString("name"));
-				p.put("email",rs.getString("email"));
+				p.put(ATTRIBUT1,rs.getString(ATTRIBUT1));
+				p.put(ATTRIBUT2,rs.getString(ATTRIBUT2));
 				params.add(p);
             		}
 		}catch (Exception e){
@@ -229,11 +232,8 @@ public class DataBaseUser{
 
 			rs = pst.executeQuery();
 
-			if (!rs.next() ){
-    				//System.out.println("no data");
-			}else{
+			if (rs.next() ){
 				exist=true;
-				//System.out.println("data exist");
 			}
 						 
 
