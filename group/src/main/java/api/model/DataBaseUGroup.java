@@ -22,7 +22,8 @@ public class DataBaseUGroup{
 	private String JDBC_DRIVER= "org.postgresql.Driver"; //"com.mysql.cj.jdbc.Driver"
 
 	public DataBaseUGroup(String path){
-		Properties props =  new DataBaseProperties().readProperties(path);
+		new DataBaseProperties();
+		Properties props =  DataBaseProperties.readProperties(path);
 
 		this.url=props.getProperty("db.url");
 		this.username=props.getProperty("db.user");
@@ -59,7 +60,7 @@ public class DataBaseUGroup{
 
 		}finally{
 			try{
-				conn.close();
+				if (conn != null) conn.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -90,7 +91,7 @@ public class DataBaseUGroup{
 			 e.printStackTrace();
 		}finally{
 			try{
-				conn.close();
+				if (conn != null) conn.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -134,7 +135,7 @@ public class DataBaseUGroup{
 			 e.printStackTrace();
 		}finally{
 			try{
-				conn.close();
+				if (conn != null) conn.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -165,7 +166,7 @@ public class DataBaseUGroup{
 			 e.printStackTrace();
 		}finally{
 			try{
-				conn.close();
+				if (conn != null) conn.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -195,7 +196,7 @@ public class DataBaseUGroup{
 			 e.printStackTrace();
 		}finally{
 			try{
-				conn.close();
+				if (conn != null) conn.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -232,7 +233,7 @@ public class DataBaseUGroup{
 			 e.printStackTrace();
 		}finally{
 			try{
-				conn.close();
+				if (conn != null) conn.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
