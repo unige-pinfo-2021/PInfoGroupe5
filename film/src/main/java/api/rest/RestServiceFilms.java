@@ -69,13 +69,13 @@ public class RestServiceFilms {
     @GET
     @Path("/get/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getMovieById(int id) throws IOException, InterruptedException { 
+    public String getMovieById(@PathParam("id") int id) throws IOException, InterruptedException { 
     	return this.filmService.getMovieById_asJsonString(id);
     }
     @GET
     @Path("/recommande/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getRecommandationMovies(int id) throws IOException, InterruptedException { 
+    public String getRecommandationMovies(@PathParam("id") int id) throws IOException, InterruptedException { 
     	return this.filmService.getRecommandationMovies_asJsonString(id);
         
     }
