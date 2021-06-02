@@ -59,7 +59,7 @@ public class DataBaseInvit{
 
 		}finally{
 			try{
-				conn.close();
+				if (conn != null) conn.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -91,7 +91,7 @@ public class DataBaseInvit{
 			 e.printStackTrace();
 		}finally{
 			try{
-				conn.close();
+				if (conn != null) conn.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -128,7 +128,7 @@ public class DataBaseInvit{
 			 e.printStackTrace();
 		}finally{
 			try{
-				conn.close();
+				if (conn != null) conn.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -171,7 +171,7 @@ public class DataBaseInvit{
 			 e.printStackTrace();
 		}finally{
 			try{
-				conn.close();
+				if (conn != null) conn.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -210,7 +210,7 @@ public class DataBaseInvit{
 			 e.printStackTrace();
 		}finally{
 			try{
-				conn.close();
+				if (conn != null) conn.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -248,7 +248,7 @@ public class DataBaseInvit{
 			 e.printStackTrace();
 		}finally{
 			try{
-				conn.close();
+				if (conn != null) conn.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -278,7 +278,7 @@ public class DataBaseInvit{
 			 e.printStackTrace();
 		}finally{
 			try{
-				conn.close();
+				if (conn != null) conn.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -315,7 +315,7 @@ public class DataBaseInvit{
 			 e.printStackTrace();
 		}finally{
 			try{
-				conn.close();
+				if (conn != null) conn.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
@@ -353,7 +353,7 @@ public class DataBaseInvit{
 			 e.printStackTrace();
 		}finally{
 			try{
-				conn.close();
+				if (conn != null) conn.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
