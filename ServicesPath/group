@@ -41,8 +41,6 @@ ajoute un utilisateur au groupe s'il connait l'invitation. Pas besoin de connaî
 inputJSON: { "userName": nomUtilisateur, "invitation":invite}
 outputJSON: retourne un json { "reussit":boolean, "message":message si erreur }
 
-GET: /group/{userName}/groups
-retourne la liste des groupes de l'utilisateur
 
 DELETE: /group/{groupName}/{userName}
 

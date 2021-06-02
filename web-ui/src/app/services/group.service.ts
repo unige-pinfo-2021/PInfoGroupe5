@@ -69,15 +69,98 @@ export class GroupService {
 */  return this.http.get<Group[]>(url);
   }
 
-
-
-
-
-
- 
   // delete 
+  // efface un groupe
+  deleteGroup(groupName : string, administrateur: string)
+  {
+    let url = "http://tindfilm/group/" + groupName;
+    let requeteJson = { admin: administrateur};
+    return this.http.delete(url,JSON.stringify(requeteJson));
+  }
 
+  // efface l'utilisateur d'un groupe
+  deleteUserGroup(userName : string , groupName : string, administrateur:string)
+  {
+    let url = "http://tindfilm/group/" + groupName +"/" + userName;
+    let requeteJson = { admin: administrateur};
+    return this.http.delete(url,JSON.stringify(requeteJson)); 
+  }
 
+  //efface le catalogue du groupe
+  deleteCatalogue(groupName : string, administrateur:string)
+  {
+    let url = "http://tindfilm/group/" + groupName +"/Catalogue";
+    let requeteJson = { admin: administrateur};
+    return this.http.delete(url,JSON.stringify(requeteJson)); 
+  }
+
+  // obtenir info du groupe
+  getGroupInfo(groupName :string)
+  {
+    let url = "http://tindfilm/group/"+groupName;
+    return this.http.get(url);
+  }
+
+  // obtenir la liste des utilisateurs d'un groupe
+  getUsersGroup(groupName: string)
+  {
+    let url = "http://tindfilm/group/"+ groupName + "/users";
+    return this.http.get(url);
+  }
+
+  // obtenir la liste des utilisateurs de chaque groupe
+  getUsersGroupAll()
+  {
+    return this.http.get("http://tindfilm/group/all/users");
+  }
+
+  // obtenir la liste des id de film du catalogue
+  getCatalogue(groupName: string, userName: string)
+  {
+    let url = "http://tindfilm/group/"+groupName+"/"+userName;
+    return this.http.get(url);
+  }
+
+  // obtenir les scores des films
+  getScore(groupName: string)
+  {
+    let url = "http://tindfilm/group/" + groupName + "/scores";
+    return this.http.get(url);
+  }
+
+  // ajoute un utilisateur
+  addUser(userName : string, invitation :string )
+  {
+    let url = "http://tindfilm/group/users";
+    let requete = { userName : userName, invitation: invitation};
+    return this.http.post(url,requete,httpOptions);
+  }
+
+  // créer un catalogue au hasard
+  createRandomCatalogue(groupName : string, administrateur :string)
+  {
+    let url = "http://tindfilm/group/"+groupName+"/newCatalogue";
+    let requete = {type: "random", admin: administrateur};
+    return this.http.post(url, requete ,httpOptions);
+  }
+
+  // créer un catalogue selon des recommandations
+  createCatalogue(groupName : string, administrateur :string)
+  {
+    let url = "http://tindfilm/group/"+groupName+"/newCatalogue";
+    let requete = {type: "", admin: administrateur};
+    return this.http.post(url, requete ,httpOptions);
+  }
+
+  // modifie les scores des films
+  setScore(groupName: string, userName: string, filmID : int , increment: boolean)
+  {
+    let url = "http://tindfilm/group/"+groupName+"/scores";
+    let requete = {userName: userName , idFilm: filmID, increment: increment};
+    return this.http.post(url,requete,httpOptions)
+  }
+  
+  // obte
   // url > /{groupname}
   // data > {admin}
 
