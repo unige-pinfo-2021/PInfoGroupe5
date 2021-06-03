@@ -23,9 +23,9 @@ public class DataBaseUserProperties {
         Properties props = new Properties();
         Path myPath = Paths.get(path);
 
-        try {
-            BufferedReader bf = Files.newBufferedReader(myPath, 
-             StandardCharsets.UTF_8);
+        try (BufferedReader bf = Files.newBufferedReader(myPath, 
+                StandardCharsets.UTF_8);){
+            
 
             props.load(bf);
         } catch (IOException ex) {
