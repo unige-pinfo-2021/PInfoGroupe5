@@ -74,11 +74,11 @@ public class DataBaseUGroup{
 		String query = "INSERT INTO UGroups(ID, username) VALUES(?, ?)";
 
 		Connection conn = null;
-
+		PreparedStatement pst = null;
 		try {
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			pst = conn.prepareStatement(query);
 
 			pst.setString(1, ID);
 			pst.setString(2, username); 
@@ -95,6 +95,13 @@ public class DataBaseUGroup{
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
+			if (pst != null)
+				try {
+					pst.close();
+				} catch (SQLException e) {		
+					e.printStackTrace();
+				}
+
 		}        
 
 
@@ -111,11 +118,11 @@ public class DataBaseUGroup{
 		ArrayList<String> params = new ArrayList();
 
 		Connection conn = null;
-
+		PreparedStatement pst = null;
 		try{ 
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			pst = conn.prepareStatement(query);
 
 			//pst.setString(1, ID);
             		//pst.executeUpdate();
@@ -139,6 +146,13 @@ public class DataBaseUGroup{
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
+			if (pst != null)
+				try {
+					pst.close();
+				} catch (SQLException e) {		
+					e.printStackTrace();
+				}
+
 		}        
 		
 		return params;
@@ -151,11 +165,11 @@ public class DataBaseUGroup{
 		String query = "DELETE FROM UGroups WHERE ID=?";
 
 		Connection conn = null;
-
+		PreparedStatement pst = null;
 		try {
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			pst = conn.prepareStatement(query);
 
 			pst.setString(1, ID);
             		pst.executeUpdate();			 
@@ -170,6 +184,11 @@ public class DataBaseUGroup{
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
+			try{
+				if (pst != null) pst.close();
+			}catch (Exception e) {
+			 e.printStackTrace();
+			}
 		}        
 
 
@@ -180,11 +199,11 @@ public class DataBaseUGroup{
 		String query = "DELETE FROM UGroups WHERE ID=? AND username=?";
 
 		Connection conn = null;
-
+		PreparedStatement pst = null;
 		try {
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			pst = conn.prepareStatement(query);
 
 			pst.setString(1, ID);
 			pst.setString(2, username);
@@ -200,6 +219,11 @@ public class DataBaseUGroup{
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
+			try{
+				if (pst != null) pst.close();
+			}catch (Exception e) {
+			 e.printStackTrace();
+			}
 		}        
 
 
@@ -212,11 +236,11 @@ public class DataBaseUGroup{
 		String query ="SELECT ID  FROM UGroups WHERE ID="+"'"+ID+"'";
 
 		Connection conn = null;
-
+		PreparedStatement pst = null;
 		try{  
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
-			PreparedStatement pst = conn.prepareStatement(query);
+			pst = conn.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
 
 			if (!rs.next() ){
@@ -234,6 +258,11 @@ public class DataBaseUGroup{
 		}finally{
 			try{
 				if (conn != null) conn.close();
+			}catch (Exception e) {
+			 e.printStackTrace();
+			}
+			try{
+				if (pst != null) pst.close();
 			}catch (Exception e) {
 			 e.printStackTrace();
 			}
