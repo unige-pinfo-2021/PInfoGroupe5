@@ -288,7 +288,7 @@ public class DataBaseInvit{
 		String query ="SELECT score  FROM Invits WHERE ID=?";
 
 		if(param.equals("totalscore")){
-			query ="SELECT totalscore  FROM Invits WHERE ID=?";
+			query ="SELECT totalscore FROM Invits WHERE ID=?";
 		}
 
 		ArrayList<Integer> params = new ArrayList();
