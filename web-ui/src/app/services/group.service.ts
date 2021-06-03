@@ -153,25 +153,20 @@ export class GroupService {
   }
 
   // modifie les scores des films
-  setScore(groupName: string, userName: string, filmID : int , increment: boolean)
+  setScore(groupName: string, userName: string, filmID : number , increment: boolean)
   {
     let url = "http://tindfilm/group/"+groupName+"/scores";
     let requete = {userName: userName , idFilm: filmID, increment: increment};
     return this.http.post(url,requete,httpOptions)
   }
   
-  // obte
-  // url > /{groupname}
-  // data > {admin}
 
+  // retourne les votes du groupe sous le format suivant:
+  //{ userName : {idFilm1 : +1, idFilm2 : -1, etc}, userName2 : {etc..}, etc...}
+  getVote(groupName : string)
+  {
+    let url = "http://tindfilm/group/"+groupName+"/votes";
+    return this.http.get(url);
 
-
-
-  // add user
-
-
-
-  // url > /{groupname}/users
-  // data > {userName,invitation}
-
+  }
 }

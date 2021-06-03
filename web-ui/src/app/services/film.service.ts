@@ -52,5 +52,14 @@ export class FilmService {
     );
 	return this.films[id];
   }
+
+  // permet d'obtenir toutes les infos sur un film
+  // à partir de son id.
+
+  getFilm(id: number)
+  {
+    let url = "http://tindfilm/film/get/" + id.toString();
+    return this.http.get(url);
+  }
  
 }

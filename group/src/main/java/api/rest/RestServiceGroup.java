@@ -202,7 +202,7 @@ public class RestServiceGroup {
 
     // obtenir les votes du groupes
     @GET
-    @Path("/{groupName}/vote")
+    @Path("/{groupName}/votes")
     public Map<String, Map<Integer,Integer>> getVotes(@PathParam("groupName") String groupName)
     {
         return this.getVotes(groupName);
