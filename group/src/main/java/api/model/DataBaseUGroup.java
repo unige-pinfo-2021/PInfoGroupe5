@@ -104,7 +104,7 @@ public class DataBaseUGroup{
 		String query ="SELECT username  FROM UGroups WHERE ID=?";
 
 		if(param){
-			query ="SELECT ID  FROM UGroups WHERE username="+"'"+ID+"'";
+			query ="SELECT ID  FROM UGroups WHERE username=?";
 		}
 
 		ArrayList<String> params = new ArrayList();
