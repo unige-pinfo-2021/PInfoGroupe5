@@ -3,6 +3,7 @@ package api.rest;
 import java.util.*;
 
 import api.model.*;
+import jdk.nashorn.internal.objects.annotations.Getter;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
@@ -199,6 +200,12 @@ public class RestServiceGroup {
         return this.groupService.getScores(groupName);
     }
 
-
+    // obtenir les votes du groupes
+    @GET
+    @Path("/{groupName}/vote")
+    public Map<String, Map<Integer,Integer>> getVotes(@PathParam("groupName") String groupName)
+    {
+        return this.getVotes(groupName);
+    }
 
 }//end class
