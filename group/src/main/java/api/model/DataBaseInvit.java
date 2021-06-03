@@ -284,7 +284,12 @@ public class DataBaseInvit{
     }//end
 
 	public ArrayList<Integer> SELECT_scores(String ID, String param){
-		String query ="SELECT "+param+"  FROM Invits WHERE ID=?";
+		//String query ="SELECT "+param+"  FROM Invits WHERE ID=?";
+		String query ="SELECT score  FROM Invits WHERE ID=?";
+
+		if(param.equals("totalscore")){
+			String query ="SELECT totalscore  FROM Invits WHERE ID=?";
+		}
 
 		ArrayList<Integer> params = new ArrayList();
 
