@@ -10,8 +10,8 @@ import java.sql.SQLException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-/*import java.util.logging.Level;
-import java.util.logging.Logger;*/
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DataBaseUGroup{
 	
@@ -19,50 +19,38 @@ public class DataBaseUGroup{
 	private String username;
 	private String password;
 
-	private String JDBC_DRIVER= "org.postgresql.Driver"; //"com.mysql.cj.jdbc.Driver"
+	private String JDBC_DRIVER= "com.mysql.cj.jdbc.Driver";
 
-	public DataBaseUGroup(String path){
-		new DataBaseProperties();
-		Properties props =  DataBaseProperties.readProperties(path);
+	public DataBaseUGroup() throws Exception{
 
-		this.url=props.getProperty("db.url");
-		this.username=props.getProperty("db.user");
-		this.password=props.getProperty("db.passwd");
-
-		/*this.url="jdbc:mysql://129.194.10.130:3306/tinderfilmBD";
-		this.username = "groupe5";
-		this.password = "12345";*/
+		Encryption encrypt = new Encryption();
+		this.url = encrypt.getu();
+		this.username = encrypt.getg();
+		this.password = encrypt.getp();
 
 	}//end constructor
 
 
-	public String try_connect(){
+	public String connect(){
 		String connected= "try to make connection!";
 
 		Connection conn = null;
 
 		try{
 			Class.forName(JDBC_DRIVER); 
-			/*Connection*/ conn = DriverManager.getConnection(this.url, this.username, this.password);
-			    if (conn != null) {
-				System.out.println("\n"+"Connection established!");
-				connected = "Connection established!";
+			conn = DriverManager.getConnection(this.url, this.username, this.password);
+			connected = "Connection established!";
 
-			    } else {
-				System.out.println("Failed to make connection!");
-				connected = "Failed to make connection!";
-			    }
-
-		} catch (SQLException e) {
-			 System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-		} catch (Exception e) {
-			   e.printStackTrace();
+		}catch (Exception e) {
+			   Logger.getLogger(DataBaseUGroup.class.getName()).log(Level.SEVERE, null, e);
 
 		}finally{
 			try{
-				if (conn != null) conn.close();
-			}catch (Exception e) {
-			 e.printStackTrace();
+				if (conn != null){
+					 conn.close();
+				}
+			}catch (Exception e){
+			 	Logger.getLogger(DataBaseUGroup.class.getName()).log(Level.SEVERE, null, e);
 			}
 		}  
 		return connected;
@@ -85,22 +73,26 @@ public class DataBaseUGroup{
 
             		pst.executeUpdate();			 
 
-		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-		} catch (Exception e) {
-			 e.printStackTrace();
+		}catch (Exception e) {
+			Logger.getLogger(DataBaseUGroup.class.getName()).log(Level.SEVERE, null, e);
 		}finally{
 			try{
-				if (conn != null) conn.close();
-			}catch (Exception e) {
-			 e.printStackTrace();
-			}
-			if (pst != null)
-				try {
-					pst.close();
-				} catch (SQLException e) {		
-					e.printStackTrace();
+				if(conn != null){
+					conn.close();
 				}
+
+			}catch (Exception e) {
+				Logger.getLogger(DataBaseUGroup.class.getName()).log(Level.SEVERE, null, e);
+			}
+
+			try{
+				if(pst != null){
+					pst.close();
+				}
+
+			}catch (Exception e) {
+				Logger.getLogger(DataBaseUGroup.class.getName()).log(Level.SEVERE, null, e);
+			}
 
 		}        
 
@@ -109,7 +101,7 @@ public class DataBaseUGroup{
 
 	public ArrayList<String> SELECT(String ID, boolean param){
 		//String query ="SELECT *  FROM UGroups WHERE ID=? ";
-		String query ="SELECT username  FROM UGroups WHERE ID="+"'"+ID+"'";
+		String query ="SELECT username  FROM UGroups WHERE ID=?";
 
 		if(param){
 			query ="SELECT ID  FROM UGroups WHERE username="+"'"+ID+"'";
@@ -119,15 +111,17 @@ public class DataBaseUGroup{
 
 		Connection conn = null;
 		PreparedStatement pst = null;
+		ResultSet rs = null;
+
 		try{ 
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
 			pst = conn.prepareStatement(query);
 
-			//pst.setString(1, ID);
+			pst.setString(1, ID);
             		//pst.executeUpdate();
 
-			ResultSet rs = pst.executeQuery();
+			rs = pst.executeQuery();
 
 			while (rs.next()) {
 
@@ -136,22 +130,35 @@ public class DataBaseUGroup{
             		}
 						 
 
-		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-		} catch (Exception e) {
-			 e.printStackTrace();
+		}catch (Exception e) {
+			Logger.getLogger(DataBaseUGroup.class.getName()).log(Level.SEVERE, null, e);
 		}finally{
 			try{
-				if (conn != null) conn.close();
-			}catch (Exception e) {
-			 e.printStackTrace();
-			}
-			if (pst != null)
-				try {
-					pst.close();
-				} catch (SQLException e) {		
-					e.printStackTrace();
+				if(conn != null){
+					conn.close();
 				}
+
+			}catch (Exception e) {
+				Logger.getLogger(DataBaseUGroup.class.getName()).log(Level.SEVERE, null, e);
+			}
+
+			try{
+				if(pst != null){
+					pst.close();
+				}
+
+			}catch (Exception e) {
+				Logger.getLogger(DataBaseUGroup.class.getName()).log(Level.SEVERE, null, e);
+			}
+
+			try{
+				if(rs != null){
+					rs.close();
+				}
+
+			}catch (Exception e) {
+				Logger.getLogger(DataBaseUGroup.class.getName()).log(Level.SEVERE, null, e);
+			}
 
 		}        
 		
@@ -174,21 +181,27 @@ public class DataBaseUGroup{
 			pst.setString(1, ID);
             		pst.executeUpdate();			 
 
-		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-		} catch (Exception e) {
-			 e.printStackTrace();
+		}catch (Exception e) {
+			Logger.getLogger(DataBaseUGroup.class.getName()).log(Level.SEVERE, null, e);
 		}finally{
 			try{
-				if (conn != null) conn.close();
+				if(conn != null){
+					conn.close();
+				}
+
 			}catch (Exception e) {
-			 e.printStackTrace();
+				Logger.getLogger(DataBaseUGroup.class.getName()).log(Level.SEVERE, null, e);
 			}
+
 			try{
-				if (pst != null) pst.close();
+				if(pst != null){
+					pst.close();
+				}
+
 			}catch (Exception e) {
-			 e.printStackTrace();
+				Logger.getLogger(DataBaseUGroup.class.getName()).log(Level.SEVERE, null, e);
 			}
+
 		}        
 
 
@@ -209,22 +222,28 @@ public class DataBaseUGroup{
 			pst.setString(2, username);
             		pst.executeUpdate();			 
 
-		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-		} catch (Exception e) {
-			 e.printStackTrace();
+		}catch (Exception e) {
+			Logger.getLogger(DataBaseUGroup.class.getName()).log(Level.SEVERE, null, e);
 		}finally{
 			try{
-				if (conn != null) conn.close();
+				if(conn != null){
+					conn.close();
+				}
+
 			}catch (Exception e) {
-			 e.printStackTrace();
+				Logger.getLogger(DataBaseUGroup.class.getName()).log(Level.SEVERE, null, e);
 			}
+
 			try{
-				if (pst != null) pst.close();
+				if(pst != null){
+					pst.close();
+				}
+
 			}catch (Exception e) {
-			 e.printStackTrace();
+				Logger.getLogger(DataBaseUGroup.class.getName()).log(Level.SEVERE, null, e);
 			}
-		}        
+
+		}       
 
 
     }//end 
@@ -233,39 +252,52 @@ public class DataBaseUGroup{
 	public boolean EXIST(String ID){
 		boolean exist = false;
 
-		String query ="SELECT ID  FROM UGroups WHERE ID="+"'"+ID+"'";
+		String query ="SELECT ID  FROM UGroups WHERE ID=?";
 
 		Connection conn = null;
 		PreparedStatement pst = null;
+		ResultSet rs = null;
 		try{  
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
 			pst = conn.prepareStatement(query);
-			ResultSet rs = pst.executeQuery();
+			rs = pst.executeQuery();
 
-			if (!rs.next() ){
-    				//System.out.println("no data");
-			}else{
+			if (rs.next() ){
 				exist=true;
-				//System.out.println("data exist");
 			}
 						 
 
-		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-		} catch (Exception e) {
-			 e.printStackTrace();
+		}catch (Exception e) {
+			Logger.getLogger(DataBaseUGroup.class.getName()).log(Level.SEVERE, null, e);
 		}finally{
 			try{
-				if (conn != null) conn.close();
+				if(conn != null){
+					conn.close();
+				}
+
 			}catch (Exception e) {
-			 e.printStackTrace();
+				Logger.getLogger(DataBaseUGroup.class.getName()).log(Level.SEVERE, null, e);
 			}
+
 			try{
-				if (pst != null) pst.close();
+				if(pst != null){
+					pst.close();
+				}
+
 			}catch (Exception e) {
-			 e.printStackTrace();
+				Logger.getLogger(DataBaseUGroup.class.getName()).log(Level.SEVERE, null, e);
 			}
+
+			try{
+				if(rs != null){
+					rs.close();
+				}
+
+			}catch (Exception e) {
+				Logger.getLogger(DataBaseUGroup.class.getName()).log(Level.SEVERE, null, e);
+			}
+
 		}
 
 		return exist;     
