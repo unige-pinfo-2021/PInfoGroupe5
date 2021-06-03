@@ -205,7 +205,7 @@ public class RestServiceGroup {
     @Path("/{groupName}/votes")
     public Map<String, Map<Integer,Integer>> getVotes(@PathParam("groupName") String groupName)
     {
-        return this.groupService.getVotes(groupName);
+        return this.getVotes(groupName);
     }
 
 }//end class
