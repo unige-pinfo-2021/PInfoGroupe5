@@ -365,7 +365,7 @@ public class DataBaseGroup{
 				}
 			}
 
-            		pst.executeUpdate();			 
+				pst.executeQuery();			 
 
 		}catch (Exception e) {
 			Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);

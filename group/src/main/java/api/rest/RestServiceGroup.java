@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.PathParam;
 
 import java.io.IOException;
-
+import org.json.*;
 
 
 @Path("/group")
@@ -181,22 +181,18 @@ public class RestServiceGroup {
         return this.groupService.deleteCatalogue(groupeName, inputJSON.get("admin"));  
     }
 
-    class scoreArg{
-        public String userName;
-        public int idFilm;
-        public boolean increment;
-    }
+
 
     // changer et get le score des films
-    @POST 
+    @POST
+    @Produces(MediaType.APPLICATION_JSON) 
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{groupName}/scores")
-    public Object setScores(scoreArg input, @PathParam("groupName") String groupeName)
+    public Object setScores(Map<String,String> inputJSON, @PathParam("groupName") String groupName)
     {
-        return this.groupService.incrementScore(groupeName,input.userName, input.idFilm, input.increment);
+        return this.groupService.incrementScore(groupName,inputJSON.get("userName"), Integer.parseInt(inputJSON.get("idFilm")),Boolean.parseBoolean( inputJSON.get("increment")));
     }
-
-
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON) 
     @Path("/{groupName}/scores")
@@ -207,6 +203,7 @@ public class RestServiceGroup {
 
     // obtenir les votes du groupes
     @GET
+    @Produces(MediaType.APPLICATION_JSON) 
     @Path("/{groupName}/votes")
     public Map<String, Map<Integer,Integer>> getVotes(@PathParam("groupName") String groupName)
     {
