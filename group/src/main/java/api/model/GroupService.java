@@ -438,7 +438,7 @@ public class GroupService{
 	}
 
 	// retourne les votes du groupes. Format: {username : [idFilm , vote]}. vote = +- 1 
-	public Map<String, Map<Integer,Integer>> getVote(String groupName)
+	public Map<String, Map<Integer,Integer>> getVotes(String groupName)
 	{
 		ArrayList<Map<String,String>> votes = this.db.SELECT_Vote(groupName);
 		Map<String, Map<Integer,Integer>> retour = new HashMap<String, Map<Integer,Integer>>();

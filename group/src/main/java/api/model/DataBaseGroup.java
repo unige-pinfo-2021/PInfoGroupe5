@@ -27,6 +27,7 @@ public class DataBaseGroup{
 		this.username = encrypt.getg();
 		this.password = encrypt.getp();
 
+
 	}//end constructor
 
 
