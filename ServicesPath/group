@@ -89,5 +89,8 @@ increment: True = +1, False = -1.
 output:renvoie JSON {"reussit":boolean, "message":message si erreur }
 Pas de problème de conccurence.
 
+GET: /group/{groupName}/votes
 
+retourne les votes des utilisateurs du groupe sous la forme
+{ utilisateur : {idfilm1 : +1, idfilm2: -1}}
 

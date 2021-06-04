@@ -181,16 +181,21 @@ public class RestServiceGroup {
         return this.groupService.deleteCatalogue(groupeName, inputJSON.get("admin"));  
     }
 
-
+    class scoreArg{
+        public String userName;
+        public int idFilm;
+        public boolean increment;
+    }
 
     // changer et get le score des films
     @POST 
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{groupName}/scores")
-    public Object setScores(Map<String,String> inputJSON, @PathParam("groupName") String groupeName)
+    public Object setScores(scoreArg input, @PathParam("groupName") String groupeName)
     {
-        return this.groupService.incrementScore(groupeName,inputJSON.get("userName"), Integer.parseInt(inputJSON.get("idFilm")), Boolean.parseBoolean(inputJSON.get("increment")));
+        return this.groupService.incrementScore(groupeName,input.userName, input.idFilm, input.increment);
     }
+
 
     @GET
     @Produces(MediaType.APPLICATION_JSON) 
