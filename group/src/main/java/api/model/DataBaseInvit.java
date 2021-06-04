@@ -10,8 +10,8 @@ import java.sql.SQLException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-/*import java.util.logging.Level;
-import java.util.logging.Logger;*/
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DataBaseInvit{
 	
@@ -19,49 +19,38 @@ public class DataBaseInvit{
 	private String username;
 	private String password;
 
-	private String JDBC_DRIVER= "org.postgresql.Driver"; //"com.mysql.cj.jdbc.Driver"
+	private String JDBC_DRIVER= "com.mysql.cj.jdbc.Driver";
 
-	public DataBaseInvit(String path){
-		Properties props =  new DataBaseProperties().readProperties(path);
+	public DataBaseInvit() throws Exception{
 
-		this.url=props.getProperty("db.url");
-		this.username=props.getProperty("db.user");
-		this.password=props.getProperty("db.passwd");
-
-		/*this.url="jdbc:mysql://129.194.10.130:3306/tinderfilmBD";
-		this.username = "groupe5";
-		this.password = "12345";*/
+		Encryption encrypt = new Encryption();
+		this.url = encrypt.getu();
+		this.username = encrypt.getg();
+		this.password = encrypt.getp();
 
 	}//end constructor
 
 
-	public String try_connect(){
+	public String connect(){
 		String connected= "try to make connection!";
 
 		Connection conn = null;
 
 		try{
 			Class.forName(JDBC_DRIVER); 
-			/*Connection*/ conn = DriverManager.getConnection(this.url, this.username, this.password);
-			    if (conn != null) {
-				System.out.println("\n"+"Connection established!");
-				connected = "Connection established!";
+			conn = DriverManager.getConnection(this.url, this.username, this.password);
+			connected = "Connection established!";
 
-			    } else {
-				System.out.println("Failed to make connection!");
-				connected = "Failed to make connection!";
-			    }
-
-		} catch (SQLException e) {
-			 System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-		} catch (Exception e) {
-			   e.printStackTrace();
+		}catch (Exception e) {
+			   Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
 
 		}finally{
 			try{
-				if (conn != null) conn.close();
-			}catch (Exception e) {
-			 e.printStackTrace();
+				if (conn != null){
+					 conn.close();
+				}
+			}catch (Exception e){
+			 	Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
 			}
 		}  
 		return connected;
@@ -86,46 +75,48 @@ public class DataBaseInvit{
 
             		pst.executeUpdate();			 
 
-		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-		} catch (Exception e) {
-			 e.printStackTrace();
+		}catch (Exception e) {
+			 Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
 		}finally{
 			try{
-				if (conn != null) conn.close();
+			 	if (conn != null){
+					conn.close();
+				}
 			}catch (Exception e) {
-			 e.printStackTrace();
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
 			}
-			if (pst != null)
-				try {
-					pst.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
 
-			if (pst != null)
-				try {
+			try{
+			 	if (pst != null){
 					pst.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
 				}
+			}catch (Exception e){
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
+			}
+
 		}        
 
 
     }//end 
 
 	public ArrayList<String> SELECT(String ID, String film){
-		String query ="SELECT *  FROM Invits WHERE ID="+"'"+ID+"'"+" AND film="+"'"+film+"'";
+		String query ="SELECT *  FROM Invits WHERE ID=? AND film=?";
 
 		ArrayList<String> params = new ArrayList();
 
 		Connection conn = null;
 		PreparedStatement pst = null;
+		ResultSet rs = null;
+
 		try{ 
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
 			pst = conn.prepareStatement(query);
-			ResultSet rs = pst.executeQuery();
+
+			pst.setString(1, ID);
+			pst.setString(2, film);
+
+			rs = pst.executeQuery();
 
 			while (rs.next()) {
 
@@ -136,23 +127,32 @@ public class DataBaseInvit{
             		}
 						 
 
-		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-		} catch (Exception e) {
-			 e.printStackTrace();
+		}catch (Exception e) {
+			 Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
 		}finally{
 			try{
-				if (conn != null) conn.close();
-				
-			}catch (Exception e) {
-			 e.printStackTrace();
-			}
-			if (pst != null)
-				try {
-					pst.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
+			 	if (conn != null){
+					conn.close();
 				}
+			}catch (Exception e) {
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
+			}
+
+			try{
+			 	if (pst != null){
+					pst.close();
+				}
+			}catch (Exception e){
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
+			}
+
+			try{
+			 	if (rs != null){
+					rs.close();
+				}
+			}catch (Exception e){
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
+			}
 		}        
 		
 		return params;
@@ -161,17 +161,22 @@ public class DataBaseInvit{
 
 
 	public ArrayList<ArrayList<String>> SELECT(String ID){
-		String query ="SELECT *  FROM Invits WHERE ID="+"'"+ID+"'";
+		String query ="SELECT *  FROM Invits WHERE ID=?";
 
 		ArrayList<ArrayList<String>> params = new ArrayList();
 
 		Connection conn = null;
 		PreparedStatement pst = null;
+		ResultSet rs = null;
+
 		try{ 
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
 			pst = conn.prepareStatement(query);
-			ResultSet rs = pst.executeQuery();
+
+			pst.setString(1, ID);
+
+			rs = pst.executeQuery();
 
 			while (rs.next()) {
 
@@ -186,23 +191,32 @@ public class DataBaseInvit{
             		}
 						 
 
-		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-		} catch (Exception e) {
-			 e.printStackTrace();
+		}catch (Exception e) {
+			 Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
 		}finally{
 			try{
-				if (conn != null) conn.close();
+			 	if (conn != null){
+					conn.close();
+				}
 			}catch (Exception e) {
-			 e.printStackTrace();
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
 			}
 
-			if (pst != null)
-				try {
+			try{
+			 	if (pst != null){
 					pst.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
 				}
+			}catch (Exception e){
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
+			}
+
+			try{
+			 	if (rs != null){
+					rs.close();
+				}
+			}catch (Exception e){
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
+			}
 		}        
 		
 		return params;
@@ -211,17 +225,22 @@ public class DataBaseInvit{
 
 
 	public ArrayList<String> SELECT_films(String ID){
-		String query ="SELECT film  FROM Invits WHERE ID="+"'"+ID+"'";
+		String query ="SELECT film  FROM Invits WHERE ID=?";
 
 		ArrayList<String> params = new ArrayList();
 
 		Connection conn = null;
 		PreparedStatement pst = null;
+		ResultSet rs = null;
+
 		try{ 
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
 			pst = conn.prepareStatement(query);
-			ResultSet rs = pst.executeQuery();
+
+			pst.setString(1, ID);
+
+			rs = pst.executeQuery();
 
 			while (rs.next()) {
 
@@ -232,40 +251,60 @@ public class DataBaseInvit{
             		}
 						 
 
-		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-		} catch (Exception e) {
-			 e.printStackTrace();
+		}catch (Exception e){
+			 Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
 		}finally{
 			try{
-				if (conn != null) conn.close();
-			}catch (Exception e) {
-			 e.printStackTrace();
-			}
-			if (pst != null)
-				try {
-					pst.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
+			 	if (conn != null){
+					conn.close();
 				}
-		}        
+			}catch (Exception e) {
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
+			}
+
+			try{
+			 	if (pst != null){
+					pst.close();
+				}
+			}catch (Exception e){
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
+			}
+
+			try{
+			 	if (rs != null){
+					rs.close();
+				}
+			}catch (Exception e){
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
+			}
+		}         
 		
 		return params;
 
     }//end
 
 	public ArrayList<Integer> SELECT_scores(String ID, String param){
-		String query ="SELECT "+param+"  FROM Invits WHERE ID="+"'"+ID+"'";
+		//String query ="SELECT "+param+"  FROM Invits WHERE ID=?";
+		String query ="SELECT score  FROM Invits WHERE ID=?";
+
+		if(param.equals("totalscore")){
+			query ="SELECT totalscore FROM Invits WHERE ID=?";
+		}
 
 		ArrayList<Integer> params = new ArrayList();
 
 		Connection conn = null;
 		PreparedStatement pst = null;
+		ResultSet rs = null;
+
 		try{ 
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
 			pst = conn.prepareStatement(query);
-			ResultSet rs = pst.executeQuery();
+
+			pst.setString(1, ID);
+
+			rs = pst.executeQuery();
 
 			while (rs.next()) {
 
@@ -276,24 +315,33 @@ public class DataBaseInvit{
             		}
 						 
 
-		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-		} catch (Exception e) {
-			 e.printStackTrace();
+		}catch (Exception e){
+			 Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
 		}finally{
 			try{
-				if (conn != null) conn.close();
+			 	if (conn != null){
+					conn.close();
+				}
 			}catch (Exception e) {
-			 e.printStackTrace();
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
 			}
 
-			if (pst != null)
-				try {
+			try{
+			 	if (pst != null){
 					pst.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
 				}
-		}        
+			}catch (Exception e){
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
+			}
+
+			try{
+			 	if (rs != null){
+					rs.close();
+				}
+			}catch (Exception e){
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
+			}
+		}       
 		
 		return params;
 
@@ -313,23 +361,24 @@ public class DataBaseInvit{
 			pst.setString(1, ID);
             		pst.executeUpdate();			 
 
-		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-		} catch (Exception e) {
-			 e.printStackTrace();
+		}catch (Exception e) {
+			 Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
 		}finally{
 			try{
-				if (conn != null) conn.close();
+			 	if (conn != null){
+					conn.close();
+				}
 			}catch (Exception e) {
-			 e.printStackTrace();
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
 			}
 
-			if (pst != null)
-				try {
+			try{
+			 	if (pst != null){
 					pst.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
 				}
+			}catch (Exception e){
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
+			}
 		}        
 
 
@@ -339,41 +388,52 @@ public class DataBaseInvit{
 	public boolean EXIST(String ID){
 		boolean exist = false;
 
-		String query ="SELECT ID  FROM Invits WHERE ID="+"'"+ID+"'";
+		String query ="SELECT ID  FROM Invits WHERE ID=?";
 
 		Connection conn = null;
 		PreparedStatement pst = null;
+		ResultSet rs = null;
+
 		try{  
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
 			pst = conn.prepareStatement(query);
-			ResultSet rs = pst.executeQuery();
 
-			if (!rs.next() ){
-    				//System.out.println("no data");
-			}else{
-				exist=true;
-				//System.out.println("data exist");
+			pst.setString(1, ID);
+
+			rs = pst.executeQuery();
+
+			if (rs.next()){
+    				exist=true;
 			}
 						 
 
-		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-		} catch (Exception e) {
-			 e.printStackTrace();
+		}catch (Exception e) {
+			 Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
 		}finally{
 			try{
-				if (conn != null) conn.close();
+			 	if (conn != null){
+					conn.close();
+				}
 			}catch (Exception e) {
-			 e.printStackTrace();
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
 			}
 
-			if (pst != null)
-				try {
+			try{
+			 	if (pst != null){
 					pst.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
 				}
+			}catch (Exception e){
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
+			}
+
+			try{
+			 	if (rs != null){
+					rs.close();
+				}
+			}catch (Exception e){
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
+			}
 		}
 
 		return exist;     
@@ -383,14 +443,13 @@ public class DataBaseInvit{
 
 	public void UPDATE(String ID, String film, int score_updt){
 
-		String query = "UPDATE Invits SET score = ?, totalscore = ? WHERE ID="+"'"+ID+"'"+" AND film="+"'"+film+"'";
+		String query = "UPDATE Invits SET score = ?, totalscore = ? WHERE ID=? AND film=?";
 
 		ArrayList<String> params = this.SELECT(ID, film);
-		
-		//System.out.println(params.get(0)+" "+params.get(5));
 
 		Connection conn = null;
 		PreparedStatement pst = null;
+
 		try {
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(this.url, this.username, this.password);
@@ -400,26 +459,32 @@ public class DataBaseInvit{
 			pst.setInt(1, Integer.valueOf(params.get(2))+score_updt); //score
 			pst.setInt(2, Integer.valueOf(params.get(3))-1); //totalscore
 
+			pst.setString(3, ID);
+			pst.setString(4, film);
+
             		pst.executeUpdate();			 
 
-		}catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s"+"\n", e.getSQLState(), e.getMessage());
-		} catch (Exception e) {
-			 e.printStackTrace();
+		}catch (Exception e) {
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
 		}finally{
+
 			try{
-				if (conn != null) conn.close();
+			 	if (conn != null){
+					conn.close();
+				}
 			}catch (Exception e) {
-			 e.printStackTrace();
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
 			}
 
-			if (pst != null)
-				try {
+			try{
+			 	if (pst != null){
 					pst.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
 				}
-		}        
+			}catch (Exception e){
+				Logger.getLogger(DataBaseInvit.class.getName()).log(Level.SEVERE, null, e);
+			}
+
+		}       
 
 
     }//end 
