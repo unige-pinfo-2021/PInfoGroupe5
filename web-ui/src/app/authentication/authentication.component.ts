@@ -27,8 +27,6 @@ public group = [];
   	) {}
 
 
-
-
   ngOnInit(): void {
 
     if (window.screen.width <= 390) { // 768px portrait
@@ -57,7 +55,7 @@ public group = [];
       "invitation":invitation
     };
     let json = JSON.stringify(dict);
-    this.groupService.getGroupInvitation(json)
+    this.groupService.getUserGroups(json)
     	.subscribe(
       	data => this.group = data
     );

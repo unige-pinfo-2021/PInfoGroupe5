@@ -21,6 +21,11 @@ export class UserService {
   	private http: HttpClient
   ) { }
 
+  public getUserName(key: any): any {
+    var k = JSON.parse(key);
+    return k.name;
+  }
+
   saveUser(json:any):Observable<any>{
   	return this.http.post<any>("http://tindfilm/user/new",json,httpOptions)
   }

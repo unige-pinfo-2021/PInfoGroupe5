@@ -7,6 +7,8 @@ import { Subscription } from 'rxjs'; // ERROR import
 
 import {Router} from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '@auth0/auth0-angular';
+
 
 @Component({
   selector: 'app-user',
@@ -22,8 +24,17 @@ export class UserComponent implements OnInit {
   constructor(
     private router: Router, 
     private formBuilder: FormBuilder, 
-    private userService: UserService
+    private userService: UserService,
+    public auth: AuthService,
   ) { }
+
+  profileJson: string = null;
+  username: string = null;
+
+  public getUserName(key: any): any {
+    var k = JSON.parse(key);
+    return k.name;
+  }
 
   ngOnInit(): void {
     this.userService.getAllUsers()
@@ -33,26 +44,14 @@ export class UserComponent implements OnInit {
     if (window.screen.width <= 390) { // 768px portrait
       this.mobile = true;
     }
-    console.log("test")
-  }
 
-  pipUserCheck(dict:any):void {
-    let userName = dict.userName
-    let userEmail = dict.email
+    //get userName
+    this.auth.user$.subscribe(
+      (profile) => (this.profileJson = JSON.stringify(profile, null, 2))
+    );
 
-    // get userName from DB and compare
-    var result = this.userService.getUser(userName)
-      .subscribe(data => this.users = data)
-
-    // get userEmail from DB and compare
-
-/*    if (this.userService == true){
-
-    } else {
-
-    }*/
-
-    // if false > create new user
 
   }
+
+
 }
