@@ -16,10 +16,9 @@ GET: /group/{groupName}
 renvoie les infos de "groupName" sous la forme json suivante:
 { "groupName" : nom du groupe,"admin" : admin, "invitation": invite, users: [}
 
-DELETE: /group/{groupeName}
+DELETE: /group/{groupeName}/{admin}
 
 efface le groupe. Il faut être admin.
-inputJSON : {"admin": nomAdministrateur}
 output: retourne un json { "reussit":boolean, "message":message si erreur }
 
 
@@ -42,10 +41,9 @@ inputJSON: { "userName": nomUtilisateur, "invitation":invite}
 outputJSON: retourne un json { "reussit":boolean, "message":message si erreur }
 
 
-DELETE: /group/{groupName}/{userName}
+DELETE: /group/{groupName}/{userName}/{admin}
 
-efface l'utilisateur du groupe.
-inputJSON: {"admin": admin}
+efface l'utilisateur du groupe. Il faut être admin ou bien l'utilisateur même.
 outputJSON: retourne un json { "reussit":boolean, "message":message si erreur }
 
 
@@ -69,10 +67,9 @@ renvoie le catalogue de film en cours. Renvoie les ids.
 renvoie JSON {"catalogue" : [int], "message":message si erreur }
 si erreur, renvoie tableau vide
 
-DELETE: /group/{groupName}/Catalogue
+DELETE: /group/{groupName}/{admin}/Catalogue
 
 efface le catalogue courant
-input: {"admin": admin}
 renvoie JSON {"reussit":boolean, "message":message si erreur }
 
 

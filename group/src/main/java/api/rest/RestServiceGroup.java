@@ -87,12 +87,11 @@ public class RestServiceGroup {
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/{groupName}")
-    public Object deleteGroup(Map<String,String> inputJSON,@PathParam("groupName") String groupName)throws IOException, InterruptedException
+    @Path("/{groupName}/{admin}")
+    public Object deleteGroup(@PathParam("groupName") String groupName, @PathParam("admin") String admin)throws IOException, InterruptedException
      {
        
-         return this.groupService.removeGroup(groupName, inputJSON.get("admin"));
+         return this.groupService.removeGroup(groupName, admin);
      }
 
     @GET
@@ -133,12 +132,11 @@ public class RestServiceGroup {
 
     @DELETE
    @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
-   @Path("/{groupName}/{userName}")
-   public Object deleteUser(Map<String,String> inputJSON,@PathParam("groupName") String groupName, @PathParam("userName") String userName)throws IOException, InterruptedException
+   @Path("/{groupName}/{userName}/{admin}")
+   public Object deleteUser(@PathParam("groupName") String groupName, @PathParam("userName") String userName, @PathParam("admin") String admin)throws IOException, InterruptedException
     {
        
-        return this.groupService.removeUser(groupName, userName,inputJSON.get("admin"));
+        return this.groupService.removeUser(groupName, userName, admin);
         
     }
     
@@ -174,11 +172,10 @@ public class RestServiceGroup {
     }
 
     @DELETE
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/{groupName}/Catalogue")
-    public Object deleteScores(Map<String,String> inputJSON, @PathParam("groupName") String groupeName)
+    @Path("/{groupName}/{admin}/Catalogue")
+    public Object deleteScores(@PathParam("groupName") String groupeName, @PathParam("admin") String admin)
     {     
-        return this.groupService.deleteCatalogue(groupeName, inputJSON.get("admin"));  
+        return this.groupService.deleteCatalogue(groupeName, admin);  
     }
 
 

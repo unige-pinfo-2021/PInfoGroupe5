@@ -51,11 +51,10 @@ export class GroupService {
 
   // delete 
   // efface un groupe
-/*  deleteGroup(groupName : string, administrateur: string)
+ deleteGroup(groupName : string, administrateur: string)
   {
-    let url = "http://tindfilm/group/" + groupName;
-    let requeteJson = { admin: administrateur};
-    return this.http.delete(url,JSON.stringify(requeteJson))
+    let url = "http://tindfilm/group/" + groupName + "/" + administrateur;
+    return this.http.delete(url)
       .pipe(
         catchError(this.handleError('addGroup', ))
       );
@@ -66,18 +65,16 @@ export class GroupService {
   // efface l'utilisateur d'un groupe
   deleteUserGroup(userName : string , groupName : string, administrateur:string)
   {
-    let url = "http://tindfilm/group/" + groupName +"/" + userName;
-    let requeteJson = { admin: administrateur};
-    return this.http.delete(url,JSON.stringify(requeteJson)); 
+    let url = "http://tindfilm/group/" + groupName +"/" + userName + "/" + administrateur;
+    return this.http.delete(url); 
   }
 
   //efface le catalogue du groupe
   deleteCatalogue(groupName : string, administrateur:string)
   {
-    let url = "http://tindfilm/group/" + groupName +"/Catalogue";
-    let requeteJson = { admin: administrateur};
-    return this.http.delete(url,JSON.stringify(requeteJson)); 
-  }*/
+    let url = "http://tindfilm/group/" + groupName + "/" + administrateur +"/Catalogue";
+    return this.http.delete(url); 
+  }
 
   // obtenir info du groupe
   getGroupInfo(groupName :string)
