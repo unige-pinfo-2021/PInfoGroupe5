@@ -20,6 +20,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { AuthModule } from '@auth0/auth0-angular';
 import { environment as env } from '../environments/environment';
 import { AuthGuard } from '@auth0/auth0-angular';
+import { RecommendationComponent } from './recommendation/recommendation.component';
 
 const appRoutes: Routes = [
 	{path: 'films', component: FilmListComponent,canActivate: [AuthGuard]},
@@ -27,7 +28,8 @@ const appRoutes: Routes = [
 	{path: 'films/view/:id', component: SingleFilmComponent,canActivate: [AuthGuard]},
   {path: 'auth', component: AuthenticationComponent,canActivate: [AuthGuard]},
   {path: 'group', component: GroupComponent,canActivate: [AuthGuard]},   
-  {path: 'user', component: UserComponent,canActivate: [AuthGuard]},   
+  {path: 'user', component: UserComponent,canActivate: [AuthGuard]}, 
+  {path: 'recommendation/:groupName', component: RecommendationComponent,canActivate: [AuthGuard]},     
   {path: '', component: HomeComponent }
 ];
 
@@ -41,7 +43,8 @@ const appRoutes: Routes = [
     AuthenticationComponent,
     GroupComponent,
     HomeComponent,
-    UserComponent
+    UserComponent,
+    RecommendationComponent
   ],
   imports: [
 
@@ -71,4 +74,3 @@ const appRoutes: Routes = [
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-

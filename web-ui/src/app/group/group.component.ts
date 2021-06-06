@@ -7,6 +7,8 @@ import { ClipboardService } from 'ngx-clipboard';
 import { AuthService } from '@auth0/auth0-angular';
 import * as $ from 'jquery';
 import { DOCUMENT } from '@angular/common'; 
+import {UserService} from "../services/user.service"
+
 
 @Component({
   selector: 'app-group',
@@ -29,6 +31,7 @@ export class GroupComponent implements OnInit {
     private groupService: GroupService,
     private _clipboardService: ClipboardService,
     public auth: AuthService,
+    public userService:UserService
   ) { }
 	
   public invitation = this.groupService.createInvitation();
@@ -38,19 +41,38 @@ export class GroupComponent implements OnInit {
     return k.name;
   }
 
+  public getUserEmail(key: any): any {
+    var k = JSON.parse(key);
+    return k.email;
+  }
+
   profileJson: string = null;
 
   ngOnInit(): void {
-    this.groupService.getGroups()
-    .subscribe(
-        data => this.groups = data
-    );
+
+    //get userName
+    this.auth.user$.subscribe(
+      (profile) => {
+        (this.profileJson = JSON.stringify(profile, null, 2));
+        const userName = this.getUserName(this.profileJson);
+        const userEmail = this.getUserName(this.profileJson);
+
+        console.log(userName, userEmail)
+
+        this.userService.updateUserDB(userName,userEmail);
+
+        //get groups of user
+        this.groupService.getUserGroups(userName)
+          .subscribe(
+            data => this.groups = data
+        );
+      }
+    );   
+
+    // manage responsive design
     if (window.screen.width <= 390) { // 768px portrait
       this.mobile = true;
     };
-    this.auth.user$.subscribe(
-      (profile) => (this.profileJson = JSON.stringify(profile, null, 2))
-    );
 
   }
 
@@ -58,6 +80,8 @@ export class GroupComponent implements OnInit {
 
   	let groupName = this.checkoutForm.value['groupName'];   
     let userName = this.getUserName(this.profileJson);
+
+    console.log(userName)
 
     let dict = {
       "groupName":groupName,

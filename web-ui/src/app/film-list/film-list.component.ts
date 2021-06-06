@@ -46,18 +46,25 @@ export class FilmListComponent implements OnInit {
     .subscribe(
         data => this.films = data
     );
+    
+    //get userName
+    this.auth.user$.subscribe(
+      (profile) => {
+        (this.profileJson = JSON.stringify(profile, null, 2));
+        const userName = this.getUserName(this.profileJson);
 
-    this.groupService.getGroups()
-    .subscribe(
-        data => this.groups = data
-    );
+        //get groups of user
+        this.groupService.getUserGroups("tom")
+          .subscribe(
+            data => this.groups = data
+        );
+      }
+    );   
 
     if (window.screen.width <= 390) { // 768px portrait
       this.mobile = true;
     };
-
-
-
+    
   }
   
   score(film :any) {
@@ -86,6 +93,14 @@ export class FilmListComponent implements OnInit {
 
   onViewFilm(id: number) {
     this.router.navigate(['/films', 'view', id]);
+  }
+
+  onViewRecommendation(groupName: any){
+    var groupN = groupName
+    console.log(groupN)
+/*    this.router.navigateByUrl('/recommendation/'+"groupName");
+*/
+    this.router.navigate(['/recommendation', groupN]);
   }
 
   ngOnDestroy() {

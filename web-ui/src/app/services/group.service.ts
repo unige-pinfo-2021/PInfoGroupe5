@@ -10,7 +10,6 @@ const httpOptions = {
   })
 };
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -26,27 +25,6 @@ export class GroupService {
     private http: HttpClient
   ) { }
 
-	//get all groups
-  getGroups():Observable<Group[]>{
-  // WORKS FINE
-    console.log(this.http.get<Group[]>("assets/groupData.json"));
-    return this.http.get<Group[]>("assets/groupData.json");
-  }
-
-  //get all groups
-  getGroupInvitation(json:any):Observable<Group[]>{
-    console.log(this.http.get<Group[]>("assets/groupData.json"));
-    return this.http.get<Group[]>("assets/groupData.json");
-  }
-
-  createGroup(group: any): Observable<any> {
-  // WORKS FINE
-    return this.http.post<any>('http://tindfilm/group/create', group, httpOptions)
-      .pipe(
-        catchError(this.handleError('addGroup', group))
-      );
-  }
-
    // create invitation
   createInvitation(){
       // I generate the UID from two parts here 
@@ -58,24 +36,31 @@ export class GroupService {
       return firstPartId + secondPartID;
   }
 
-  /*
-  GET: /group/{userName}/groups
-  retourne la liste des groupes de l'utilisateur
-  */
+  createGroup(group: any): Observable<any> {
+    return this.http.post<any>('http://tindfilm/group/create', group, httpOptions)
+      .pipe(
+        catchError(this.handleError('addGroup', group))
+      );
+  }
+
   //get all groups
   getUserGroups(userName: string):Observable<Group[]>{
     let url = "http://tindfilm/group/"+userName+"/groups"
-/*    console.log(this.http.get<Group[]>(url));
-*/  return this.http.get<Group[]>(url);
+    return this.http.get<Group[]>(url);
   }
 
   // delete 
   // efface un groupe
-  deleteGroup(groupName : string, administrateur: string)
+/*  deleteGroup(groupName : string, administrateur: string)
   {
     let url = "http://tindfilm/group/" + groupName;
     let requeteJson = { admin: administrateur};
-    return this.http.delete(url,JSON.stringify(requeteJson));
+    return this.http.delete(url,JSON.stringify(requeteJson))
+      .pipe(
+        catchError(this.handleError('addGroup', ))
+      );
+
+    ;
   }
 
   // efface l'utilisateur d'un groupe
@@ -92,7 +77,7 @@ export class GroupService {
     let url = "http://tindfilm/group/" + groupName +"/Catalogue";
     let requeteJson = { admin: administrateur};
     return this.http.delete(url,JSON.stringify(requeteJson)); 
-  }
+  }*/
 
   // obtenir info du groupe
   getGroupInfo(groupName :string)
