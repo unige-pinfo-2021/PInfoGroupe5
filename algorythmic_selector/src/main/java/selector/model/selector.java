@@ -79,6 +79,7 @@ public class selector {
 				{
 					retour[indexRetour] = idFilm;
 					indexRetour ++;
+					reccurrence.put(idFilm,-1);// permet de ne pas réutiliser le même film
 					if(indexRetour >= 40)
 					{
 						return retour; // le tableau est rempli avec assez de film

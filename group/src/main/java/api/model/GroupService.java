@@ -58,7 +58,6 @@ public class GroupService{
 		this.db.INSERT_Group(groupName, admin, invitation);
 		// ajoute l'admin dans le groupe
 		addUser(groupName,admin,invitation);
-		
 		return msgRetour(reussit, erreur);
 	}
 
@@ -187,7 +186,10 @@ public class GroupService{
 		Map<String, String> r = this.addUser(groupName, userName, invitation);
 		reussit = true && Boolean.parseBoolean(r.get("reussit"));
 		erreur += r.get("msg");
-		return msgRetour(reussit, erreur);
+		
+		Map<String, String> retour = msgRetour(reussit, erreur);
+		retour.put("groupName",groupName);
+		return retour;
 		
 	}	
 

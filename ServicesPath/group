@@ -42,7 +42,7 @@ POST: /group/users
 
 ajoute un utilisateur au groupe s'il connait l'invitation. Pas besoin de connaître le groupe. Seulement utilisateur.
 inputJSON: { "userName": nomUtilisateur, "invitation":invite}
-outputJSON: retourne un json { "reussit":boolean, "message":message si erreur }
+outputJSON: retourne un json { "reussit":boolean, "message":message si erreur , "groupName": nomDuGroupe}
 
 
 DELETE: /group/{groupName}/{userName}/{admin}
