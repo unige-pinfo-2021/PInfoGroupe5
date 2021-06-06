@@ -16,6 +16,10 @@ GET: /group/{groupName}
 renvoie les infos de "groupName" sous la forme json suivante:
 { "groupName" : nom du groupe,"admin" : admin, "invitation": invite, users: [}
 
+GET: /group/{invitation}
+renvoie le groupe qui a cette invitation
+
+
 DELETE: /group/{groupeName}/{admin}
 
 efface le groupe. Il faut être admin.

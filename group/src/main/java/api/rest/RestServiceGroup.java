@@ -85,6 +85,15 @@ public class RestServiceGroup {
 	    return retour;
     }
 
+	
+	@GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{invitation}")
+    public String getGroupInvite(@PathParam("invitation") String invitation)throws IOException, InterruptedException
+    { 
+   	return this.groupService.getGroupInvite(invitation);
+    }
+    
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{groupName}/{admin}")

@@ -137,8 +137,26 @@ public class DataBaseGroup{
 
 		this.DELETE_FilmAll(groupName);
 	}
-
-
+	
+	// retourne le groupe selon l'invitation
+	public String getGroupInvite(String invitation)
+	{
+		String query = "SELECT groupName FROM groupInfo WHERE invitation=? ;";
+		String attributs[] = {"groupName"};
+		String typesOutput[] = {"string"};
+		String valeursInput[] = {invitation};
+		String typesInput[] = {"string"};
+		
+		ArrayList<Map<String,String>> reponse = this.getBD(query, attributs, typesOutput, valeursInput, typesInput);
+		if( reponse.size() > 0)
+		{
+			return reponse.get(0).get("groupName");
+		}
+		else
+		{
+			return "";
+		}
+	}
 
 	// ajoute un utilisateur au groupe
 	public void INSERT_User(String groupName,String userName)

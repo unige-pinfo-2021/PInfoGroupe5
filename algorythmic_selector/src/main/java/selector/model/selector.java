@@ -26,10 +26,16 @@ public class selector {
 		for(int i = 0; i <5; i++)
 		{
 			String r = this.get(url + Integer.toString(filmID[i]));
+			System.out.println(r);
 			JSONArray rec = new JSONArray(r);
-			for(int j=0; j<rec.length();j++)
+			int tailleRec = 20;
+			if(tailleRec > rec.length())
 			{
-				JSONObject film = rec.getJSONObject(i);
+				tailleRec = rec.length();
+			}
+			for(int j=0; j<tailleRec;j++)
+			{
+				JSONObject film = rec.getJSONObject(j);
 				recomm[i][j] = film.getInt("id");
 			}
 		}
@@ -69,11 +75,11 @@ public class selector {
 			for(int idFilm : reccurrence.keySet())// on parcours le tableau associatif
 			{
 				System.out.println("reccurrence: "+ Integer.toString(r) + " id : " + Integer.toString(idFilm) + " rec: " + Integer.toString(reccurrence.get(idFilm)));
-				if(reccurrence.get(idFilm) == r)
+				if(reccurrence.get(idFilm) >= r)
 				{
 					retour[indexRetour] = idFilm;
 					indexRetour ++;
-					if(indexRetour < 40)
+					if(indexRetour >= 40)
 					{
 						return retour; // le tableau est rempli avec assez de film
 					}

@@ -75,8 +75,13 @@ public class GroupService{
 		return retour;
 		
 	}
-
-
+	
+	// retourne le nom de groupe par l'invite
+	public String getGroupInvite(String invitation)
+	{
+		return this.db.getGroupInvite(invitation);
+	}
+	
 	//retourne les infos de tous les groupes
 	public ArrayList<Map<String,String>> getGroupAll()
 	{
