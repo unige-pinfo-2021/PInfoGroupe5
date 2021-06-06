@@ -314,16 +314,19 @@ public class GroupService{
 		{
 			return msgRetour(reussit, erreur);
 		}
-
+		
+		// on transforme le string json en jsonarray	
+		JSONObject jsonCatalogue = new JSONObject(CatalogueJSON);
+		
 		// on efface les anciens films du groupe
 		this.db.DELETE_FilmAll(groupName);
 
-		// on transforme le string json en jsonarray	
-		JSONArray jsonCatalogue = new JSONArray(CatalogueJSON);
+		
 		// on ajoute les id des films au groupe
+		
 		for(int i = 0; i< jsonCatalogue.length(); i++)
 		{
-			int filmID = jsonCatalogue.getInt(i);
+			int filmID = jsonCatalogue.getInt(Integer.toString(i));
 			this.db.Insert_Film(groupName,filmID);
 		}
 			
@@ -361,10 +364,9 @@ public class GroupService{
 		
 		// on envoie la requête et attend le nouveau catalogue
 		String newCatalogue = this.post("http://tindfilm/selector", requete.toString());
-		System.out.println("le nouveau catalogue : " + newCatalogue);
+		System.out.println(newCatalogue);
 		// on inscrit le catalogue dans la base de donnée
-		//return this.setCatalogue(groupName, utilisateur, newCatalogue);
-		return msgRetour(false,erreur);
+		return this.setCatalogue(groupName, utilisateur, newCatalogue);
 		
 	}
 	

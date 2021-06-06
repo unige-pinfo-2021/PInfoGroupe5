@@ -18,7 +18,7 @@ public class selector {
 		
     }
 
-	public int[] recommendations (Integer[] filmID)throws IOException, InterruptedException 
+	public Integer[] recommendations (Integer[] filmID)throws IOException, InterruptedException 
 	{
 		int[][] recomm = new int[5][20];
 
@@ -43,9 +43,9 @@ public class selector {
 		return algorithme(recomm);
 	}
 
-    public int[] algorithme(int[][] recommendation)
+    public Integer[] algorithme(int[][] recommendation)
     {
-		int[] retour = new int[40];
+		Integer[] retour = new Integer[40];
 		// on compte les réccurences des films [idFilm] = nombre de réccurrences
 		Map<Integer,Integer> reccurrence = new HashMap<Integer,Integer>(); 
 

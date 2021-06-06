@@ -35,9 +35,10 @@ public class SelectorRestService
     @POST 
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public int[] getCatalogue(Map<String,Integer> inputJSON )throws IOException, InterruptedException 
+    public Object getCatalogue(Map<String,Integer> inputJSON )throws IOException, InterruptedException 
     {
     
+    Map<Integer,Integer> retour = new HashMap<Integer,Integer>();
     // on récupère les films et on les met dans un tablau int
     Integer[] film = new Integer[5];
     Integer i = 0;
@@ -46,7 +47,14 @@ public class SelectorRestService
         film[i] = inputJSON.get(Integer.toString(i));
     }
     // on lance la fonction de recommendation
-	return this.selecteur.recommendations(film);
+    Integer id[] = this.selecteur.recommendations(film);
+    
+    // on prépare le json de retour
+    for(i = 0; i< id.length; i++)
+    {
+    	retour.put(i, id[i]);
+    }
+	return retour;
     }
     
 }//end class
