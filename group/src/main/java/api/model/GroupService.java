@@ -56,6 +56,9 @@ public class GroupService{
 		}
 
 		this.db.INSERT_Group(groupName, admin, invitation);
+		// ajoute l'admin dans le groupe
+		addUser(groupName,admin,invitation);
+		
 		return msgRetour(reussit, erreur);
 	}
 
