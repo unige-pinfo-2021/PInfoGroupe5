@@ -57,7 +57,7 @@ public class TMDB_Caller {
 
 	public String searchMoviesByPage_uri(int page) {
 		//https://api.themoviedb.org/3/discover/movie?api_key=3aacfef6a62a872d2a4717b9b6cd5283&language=en-US&sort_by=popularity.desc&page=1
-		return APIDISCADRESS+apiKey+"&language=en-US&sort_by=popularity.asc&page=" + page;
+		return APIDISCADRESS+apiKey+"&language=en-US&sort_by=popularity.desc&page=" + page;
 	}
 
 
@@ -190,6 +190,9 @@ public class TMDB_Caller {
 			if (totalMovieList.get(rand_index_list.get(i).intValue()).poster_path == null) {
 				continue;
 			}
+			if (totalMovieList.get(rand_index_list.get(i).intValue()).popularity < 6){
+				continue;
+			}
 			randomMovieList.add(totalMovieList.get(rand_index_list.get(i).intValue()));
 		}
 		return randomMovieList;		    
@@ -313,8 +316,9 @@ public class TMDB_Caller {
 
 		HttpResponse<Supplier<TMDBResult>> response = client.send(request, new JsonBodyHandler<>(TMDBResult.class));
 		Supplier<TMDBResult> TMDB_result = response.body();
-
+		
 		return TMDB_result.get().results.toPrettyString();
+
 
 	}
 	

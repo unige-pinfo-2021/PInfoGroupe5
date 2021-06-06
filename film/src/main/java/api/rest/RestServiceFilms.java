@@ -27,7 +27,7 @@ public class RestServiceFilms {
     @Path("/testhead")
     @Produces(MediaType.APPLICATION_JSON)
     public Response test() throws IOException, InterruptedException { 
-    Response.ResponseBuilder rb = Response.ok(this.filmService.getRandomMovies_asList(40));
+    Response.ResponseBuilder rb = Response.ok(this.filmService.getRandomMovies_asList(60));
     Response response = rb.header("Access-Control-Allow-Origin", "*")
             .header("Access-Control-Allow-Credentials", "true")
             .header("Access-Control-Allow-Headers",
@@ -42,7 +42,7 @@ public class RestServiceFilms {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Movie> getRandomMovies() throws IOException, InterruptedException { 
-	return this.filmService.getRandomMovies_asList(80);
+	return this.filmService.getRandomMovies_asList(40);
     }
 
 
@@ -75,6 +75,7 @@ public class RestServiceFilms {
     @GET
     @Path("/recommande/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    
     public String getRecommandationMovies(@PathParam("id") int id) throws IOException, InterruptedException { 
     	return this.filmService.getRecommandationMovies_asJsonString(id);
         
