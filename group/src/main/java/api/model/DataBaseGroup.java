@@ -250,21 +250,32 @@ public class DataBaseGroup{
 	public void incrementScore(String groupName, int idFilm,boolean increment ) 
 	{
 		String query = "SELECT score FROM groupScores WHERE groupName= ? AND filmID= ? FOR UPDATE;";
-		query += "UPDATE groupScores SET score = score ";
+		String query2 = "UPDATE groupScores SET score = score ";
 		if(increment)
 		{
-			query += " + 1;";
+			query2 += " + 1";
 		}
 		else
 		{
-			query += " - 1";
+			query2 += " - 1";
 		}
 
-		
+		query2 += " WHERE groupName= ? AND filmID= ?;";
+
+		String q[] ={query,query2};
 		String valeursInput[] = {groupName,Integer.toString(idFilm)};
 		String typesInput[] = {"string","int"};
+		
 
-		this.setBD(query, valeursInput, typesInput);
+		ArrayList<String[]> valeursInputs = new ArrayList<String[]>();
+		valeursInputs.add(valeursInput);
+		valeursInputs.add(valeursInput);
+		ArrayList<String[]> typesInputs = new ArrayList<String[]>();
+		typesInputs.add(typesInput);
+		typesInputs.add(typesInput);
+		String typeQuery[] = {"get","set"};
+
+		this.setBDTransaction(q, valeursInputs, typesInputs,typeQuery);
 	}
 
 	// efface les films du groupe
@@ -289,9 +300,10 @@ public class DataBaseGroup{
 		this.setBD(query, valeursInput, typesInput);		
 	}	
 
+	// obtenir les votes des utilisateurs du group
 	public ArrayList<Map<String,String>> SELECT_Vote(String groupName)
 	{
-		String query ="SELECT * FROM groupScores WHERE groupName= ? ;";
+		String query ="SELECT * FROM userVote WHERE groupName= ? ;";
 		String attributs[] = {"groupName","userName","filmID","vote"};
 		String typesOutput[] = {"string","string","int","int"};
 		String valeursInput[] = {groupName};
@@ -302,9 +314,32 @@ public class DataBaseGroup{
 		return reponse;  
 	}
 
+	// obtenir le vote d'un utilisateur pour un film
+	public int SELECT_Vote(String groupName,String userName,int filmID )
+	{
+		String query ="SELECT vote FROM userVote WHERE groupName= ? AND userName=? AND filmID=? ;";
+		String attributs[] = {"vote"};
+		String typesOutput[] = {"int"};
+		String valeursInput[] = {groupName,userName,Integer.toString(filmID)};
+		String typesInput[] = {"string","string","int"};
+
+		ArrayList<Map<String,String>> reponse = this.getBD(query, attributs, typesOutput, valeursInput, typesInput);
+
+		int retour = Integer.parseInt(reponse.get(0).get("vote"));
+		
+		return retour;  
+	}	
+
 	// ajoute le vote d'un utilisateur
 	public void INSERT_Vote(String groupName,String userName,int filmID, int vote)
 	{
+		// si un le même utilisateur, dans le même groupe a voté pour le même film
+		// son ancien vote est effacé
+		if(EXISTE_Vote(groupName,userName,filmID))
+		{
+			this.DELETE_Vote(groupName, userName, filmID);
+		}
+
 		String query = "INSERT INTO userVote(groupName, userName, filmID, vote) VALUES (?,?,?,?);";
 		
 		String valeursInput[] = {groupName,userName,Integer.toString(filmID),Integer.toString(vote)};
@@ -327,7 +362,7 @@ public class DataBaseGroup{
 	// vérifie si un utilisateur, au sein d'un groupe a voté pour un film
 	public boolean EXISTE_Vote(String groupName, String userName, int filmID)
 	{
-		String query ="SELECT * FROM groupScores WHERE groupName= ? AND userName=? AND filmID=?;";
+		String query ="SELECT * FROM userVote WHERE groupName= ? AND userName=? AND filmID=?;";
 		String attributs[] = {"groupName","userName","filmID","vote"};
 		String typesOutput[] = {"string","string","int","int"};
 		String valeursInput[] = {groupName,userName,Integer.toString(filmID)};
@@ -365,7 +400,7 @@ public class DataBaseGroup{
 				}
 			}
 
-				pst.executeQuery();			 
+				pst.executeUpdate();			 
 
 		}catch (Exception e) {
 			Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
@@ -394,6 +429,84 @@ public class DataBaseGroup{
 
     }//end 
 
+	// permet de faire une transaction de sql
+	public void setBDTransaction(String query[],ArrayList<String[]> valeursInputs, ArrayList<String[]> typesInputs,String typeQuery[])
+	 {
+		 
+		Connection conn = null;
+		PreparedStatement pst[] = new PreparedStatement[query.length];
+		for (int i=0; i< query.length; i++)
+		{
+			pst[i] = null;
+		}
+
+		try
+		{
+			Class.forName(JDBC_DRIVER);
+			conn = DriverManager.getConnection(this.url, this.username, this.password);
+			conn.setAutoCommit(false);
+			for(int i=0; i < query.length; i++)
+			{
+				pst[i] = conn.prepareStatement(query[i]);
+				for(int index=0; index < valeursInputs.get(i).length ; index++)
+				{
+					if(typesInputs.get(i)[index] !=null  &&  typesInputs.get(i)[index].equals("string"))
+					{
+						pst[i].setString(index + 1, valeursInputs.get(i)[index]);
+					}
+					else if(typesInputs.get(index)!=null && typesInputs.get(i)[index].equals("int"))
+					{
+						pst[i].setInt(index + 1, Integer.parseInt(valeursInputs.get(i)[index]));
+					}
+				}
+				if(typeQuery[i].equals("set"))
+				{
+					pst[i].executeUpdate();
+				}
+				if(typeQuery[i].equals("get"))
+				{
+					pst[i].executeQuery();
+				}
+				
+			}
+			
+			// met les valeurs dans le code sql
+			conn.commit();
+
+						 
+
+		}catch (Exception e) {
+			Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
+
+		}finally{
+			try{
+				if(conn != null){
+					conn.close();
+				}
+
+			}catch (Exception e) {
+				Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
+			}
+
+			try{
+				for(int i=0; i<query.length; i++)
+				{
+					if(pst[i] != null)
+					{
+						pst[i].close();
+					}
+				}
+
+			}
+
+			catch (Exception e) {
+				Logger.getLogger(DataBaseGroup.class.getName()).log(Level.SEVERE, null, e);
+			}
+
+		}        
+
+
+    }//end 
 	// methode pour lire dans la base de donnée
 	// retourne un tableau de chaque ligne retournée. Une ligne est représenté par un tableau associative de clé
 	// le nom de l'attribut

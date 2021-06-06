@@ -281,8 +281,8 @@ public class GroupService{
 		return msgRetour(reussit, erreur);
 	}
 
-	// créer le catalgue du groupe à partir d'une liste de film au format json
-	public Map<String, String> setCatalogue(String groupName, String utilisateur ,String CatalogueJSON )
+	// créer le catalgue du groupe à partir d'une liste de id film au format json
+	public Map<String, String> setCatalogue(String groupName, String utilisateur ,String CatalogueJSON)
 	{
 		String erreur = "";
 		boolean reussit = true;
@@ -313,8 +313,8 @@ public class GroupService{
 		// on ajoute les id des films au groupe
 		for(int i = 0; i< jsonCatalogue.length(); i++)
 		{
-			JSONObject jsonfilm = jsonCatalogue.getJSONObject(i);
-			this.db.Insert_Film(groupName,jsonfilm.getInt("id"));
+			int filmID = jsonCatalogue.getInt(i);
+			this.db.Insert_Film(groupName,filmID);
 		}
 			
 		return msgRetour(reussit, erreur);
@@ -351,8 +351,10 @@ public class GroupService{
 		
 		// on envoie la requête et attend le nouveau catalogue
 		String newCatalogue = this.post("http://tindfilm/selector", requete.toString());
+		System.out.println("le nouveau catalogue : " + newCatalogue);
 		// on inscrit le catalogue dans la base de donnée
-		return this.setCatalogue(groupName, utilisateur, newCatalogue);
+		//return this.setCatalogue(groupName, utilisateur, newCatalogue);
+		return msgRetour(false,erreur);
 		
 	}
 	
@@ -384,6 +386,21 @@ public class GroupService{
 	{
 		String erreur = "";
 		boolean reussit = true;
+		// on vérifie si l'utilisateur ait déjà voté
+		if(this.db.EXISTE_Vote(groupName, userName, filmID))
+		{
+			// on récupère le vote
+			int vote = this.db.SELECT_Vote(groupName, userName, filmID);
+			
+			// on change le score
+			boolean change= true;
+			if(vote == 1)
+			{
+				change = false;
+			}
+			this.db.incrementScore(groupName, filmID, change);
+		}
+
 		if(!this.db.EXIST_Groupe(groupName))
 		{
 			erreur += "Le groupe '"+groupName+" n'existe pas\n";

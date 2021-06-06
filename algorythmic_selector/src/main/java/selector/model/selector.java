@@ -47,6 +47,7 @@ public class selector {
 		{
 			for (int id : liste) 
 			{
+				System.out.println("recommendation: "+ Integer.toString(id));
 				if(reccurrence.containsKey(id))// vérifie si le film déjà rencontré
 				{
 					int nouvelleValeure = reccurrence.get(id) + 1;
@@ -67,6 +68,7 @@ public class selector {
 		{
 			for(int idFilm : reccurrence.keySet())// on parcours le tableau associatif
 			{
+				System.out.println("reccurrence: "+ Integer.toString(r) + " id : " + Integer.toString(idFilm) + " rec: " + Integer.toString(reccurrence.get(idFilm)));
 				if(reccurrence.get(idFilm) == r)
 				{
 					retour[indexRetour] = idFilm;
