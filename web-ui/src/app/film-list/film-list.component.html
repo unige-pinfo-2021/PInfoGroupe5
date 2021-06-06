@@ -68,7 +68,8 @@
                   </div> 
                   <div class="nav-item nav-link float-right" href="">
                     <div class="row ">
-                      <button type="button" class="col btn-sm btn-primary mt-3" data-toggle="modal" [attr.data-target]="'#exampleModal'+(i+1)" data-whatever="groupUrl">Invite</button>
+                      <button type="button" (click)="onViewRecommendation( group.groupName )" class="col btn-sm btn-primary mt-3" >Movies</button>
+                      <button type="button" class="col btn-sm btn-primary-outline mt-3 ml-2" data-toggle="modal" [attr.data-target]="'#exampleModal'+(i+1)" data-whatever="groupUrl">Invite</button>
                       <div class="modal fade" id="exampleModal{{i+1}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{i+1}}" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">

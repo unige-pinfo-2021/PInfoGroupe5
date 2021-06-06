@@ -54,7 +54,7 @@ export class FilmListComponent implements OnInit {
         const userName = this.getUserName(this.profileJson);
 
         //get groups of user
-        this.groupService.getUserGroups(userName)
+        this.groupService.getUserGroups("tom")
           .subscribe(
             data => this.groups = data
         );
@@ -93,6 +93,14 @@ export class FilmListComponent implements OnInit {
 
   onViewFilm(id: number) {
     this.router.navigate(['/films', 'view', id]);
+  }
+
+  onViewRecommendation(groupName: any){
+    var groupN = groupName
+    console.log(groupN)
+/*    this.router.navigateByUrl('/recommendation/'+"groupName");
+*/
+    this.router.navigate(['/recommendation', groupN]);
   }
 
   ngOnDestroy() {

@@ -49,9 +49,12 @@ export class UserComponent implements OnInit {
     this.auth.user$.subscribe(
       (profile) => (this.profileJson = JSON.stringify(profile, null, 2))
     );
-
-
   }
 
-
+  //verify if user in DB
+  pipUserCheck(dict:any):void {
+    let userName = dict.userName;
+    let userEmail = dict.email;
+    this.userService.updateUserDB(userName,userEmail);
+  }
 }
