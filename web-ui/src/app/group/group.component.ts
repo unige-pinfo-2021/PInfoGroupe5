@@ -23,6 +23,7 @@ export class GroupComponent implements OnInit {
 
   public groups = [];
   public mobile = false;
+  public isAdmin = false;
 
   constructor(
     @Inject(DOCUMENT) document,
@@ -46,6 +47,9 @@ export class GroupComponent implements OnInit {
     return k.email;
   }
 
+  //random group profile picture
+  public picNum = this.userService.getRandomNum()
+
   profileJson: string = null;
 
   ngOnInit(): void {
@@ -54,18 +58,22 @@ export class GroupComponent implements OnInit {
     this.auth.user$.subscribe(
       (profile) => {
         (this.profileJson = JSON.stringify(profile, null, 2));
+
+        // get user profile data
         const userName = this.getUserName(this.profileJson);
-        const userEmail = this.getUserName(this.profileJson);
+        const userEmail = this.getUserEmail(this.profileJson);
 
-        console.log(userName, userEmail)
-
+        //check if user in DB
         this.userService.updateUserDB(userName,userEmail);
 
         //get groups of user
         this.groupService.getUserGroups(userName)
           .subscribe(
-            data => this.groups = data
-        );
+            data => {
+              this.groups = data            
+            }
+          );
+
       }
     );   
 
@@ -78,37 +86,47 @@ export class GroupComponent implements OnInit {
 
   onSubmit(): void {
 
+    // get data from form
   	let groupName = this.checkoutForm.value['groupName'];   
     let userName = this.getUserName(this.profileJson);
 
-    console.log(userName)
-
+    // create payload
     let dict = {
       "groupName":groupName,
       "admin":userName,
       "invitation":this.invitation
     };
-
     let json = JSON.stringify(dict)
 
+    // process new group
     this.groupService
       .createGroup(json)
-      .subscribe(data => this.groups.push(data));
+      .subscribe(data => {
 
-    this.router.navigate(['/films', groupName]);
+        // create new group
+        this.groups.push(data);
+
+        // redirect to film selector
+        this.router.navigate(['/films', groupName]);
+
+      });
 
   }
 
   copyToClipboard(item) {
     document.addEventListener('copy', (e: ClipboardEvent) => {
       
+      // parameters
       e.clipboardData.setData('text/plain', (item.toString()));
       e.preventDefault();
 
+      // remove previous copy
       document.removeEventListener('copy', null);
     });
-
+    
+    // copy item
     document.execCommand('copy');
   }
+
 }
 

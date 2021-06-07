@@ -29,7 +29,7 @@ const appRoutes: Routes = [
   {path: 'auth', component: AuthenticationComponent,canActivate: [AuthGuard]},
   {path: 'group', component: GroupComponent,canActivate: [AuthGuard]},   
   {path: 'user', component: UserComponent,canActivate: [AuthGuard]}, 
-  {path: 'recommendation/:groupName', component: RecommendationComponent,canActivate: [AuthGuard]},     
+  {path: 'recommendation/:groupName', component: RecommendationComponent,canActivate: [AuthGuard]},   
   {path: '', component: HomeComponent }
 ];
 

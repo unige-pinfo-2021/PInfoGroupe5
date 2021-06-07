@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs'; // ERROR import 
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Film }  from '../models/film.model';
@@ -20,8 +19,10 @@ export class FilmListComponent implements OnInit {
 
   public films = [];
   public groups = [];
-  filmSubscription: Subscription;
+  public info = [];
+  public groupsInfo = [];
   public mobile = false;
+  public list = [];
 
   constructor(
     private router: Router,
@@ -38,28 +39,53 @@ export class FilmListComponent implements OnInit {
     return k.name;
   }
 
+  public getUserEmail(key: any): any {
+    var k = JSON.parse(key);
+    return k.email;
+  }
+
   profileJson: string = null;
 
   ngOnInit(): void {
-
-    this.filmService.getFilms()
-    .subscribe(
-        data => this.films = data
-    );
-    
+   
     //get userName
     this.auth.user$.subscribe(
       (profile) => {
         (this.profileJson = JSON.stringify(profile, null, 2));
+
+        // get user profile data
         const userName = this.getUserName(this.profileJson);
+        const userEmail = this.getUserEmail(this.profileJson);
+
+        //check if user in DB
+        this.userService.updateUserDB(userName,userEmail);
+
+        //get random films
+        this.filmService.getRandomFilms()
+        .subscribe(
+            data => this.films = data
+        );
 
         //get groups of user
-        this.groupService.getUserGroups("tom")
+        this.groupService.getUserGroups(userName)
           .subscribe(
-            data => this.groups = data
-        );
+            data => {
+              this.groups = data;
+              
+              //get info of each groups
+              for (var i in data){
+                this.groupService.getGroupInfo(data[i])
+                  .subscribe(
+                    data => {
+                      this.info = data;
+                      this.groupsInfo.push(data);
+                    }
+                  )
+              }
+            }
+          );
       }
-    );   
+    );
 
     if (window.screen.width <= 390) { // 768px portrait
       this.mobile = true;
@@ -68,6 +94,7 @@ export class FilmListComponent implements OnInit {
   }
   
   score(film :any) {
+
     //get data for payload
     var groupName = this.route2.snapshot.paramMap.get('groupName');
     var idFilm = film[0];
@@ -91,19 +118,33 @@ export class FilmListComponent implements OnInit {
 
   }
 
+  // view film details
   onViewFilm(id: number) {
     this.router.navigate(['/films', 'view', id]);
   }
 
-  onViewRecommendation(groupName: any){
-    var groupN = groupName
-    console.log(groupN)
-/*    this.router.navigateByUrl('/recommendation/'+"groupName");
-*/
-    this.router.navigate(['/recommendation', groupN]);
+  // give recommendations
+  createCatalogue(list: any){
+
+    console.log(list);
+
+    //parameters
+    var groupName = list[0];
+    var admin = list[1];
+    var userName = this.getUserName(this.profileJson);
+
+    console.log(admin)
+
+    //check if user is admin
+    if (admin == userName){
+      //create catalogue
+      this.groupService
+        .createCatalogue(userName,groupName)
+        .subscribe(data => this.films.push(data));
+    }
+
+    //route to recommendation
+    //this.router.navigate(['/recommendation', groupName]);
   }
 
-  ngOnDestroy() {
-    //this.filmSubscription.unsubscribe();
-  }
 }//end comp

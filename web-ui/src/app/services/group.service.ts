@@ -14,7 +14,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class GroupService {
-	public errr = "error"
+  
 	private handleError<T>(operation = 'operation', result? : T) {
 	  return (error: any): Observable<T> => {
       return of(result);
@@ -25,7 +25,7 @@ export class GroupService {
     private http: HttpClient
   ) { }
 
-   // create invitation
+   // generate invitation code
   createInvitation(){
       // I generate the UID from two parts here 
       // to ensure the random number provide enough bits.
@@ -36,6 +36,7 @@ export class GroupService {
       return firstPartId + secondPartID;
   }
 
+  // create new group
   createGroup(group: any): Observable<any> {
     return this.http.post<any>('http://tindfilm/group/create', group, httpOptions)
       .pipe(
@@ -43,10 +44,10 @@ export class GroupService {
       );
   }
 
-  //get all groups
-  getUserGroups(userName: string):Observable<Group[]>{
-    let url = "http://tindfilm/group/"+userName+"/groups"
-    return this.http.get<Group[]>(url);
+  //get user's groups if not admin
+  getUserGroups(userName: string):Observable<any>{
+    const url = "http://tindfilm/group/"+userName+"/groups"
+    return this.http.get<any>(url);
   }
 
   // delete 
@@ -77,78 +78,113 @@ export class GroupService {
   }
 
   // obtenir info du groupe
-  getGroupInfo(groupName :string)
-  {
+  getGroupInfo(groupName :string){
     let url = "http://tindfilm/group/"+groupName;
-    return this.http.get(url);
+    return this.http.get<any>(url);
   }
 
   // obtenir la liste des utilisateurs d'un groupe
-  getUsersGroup(groupName: string)
-  {
-    let url = "http://tindfilm/group/"+ groupName + "/users";
-    return this.http.get(url);
+  getUsersGroup(groupName: string) {
+    const url = "http://tindfilm/group/"+ groupName + "/users";
+    return this.http.get<any>(url);
   }
 
   // obtenir la liste des utilisateurs de chaque groupe
-  getUsersGroupAll()
-  {
-    return this.http.get("http://tindfilm/group/all/users");
+  getUsersGroupAll(){
+    return this.http.get<any>("http://tindfilm/group/all/users");
   }
 
   // obtenir la liste des id de film du catalogue
-  getCatalogue(groupName: string, userName: string)
-  {
-    let url = "http://tindfilm/group/"+groupName+"/"+userName;
-    return this.http.get(url);
+  getCatalogue(groupName: string, userName: string) {
+    const url = "http://tindfilm/group/"+groupName+"/"+userName;
+    return this.http.get<any>(url);
   }
 
   // obtenir les scores des films
-  getScore(groupName: string)
-  {
-    let url = "http://tindfilm/group/" + groupName + "/scores";
-    return this.http.get(url);
+  getScore(groupName: string) {
+    const url = "http://tindfilm/group/" + groupName + "/scores";
+    return this.http.get<any>(url);
   }
 
   // ajoute un utilisateur
-  addUser(userName : string, invitation :string )
-  {
-    let url = "http://tindfilm/group/users";
-    let requete = { userName : userName, invitation: invitation};
-    return this.http.post(url,requete,httpOptions);
+  addUser(userName : string, invitation :string ) {
+    const url = "http://tindfilm/group/users";
+    const requete = { "userName" : userName, "invitation": invitation};
+    return this.http.post<any>(url,requete,httpOptions);
   }
 
   // créer un catalogue au hasard
-  createRandomCatalogue(groupName : string, administrateur :string)
-  {
-    let url = "http://tindfilm/group/"+groupName+"/newCatalogue";
-    let requete = {type: "random", admin: administrateur};
-    return this.http.post(url, requete ,httpOptions);
+  createRandomCatalogue(groupName : string, admin :string){
+    const url = "http://tindfilm/group/"+groupName+"/newCatalogue";
+    const requete = {"type": "random", "admin": admin};
+    return this.http.post<any>(url, requete ,httpOptions);
   }
 
   // créer un catalogue selon des recommandations
-  createCatalogue(groupName : string, administrateur :string)
-  {
-    let url = "http://tindfilm/group/"+groupName+"/newCatalogue";
-    let requete = {type: "", admin: administrateur};
-    return this.http.post(url, requete ,httpOptions);
+  createCatalogue(groupName : string, admin :string){
+    const url = "http://tindfilm/group/"+groupName+"/newCatalogue";
+    const requete = {"type": "", "admin": admin};
+    return this.http.post<any>(url, requete ,httpOptions);
   }
 
   // modifie les scores des films
-  setScore(groupName: string, userName: string, filmID : number , increment: boolean)
-  {
-    let url = "http://tindfilm/group/"+groupName+"/scores";
-    let requete = {userName: userName , idFilm: filmID, increment: increment};
-    return this.http.post(url,requete,httpOptions)
+  setScore(groupName: string, userName: string, filmID : number , increment: boolean){
+    const url = "http://tindfilm/group/"+groupName+"/scores";
+    const requete = {"userName": userName , "idFilm": filmID, "increment": increment};
+    return this.http.post<any>(url,requete,httpOptions)
   }
   
-
   // retourne les votes du groupe sous le format suivant:
   //{ userName : {idFilm1 : +1, idFilm2 : -1, etc}, userName2 : {etc..}, etc...}
-  getVote(groupName : string)
-  {
-    let url = "http://tindfilm/group/"+groupName+"/votes";
-    return this.http.get(url);
+  getVote(groupName : string){
+    const url = "http://tindfilm/group/"+groupName+"/votes";
+    return this.http.get<any>(url);
 
   }
+  // compute vote ratio
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // delete 
+  // efface un groupe
+/*  deleteGroup(groupName : string, admin: string)
+  {
+    let url = "http://tindfilm/group/" + groupName;
+    let requeteJson = { admin: admin};
+    return this.http.delete(url,JSON.stringify(requeteJson))
+      .pipe(
+        catchError(this.handleError('addGroup', ))
+      );
+
+    ;
+  }
+
+  // efface l'utilisateur d'un groupe
+  deleteUserGroup(userName : string , groupName : string, admin:string)
+  {
+    let url = "http://tindfilm/group/" + groupName +"/" + userName;
+    let requeteJson = { admin: admin};
+    return this.http.delete(url,JSON.stringify(requeteJson)); 
+  }
+
+  //efface le catalogue du groupe
+  deleteCatalogue(groupName : string, admin:string)
+  {
+    let url = "http://tindfilm/group/" + groupName +"/Catalogue";
+    let requeteJson = { admin: admin};
+    return this.http.delete(url,JSON.stringify(requeteJson)); 
+  }*/
 }

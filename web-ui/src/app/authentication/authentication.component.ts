@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder} from '@angular/forms';
-
-import {Router} from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { GroupService } from '../services/group.service';
+import { AuthService } from '@auth0/auth0-angular';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-authentication',
@@ -11,57 +12,79 @@ import { GroupService } from '../services/group.service';
 })
 
 export class AuthenticationComponent implements OnInit {
-checkoutForm = this.formBuilder.group({
-	userName: '',
-	invitation:''
-});
-public mobile = false;
-public group = [];
+  checkoutForm = this.formBuilder.group({
+  	invitation:''
+  });
+
+  public mobile = false;
+  public films = [];
+  public group = [];
 
   constructor(
 
     private router: Router,
     private formBuilder: FormBuilder,
-    private groupService: GroupService
+    private groupService: GroupService,
+    private auth: AuthService,
+    private route2: ActivatedRoute,
+    private userService: UserService,
 
   	) {}
 
+  public getUserName(key: any): any {
+    var k = JSON.parse(key);
+    return k.name;
+  }
+
+  public getUserEmail(key: any): any {
+    var k = JSON.parse(key);
+    return k.email;
+  }
+
+  profileJson: string = null;
 
   ngOnInit(): void {
+   
+    this.auth.user$.subscribe(
+      (profile) => {
+        (this.profileJson = JSON.stringify(profile, null, 2));
+
+        // get user profile data
+        const userName = this.getUserName(this.profileJson);
+        const userEmail = this.getUserEmail(this.profileJson);
+
+        //check if user in DB
+        this.userService.updateUserDB(userName,userEmail);
+
+      }
+    );   
 
     if (window.screen.width <= 390) { // 768px portrait
       this.mobile = true;
-    }
+    };
+    
   }
 
-  onSubmit(): void {
-  	let invitation = this.checkoutForm.value['invitation'];
-  	let userName = this.checkoutForm.value['userName'];
+onSubmit(): void {
 
-/*  	let formObj = this.checkoutForm.getRawValue();
-  	let userName = this.userName;
-    let dict = {
-      "groupeName":groupName,
-      "admin":userName,
-      "invitation":this.inviation
-    };
-    let json = JSON.stringify(dict);
-    this.groupService.createGroup(json)
-    	.subscribe(
-      	data => this.groups = data
-    );*/
-    let dict = {
-      "userName":userName,
-      "invitation":invitation
-    };
-    let json = JSON.stringify(dict);
-    this.groupService.getUserGroups(json)
-    	.subscribe(
-      	data => this.group = data
-    );
-    //get groupName in list
-    let groupName = "groupName"
-    this.router.navigate(['/films', groupName]);
+    const invitation = this.checkoutForm.value['invitation'];
+    const userName = this.getUserName(this.profileJson);
+
+    this.groupService
+      .addUser(userName, invitation)
+      .subscribe(data => {
+        
+        // add user to group
+        this.group.push(data);
+        
+        //redirect to film scoring page        
+        if(data["reussit"]){          
+          this.router.navigate(['/films', data["groupName"]]);
+        }
+
+    });
+
   }
+
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs'; // ERROR import 
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Film }  from '../models/film.model';
 import { FilmService } from '../services/film.service';
@@ -26,12 +26,46 @@ export class RecommendationComponent implements OnInit {
     private filmService: FilmService,
     private groupService: GroupService,
     private userService: UserService,
-    private auth: AuthService
+    private auth: AuthService,
+    private route2: ActivatedRoute
+
   ){}
 
-  ngOnInit(): void {
+  public getUserName(key: any): any {
+    var k = JSON.parse(key);
+    return k.name;
+  }
 
-  	// get films from recommandation tool
+  public getUserEmail(key: any): any {
+    var k = JSON.parse(key);
+    return k.email;
+  }
+
+  profileJson: string = null;
+
+
+  ngOnInit(): void {
+   
+    this.auth.user$.subscribe(
+      (profile) => {
+        (this.profileJson = JSON.stringify(profile, null, 2));
+
+        // get user profile data
+        const userName = this.getUserName(this.profileJson);
+        const userEmail = this.getUserEmail(this.profileJson);
+        const groupName = this.route2.snapshot.paramMap.get('groupName');
+
+        //check if user in DB
+        this.userService.updateUserDB(userName,userEmail);
+
+        //get recommended movies
+        this.groupService.getCatalogue(groupName,userName)
+          .subscribe(
+            data => this.films = data
+        );
+
+      }
+    );   
 
     if (window.screen.width <= 390) { // 768px portrait
       this.mobile = true;
