@@ -1,0 +1,51 @@
+[
+    {
+        "admin": "user1",
+        "groupName":"HelloWorld1",
+        "invitation":"http://tindfilm/invitationurl/HelloWorld1",
+	    "users": [
+	    	{
+	    		"userName":"user2",
+	    		"email":"user2@email.com"
+	    	},
+	    	{
+	    		"userName":"user3",
+	    		"email":"user4@email.com"
+	    	},	    	
+	    	{
+	    		"userName":"user4",
+	    		"email":"user4@email.com"
+	    	}
+	    ]
+    },
+    {
+        "admin": "user1",
+        "groupName":"HelloWorld2",
+        "invitation":"http://tindfilm/invitationurl/HelloWorld2",
+	    "users": [
+	    	{
+	    		"userName":"user2",
+	    		"email":"user2@email.com"
+	    	},
+	    	{
+	    		"userName":"user3",
+	    		"email":"user4@email.com"
+	    	}	    	
+	    ]
+    },
+    {
+        "admin": "user1",
+        "groupName":"HelloWorld3",
+        "invitation":"http://tindfilm/invitationurl/HelloWorld3",
+	    "users": [
+	    	{
+	    		"userName":"user3",
+	    		"email":"user4@email.com"
+	    	},	    	
+	    	{
+	    		"userName":"user4",
+	    		"email":"user4@email.com"
+	    	}
+	    ]
+    }
+]
