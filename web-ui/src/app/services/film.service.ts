@@ -30,13 +30,13 @@ export class FilmService {
     private http: HttpClient
   ){}
 
-  getFilms():Observable<Film[]>{
-  // WORKS FINE
+  //get random film by id
+  getRandomFilms():Observable<Film[]>{
     return this.http.get<Film[]>("http://tindfilm/film");
   }
 
+  //score random film
   scoreFilm(score:any, groupName: any): Observable<any> {
-  // post film score
     let url = 'http://tindfilm/group/'+groupName+'/scores';
     return this.http.post<any>(url,score,httpOptions)
       .pipe(
@@ -44,20 +44,18 @@ export class FilmService {
       );
   }
 
-
+  // get details of films
   getSingleFilm(id: number){
-	this.getFilms()
-    .subscribe(
-        data => this.films = data
-    );
-	return this.films[id];
+	  this.getRandomFilms()
+      .subscribe(
+          data => this.films = data
+      );
+	  return this.films[id];
   }
 
   // permet d'obtenir toutes les infos sur un film
   // à partir de son id.
-
-  getFilm(id: number)
-  {
+  getFilm(id: number) {
     let url = "http://tindfilm/film/get/" + id.toString();
     return this.http.get(url);
   }

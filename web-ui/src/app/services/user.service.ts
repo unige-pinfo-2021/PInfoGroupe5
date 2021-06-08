@@ -68,4 +68,8 @@ export class UserService {
   
   }
 
+  getRandomNum(){
+    return Math.floor(Math.random() * 16)  
+  }
+
 }

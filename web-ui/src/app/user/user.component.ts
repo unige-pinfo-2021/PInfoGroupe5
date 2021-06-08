@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
 import { User }  from '../models/user.model';
 import { UserService } from '../services/user.service';
-
 import { Subscription } from 'rxjs'; // ERROR import 
-
 import {Router} from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@auth0/auth0-angular';
@@ -57,4 +54,5 @@ export class UserComponent implements OnInit {
     let userEmail = dict.email;
     this.userService.updateUserDB(userName,userEmail);
   }
+
 }

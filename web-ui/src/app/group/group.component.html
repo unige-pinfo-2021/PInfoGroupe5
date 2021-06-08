@@ -3,17 +3,7 @@
     <div class="card_Solution container " *ngIf="auth.user$ | async as user">
       <span style="display: none;">{{ getUserName(profileJson) }}</span>
       <div class="media ">
-        <img class="rounded-circle account-img" src="assets/images/group1.jpg">
-        <!-- <div>
-          <label for="new-hero">Hero name: </label>
-          <input id="new-hero" #heroName />
-
-          <button class="add-button" (click)="add(heroName.value); heroName.value=''">
-            Add hero
-          </button>
-        </div> -->
-        <!--       <img src="" class="rounded-circle account-img"  id="temp_image" width="100">
-         -->
+        <img class="rounded-circle account-img" src='{{ "assets/images/" + picNum + ".jpg" }}'>
         <div>
           <h2 class="account-heading">Create Group</h2>
           <p>
@@ -26,58 +16,6 @@
           <legend class="border-bottom mb-4"> Group Info </legend>
           <label for="exampleInputEmail1">Group Name</label>
           <input id="groupName" type="text" formControlName="groupName" class="form-control mb-2" type="text">
-<!-- <div class="mb-3">
-  <label for="exampleInputEmail1 ">Prefered Types</label>
-  <div class="row ml-3   center">
-          <div class="form-check col"> 
-            <label class="container_checkbox mt- mr-3 ml-3"> Action
-                    <input type="checkbox" name="action" class=" checkboxinput form-check-input " >
-                <span class="checkmark"></span>
-            </label>  
-          </div>
-          <div class="form-check col"> 
-            <label class="container_checkbox  mr-3 ml-3"> Animation
-                    <input type="checkbox" name="action" class=" checkboxinput form-check-input " >
-                <span class="checkmark"></span>
-            </label>  
-          </div>
-          <div class="form-check col"> 
-            <label class="container_checkbox  mr-3 ml-3"> Comedy
-                    <input type="checkbox" name="action" class=" checkboxinput form-check-input " >
-                <span class="checkmark"></span>
-            </label>  
-          </div>
-      <div class="w-100"></div>
-          <div class="form-check col"> 
-            <label class="container_checkbox  mr-3 ml-3"> Horror
-                    <input type="checkbox" name="action" class=" checkboxinput form-check-input " >
-                <span class="checkmark"></span>
-            </label>  
-          </div>
-          <div class="form-check col"> 
-            <label class="container_checkbox  mr-3 ml-3"> Documentary
-                    <input type="checkbox" name="action" class=" checkboxinput form-check-input " >
-                <span class="checkmark"></span>
-            </label>  
-          </div>
-          <div class="form-check col"> 
-            <label class="container_checkbox  mr-3 ml-3"> Musical
-                    <input type="checkbox" name="action" class=" checkboxinput form-check-input " >
-                <span class="checkmark"></span>
-            </label>  
-          </div>
-      </div>
-    </div> -->
-<!--     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
-    <div ng-app="HelloWorldApp">
-        <div ng-controller="HelloWorldController ">
-
-              <label for="exampleInputEmail1">Picture</label>
-              <p>
-            <input type="file" id="file" onchange="angular.element(this).scope().uploadavtar(this.files)"/>
-        </div>
-    </div> -->
         </fieldset>
       </form>
       <div class="text-center">
@@ -98,12 +36,7 @@
   <div class="col-md-4 " style="background-color: white;">
     <div class="">
         <div class="mt-5 card-header bg-light">
-          <h4 class="text-center" style="color: block">My groups
-
-<!-- COPY -->
-    <!--             <input type="text" id="copyTarget" value="Text to Copy"> <button id="copyButton">Copy</button><br><br>
-                <input type="text" placeholder="Click here and press Ctrl-V to see clipboard contents"> -->
-          </h4>
+          <h4 class="text-center" style="color: block">My groups</h4>
           <div id="accordion">
             <div
               *ngFor="let group of groups; let i = index"
@@ -117,6 +50,8 @@
                   </div> 
                   <div class="nav-item nav-link float-right" href="">
                     <div class="row ">
+                      <button type="button" *ngIf="profileJson.name===group.admin"
+                       (click)="createCatalogue( [group.groupName, group.admin] )" class="col btn-sm btn-primary mt-3" >Recommend</button>
                       <button type="button" class="col btn-sm btn-primary mt-3" data-toggle="modal" [attr.data-target]="'#exampleModal'+(i+1)" data-whatever="groupUrl">Invite</button>
                       <div class="modal fade" id="exampleModal{{i+1}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{i+1}}" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -216,30 +151,3 @@
                 </div>
               </div>
             </div>
-
-<script type="text/javascript">
-  /*https://stackoverflow.com/questions/42754355/angular-upload-image-and-display-to-user
-*/
-angular.module('HelloWorldApp', [])
-   .controller('HelloWorldController', function($scope) {
-       $scope.uploadavtar = function(files) {
-        //var fd = new FormData();
-        //Take the first selected file
-        //fd.append("file", files[0]);
-        
-        var imagefile = document.querySelector('#file');
-                if (imagefile.files && imagefile.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        $('#temp_image')
-                            .attr('src', e.target.result);
-                    };
-                    reader.readAsDataURL(imagefile.files[0]);
-                    this.imagefile = imagefile.files[0];
-                }else{
-                    console.log("Image not selected");
-                }        
-      }
-});
-
-</script>

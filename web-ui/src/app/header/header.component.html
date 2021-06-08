@@ -11,26 +11,16 @@
       <li class="nav-item active">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Groups</a>
-      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Settings
+          Group
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" (click)="onViewCreateGroup()">Create Groups</a>
+          <a class="dropdown-item" (click)="onViewJoinGroup()">Join Group</a>
         </div>
       </li>
-
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
-    </form>
   <div class="nav-item nav-link gtco-feature ml-0">
       <button  *ngIf="(auth.isAuthenticated$ | async) === false" class="btn btn btn-outline-dark  " (click)="loginWithRedirect()"> Login<i class="fas fa-sign-in-alt ml-1" aria-hidden="true"></i></button>
       <button *ngIf="(auth.isAuthenticated$ | async) === false" (click)="signupWithRedirect()" class="btn btn-dark btn " href="" >Sign up<i class="fas fa-user-plus ml-1"aria-hidden="true"></i></button>
