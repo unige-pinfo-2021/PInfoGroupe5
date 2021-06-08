@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs'; // ERROR import 
+import { Subscription } from 'rxjs'; // ERROR import
 import { Router,ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Film }  from '../models/film.model';
@@ -45,7 +45,7 @@ export class RecommendationComponent implements OnInit {
 
 
   ngOnInit(): void {
-   
+
     this.auth.user$.subscribe(
       (profile) => {
         (this.profileJson = JSON.stringify(profile, null, 2));
@@ -61,18 +61,20 @@ export class RecommendationComponent implements OnInit {
         //get recommended movies
         this.groupService.getCatalogue(groupName,userName)
           .subscribe(
-            data => this.films = data
+            data => {
+              this.films = data;
+            }
         );
 
       }
-    );   
+    );
 
     if (window.screen.width <= 390) { // 768px portrait
       this.mobile = true;
     };
-    
+
   }
-  
+
   // get films recommandation
 
   onViewFilm(id: number) {
@@ -80,5 +82,3 @@ export class RecommendationComponent implements OnInit {
   }
 
 }//end comp
-
-
