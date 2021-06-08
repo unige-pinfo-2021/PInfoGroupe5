@@ -27,8 +27,8 @@ export class FilmListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route2: ActivatedRoute, 
-    private formBuilder: FormBuilder, 
+    private route2: ActivatedRoute,
+    private formBuilder: FormBuilder,
     private filmService: FilmService,
     private groupService: GroupService,
     private userService: UserService,
@@ -49,7 +49,7 @@ export class FilmListComponent implements OnInit {
 
 
   ngOnInit(): void {
-   
+
     //get userName
     this.auth.user$.subscribe(
       (profile) => {
@@ -74,7 +74,7 @@ export class FilmListComponent implements OnInit {
           .subscribe(
             data => {
               this.groups = data;
-              
+
               //get info of each groups
               for (var i in data){
                 this.groupService.getGroupInfo(data[i])
@@ -93,9 +93,9 @@ export class FilmListComponent implements OnInit {
     if (window.screen.width <= 390) { // 768px portrait
       this.mobile = true;
     };
-    
+
   }
-  
+
   score(film :any) {
 
     //get param for payload
@@ -104,7 +104,7 @@ export class FilmListComponent implements OnInit {
     const increment = film[1];
     const userName = this.getUserName(this.profileJson);
 
-    // send score 
+    // send score
     this.filmService
       .setScore(groupName,userName,filmID,increment)
       .subscribe(
@@ -135,7 +135,7 @@ export class FilmListComponent implements OnInit {
 
   copyToClipboard(item) {
     document.addEventListener('copy', (e: ClipboardEvent) => {
-      
+
       // parameters
       e.clipboardData.setData('text/plain', (item.toString()));
       e.preventDefault();
@@ -143,7 +143,7 @@ export class FilmListComponent implements OnInit {
       // remove previous copy
       document.removeEventListener('copy', null);
     });
-    
+
     // copy item
     document.execCommand('copy');
   }
@@ -176,7 +176,7 @@ export class FilmListComponent implements OnInit {
       .subscribe(data => {
         data;
         window.location.reload()
-      }); 
+      });
 
   }
 

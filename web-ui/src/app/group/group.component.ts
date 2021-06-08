@@ -1,12 +1,12 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import { FormControl, FormBuilder} from '@angular/forms';
-import { Subscription } from 'rxjs'; // ERROR import 
+import { Subscription } from 'rxjs'; // ERROR import
 import { GroupService } from '../services/group.service';
 import { Router } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
 import { AuthService } from '@auth0/auth0-angular';
 import * as $ from 'jquery';
-import { DOCUMENT } from '@angular/common'; 
+import { DOCUMENT } from '@angular/common';
 import {UserService} from "../services/user.service"
 
 
@@ -34,7 +34,7 @@ export class GroupComponent implements OnInit {
     public auth: AuthService,
     public userService:UserService
   ) { }
-	
+
   public invitation = this.groupService.createInvitation();
 
   public getUserName(key: any): any {
@@ -70,12 +70,12 @@ export class GroupComponent implements OnInit {
         this.groupService.getUserGroups(userName)
           .subscribe(
             data => {
-              this.groups = data            
+              this.groups = data
             }
           );
 
       }
-    );   
+    );
 
     // manage responsive design
     if (window.screen.width <= 390) { // 768px portrait
@@ -87,7 +87,7 @@ export class GroupComponent implements OnInit {
   onSubmit(): void {
 
     // get data from form
-  	let groupName = this.checkoutForm.value['groupName'];   
+  	let groupName = this.checkoutForm.value['groupName'];
     let userName = this.getUserName(this.profileJson);
 
     // create payload
@@ -115,7 +115,7 @@ export class GroupComponent implements OnInit {
 
   copyToClipboard(item) {
     document.addEventListener('copy', (e: ClipboardEvent) => {
-      
+
       // parameters
       e.clipboardData.setData('text/plain', (item.toString()));
       e.preventDefault();
@@ -123,10 +123,9 @@ export class GroupComponent implements OnInit {
       // remove previous copy
       document.removeEventListener('copy', null);
     });
-    
+
     // copy item
     document.execCommand('copy');
   }
 
 }
-

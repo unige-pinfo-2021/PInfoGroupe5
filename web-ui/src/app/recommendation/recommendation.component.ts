@@ -57,14 +57,21 @@ export class RecommendationComponent implements OnInit {
 
         //check if user in DB
         this.userService.updateUserDB(userName,userEmail);
-
         //get recommended movies
-        this.groupService.getCatalogue(groupName,userName)
-          .subscribe(
-            data => {
-              this.films = data;
-            }
-        );
+        this.groupService.createCatalogue(groupName,userName).
+        subscribe(
+          data =>{
+            this.groupService.getCatalogue(groupName,userName)
+              .subscribe(
+                data =>{
+                  console.log(data);
+                  this.films = data;
+                }
+            );
+          }
+      );
+
+
 
       }
     );
