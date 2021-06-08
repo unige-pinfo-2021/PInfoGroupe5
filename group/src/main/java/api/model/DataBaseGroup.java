@@ -295,6 +295,7 @@ public class DataBaseGroup{
 
 		this.setBDTransaction(q, valeursInputs, typesInputs,typeQuery);
 	}
+	
 
 	// efface les films du groupe
 	public void DELETE_FilmAll(String groupName)
@@ -391,7 +392,19 @@ public class DataBaseGroup{
 		return reponse.size() > 0; 
 	}
 
-	
+	// vérifie si un film existe dans un groupe
+	public boolean EXIST_Film(String groupName, int filmID)
+	{
+		String query ="SELECT * FROM groupScores WHERE groupName= ? AND filmID=?;";
+		String attributs[] = {"groupName","filmID","score"};
+		String typesOutput[] = {"string","int","int"};
+		String valeursInput[] = {groupName,Integer.toString(filmID)};
+		String typesInput[] = {"string","int"};
+
+		ArrayList<Map<String,String>> reponse = this.getBD(query, attributs, typesOutput, valeursInput, typesInput);
+
+		return reponse.size() > 0; 
+	}
 
 	// methode pour écrire dans la base de donnée
 	public void setBD(String query,String valeursInput[], String typesInput[])

@@ -423,6 +423,11 @@ public class GroupService{
 			erreur += userName + " n'est pas membre du groupe "+groupName + ".\n";
 			return msgRetour(false,erreur);
 		}
+		
+		if(!this.db.EXIST_Film(groupName,filmID))
+		{
+			this.db.Insert_Film(groupName,filmID);
+		}
 
 		this.db.incrementScore(groupName, filmID, increment);
 		int vote = -1;
