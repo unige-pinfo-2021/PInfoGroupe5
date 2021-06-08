@@ -14,7 +14,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class GroupService {
-  
+
 	private handleError<T>(operation = 'operation', result? : T) {
 	  return (error: any): Observable<T> => {
       return of(result);
@@ -27,7 +27,7 @@ export class GroupService {
 
    // generate invitation code
   createInvitation(){
-      // I generate the UID from two parts here 
+      // I generate the UID from two parts here
       // to ensure the random number provide enough bits.
       var firstPart = (Math.random() * 46656) | 0;
       var secondPart = (Math.random() * 46656) | 0;
@@ -50,7 +50,7 @@ export class GroupService {
     return this.http.get<any>(url);
   }
 
-  // delete 
+  // delete
   // efface un groupe
  deleteGroup(groupName : string, administrateur: string){
     let url = "http://tindfilm/group/" + groupName + "/" + administrateur;
@@ -65,13 +65,13 @@ export class GroupService {
   // efface l'utilisateur d'un groupe
   deleteUserGroup(userName : string , groupName : string, administrateur:string){
     let url = "http://tindfilm/group/" + groupName +"/" + userName + "/" + administrateur;
-    return this.http.delete(url); 
+    return this.http.delete(url);
   }
 
   //efface le catalogue du groupe
   deleteCatalogue(groupName : string, administrateur:string){
     let url = "http://tindfilm/group/" + groupName + "/" + administrateur +"/Catalogue";
-    return this.http.delete(url); 
+    return this.http.delete(url);
   }
 
   // obtenir info du groupe
@@ -93,7 +93,7 @@ export class GroupService {
 
   // obtenir la liste des id de film du catalogue
   getCatalogue(groupName: string, userName: string) {
-    const url = "http://tindfilm/group/"+groupName+"/"+userName;
+    const url = "http://tindfilm/group/"+groupName+"/"+userName+"/Catalogue";
     return this.http.get<any>(url);
   }
 
@@ -124,7 +124,7 @@ export class GroupService {
     return this.http.post<any>(url, requete ,httpOptions);
   }
 
-  
+
   // retourne les votes du groupe sous le format suivant:
   //{ userName : {idFilm1 : +1, idFilm2 : -1, etc}, userName2 : {etc..}, etc...}
   getVote(groupName : string){
@@ -149,7 +149,7 @@ export class GroupService {
 
 
 
-  // delete 
+  // delete
   // efface un groupe
 /*  deleteGroup(groupName : string, admin: string)
   {
@@ -168,7 +168,7 @@ export class GroupService {
   {
     let url = "http://tindfilm/group/" + groupName +"/" + userName;
     let requeteJson = { admin: admin};
-    return this.http.delete(url,JSON.stringify(requeteJson)); 
+    return this.http.delete(url,JSON.stringify(requeteJson));
   }
 
   //efface le catalogue du groupe
@@ -176,6 +176,6 @@ export class GroupService {
   {
     let url = "http://tindfilm/group/" + groupName +"/Catalogue";
     let requeteJson = { admin: admin};
-    return this.http.delete(url,JSON.stringify(requeteJson)); 
+    return this.http.delete(url,JSON.stringify(requeteJson));
   }*/
 }
