@@ -35,14 +35,17 @@ export class FilmService {
     return this.http.get<Film[]>("http://tindfilm/film");
   }
 
-  //score random film
-  scoreFilm(score:any, groupName: any): Observable<any> {
-    let url = 'http://tindfilm/group/'+groupName+'/scores';
-    return this.http.post<any>(url,score,httpOptions)
+
+  // modifie les scores des films
+  setScore(groupName: string, userName: string, filmID : number , increment: boolean){
+    const url = "http://tindfilm/group/"+groupName+"/scores";
+    const requete = {"userName": userName , "idFilm": filmID, "increment": increment};
+    return this.http.post<any>(url,requete,httpOptions)
       .pipe(
-        catchError(this.handleError('addScores', score))
+        catchError(this.handleError('addScores', filmID))
       );
   }
+
 
   // get details of films
   getSingleFilm(id: number){

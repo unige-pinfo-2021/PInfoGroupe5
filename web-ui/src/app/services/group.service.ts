@@ -52,27 +52,24 @@ export class GroupService {
 
   // delete 
   // efface un groupe
- deleteGroup(groupName : string, administrateur: string)
-  {
+ deleteGroup(groupName : string, administrateur: string){
     let url = "http://tindfilm/group/" + groupName + "/" + administrateur;
     return this.http.delete(url)
       .pipe(
-        catchError(this.handleError('addGroup', ))
+        catchError(this.handleError('deleteGroup', ))
       );
 
     ;
   }
 
   // efface l'utilisateur d'un groupe
-  deleteUserGroup(userName : string , groupName : string, administrateur:string)
-  {
+  deleteUserGroup(userName : string , groupName : string, administrateur:string){
     let url = "http://tindfilm/group/" + groupName +"/" + userName + "/" + administrateur;
     return this.http.delete(url); 
   }
 
   //efface le catalogue du groupe
-  deleteCatalogue(groupName : string, administrateur:string)
-  {
+  deleteCatalogue(groupName : string, administrateur:string){
     let url = "http://tindfilm/group/" + groupName + "/" + administrateur +"/Catalogue";
     return this.http.delete(url); 
   }
@@ -127,12 +124,6 @@ export class GroupService {
     return this.http.post<any>(url, requete ,httpOptions);
   }
 
-  // modifie les scores des films
-  setScore(groupName: string, userName: string, filmID : number , increment: boolean){
-    const url = "http://tindfilm/group/"+groupName+"/scores";
-    const requete = {"userName": userName , "idFilm": filmID, "increment": increment};
-    return this.http.post<any>(url,requete,httpOptions)
-  }
   
   // retourne les votes du groupe sous le format suivant:
   //{ userName : {idFilm1 : +1, idFilm2 : -1, etc}, userName2 : {etc..}, etc...}

@@ -1,7 +1,6 @@
   <div class="row gtco-testimonials m-0 ">
     <div class="col-md-8">
     <div class="card_Solution container " *ngIf="auth.user$ | async as user">
-      <span style="display: none;">{{ getUserName(profileJson) }}</span>
       <div class="media ">
         <img class="rounded-circle account-img" src='{{ "assets/images/" + picNum + ".jpg" }}'>
         <div>
@@ -51,7 +50,7 @@
                   <div class="nav-item nav-link float-right" href="">
                     <div class="row ">
                       <button type="button" *ngIf="profileJson.name===group.admin"
-                       (click)="createCatalogue( [group.groupName, group.admin] )" class="col btn-sm btn-primary mt-3" >Recommend</button>
+                       (click)="createCatalogue( [group.groupName, group.admin] )" class="col btn-sm btn-primary mt-3" >Movies</button>
                       <button type="button" class="col btn-sm btn-primary mt-3" data-toggle="modal" [attr.data-target]="'#exampleModal'+(i+1)" data-whatever="groupUrl">Invite</button>
                       <div class="modal fade" id="exampleModal{{i+1}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{i+1}}" aria-hidden="true">
                         <div class="modal-dialog" role="document">
