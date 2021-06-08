@@ -1,5 +1,5 @@
-<!-- <div class="row m-1">
-  <div class="col-md-8">   
+<div class="row m-1">
+  <div class="col-md-8">
     <div
       *ngFor="let film of films; let i = index"
       style="border: 0;" >
@@ -8,9 +8,6 @@
         <div class="center container ">
           <div class="center_icon_btn ">
             <div class="row mt-2 " style="position: relative;">
-              <button id="sm"  (click)=" score( [film.id,true] ) "  class="col btn_select  like "><i class="fas fa-thumbs-up" value="true"></i></button>
-              <button id="sm"  (click)="score( [film.id,false] )"   class="col btn_select unlike "><i class="fas fa-thumbs-down"></i></button>
-              <button id="sm"   class="col btn_select info  " data-toggle="collapse" href="#+film.id" role="button" aria-expanded="false" aria-controls="film.id"><i class="fas fa-info"></i></button>
             </div>
           </div>
         </div>
@@ -48,7 +45,7 @@
         </div>
       </div>
     </div>
-  </div> 
+  </div>
   <div class="col-md-4 " style="background-color: white;">
     <div class="">
         <div class="mt-5 card-header bg-light">
@@ -56,115 +53,5 @@
             My groups
           </h4>
           <div id="accordion">
-            <div
-              *ngFor="let group of groups; let i = index"
-              style="border: 0;"
-              [attr.data-index]="i">
-              <div class="card">
-                <div id="{{'heading'+(i+1)}}" class=" card-header mb-0 btn btn-link " data-toggle="collapse"  [attr.data-target]="'#collapse'+(i+1)" aria-expanded="true" aria-controls="collapse{{i+1}}">
-                  <div class="nav-item nav-link mt-1 float-left" >
-                    <img class="col rounded-circle account-img-small " src="assets/images/group1.jpg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
-                    <small class="ml-4">{{group.groupName}} </small> 
-                  </div> 
-                  <div class="nav-item nav-link float-right" href="">
-                    <div class="row ">
-                      <button type="button" class="col btn-sm btn-primary mt-3" data-toggle="modal" [attr.data-target]="'#exampleModal'+(i+1)" data-whatever="groupUrl">Invite</button>
-                      <div class="modal fade" id="exampleModal{{i+1}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{i+1}}" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel{{i+1}}">New message</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                              <form>
-                                <div class="form-group">
-                                  <label for="recipient-name" class="col-form-label">Group:</label>
-                                  <input type="text" class="form-control" id="recipient-name" value="{{group.groupName}} ">
-                                </div>
-                                <div class="form-group">
-                                  <label for="message-text" class="col-form-label">Invitation code:</label>
-                                  {{group.groupName}}
-                                    <input type="text" class="form-control" id="recipient-name" value="{{group.invitation}}">
-                                </div>
-                              </form>
-                            </div>
-                            <div class="modal-footer" >
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                              <button (click)="copyToClipboard( group.invitation )" type="button"  class="btn btn-primary " >Copy Inviation Code</button>
-
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                        <button type="button" class="col btn-sm btn-red mt-3 ml-2" data-toggle="modal" [attr.data-target]="'#exampleModaDelete'+(i+1)" data-whatever="groupUrl">Delete</button>
-                        <div class="modal fade" id="exampleModaDelete{{i+1}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{i+1}}" aria-hidden="true">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel{{i+1}}">Delete Group</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              <div class="modal-body">
-                                <form>
-                                  <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Groupe:</label>
-                                    <input type="text" value="{{group.groupName}}" class="form-control" id="recipient-name">
-                                  </div>
-                                </form>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn  btn-danger">Delete</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div id="collapse{{i+1}}" class="collapse" aria-labelledby="heading{{i+1}}" data-parent="#accordion">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col">
-                          <p><h4>{{group.groupName}}</h4>
-                          Description or Message
-                          <p>
-                        </div>
-                        <div class="float-right text-primary col mt-3 " >
-                          <h2 class="float-right mr-3" >50%</h2>
-                        </div>
-                      </div>
-                      <div class="card">
-                        <div id="heading{{i+1}}" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse{{i+1}}" aria-expanded="true" aria-controls="collapse{{i+1}}">
-                          <div class="nav-item nav-link mt-1 float-left" >
-                            <img class="col rounded-circle account-img-small " src="assets/images/user1.jpg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
-                            <small class="ml-4">Username </small> 
-                          </div> 
-                          <div class="nav-item nav-link float-right" href="">
-                            <div class="row ">
-                              <i class="fas fa-thumbs-up  mt-4"></i>
-                            </div>
-                          </div>
-                        </div>
-                        <div id="heading{{i+1}}" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse{{i+1}}" aria-expanded="true" aria-controls="collapse{{i+1}}">
-                          <div class="nav-item nav-link mt-1 float-left" >
-                            <img class="col rounded-circle account-img-small " src="assets/images/user2.jpeg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;filter: grayscale(100%);">
-                            <small class="ml-4 text-dark">Username </small> 
-                          </div> 
-                          <div class="nav-item nav-link float-right" href="">
-                            <div class="row ">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            
           </div>
- -->
