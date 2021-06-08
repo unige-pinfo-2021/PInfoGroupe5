@@ -23,6 +23,7 @@ export class FilmListComponent implements OnInit {
   public groupsInfo = [];
   public mobile = false;
   public list = [];
+  public user = null;
 
   constructor(
     private router: Router,
@@ -46,6 +47,7 @@ export class FilmListComponent implements OnInit {
 
   profileJson: string = null;
 
+
   ngOnInit(): void {
    
     //get userName
@@ -55,6 +57,7 @@ export class FilmListComponent implements OnInit {
 
         // get user profile data
         const userName = this.getUserName(this.profileJson);
+        this.user = userName;
         const userEmail = this.getUserEmail(this.profileJson);
 
         //check if user in DB
@@ -95,22 +98,20 @@ export class FilmListComponent implements OnInit {
   
   score(film :any) {
 
-    //get data for payload
-    var groupName = this.route2.snapshot.paramMap.get('groupName');
-    var idFilm = film[0];
-    var increment = film[1];
+    //get param for payload
+    const groupName = this.route2.snapshot.paramMap.get('groupName');
+    const filmID = film[0];
+    const increment = film[1];
+    const userName = this.getUserName(this.profileJson);
 
-    // make rest payload
-    var dict = {
-      "idFilm":idFilm,
-      "increment":increment
-    };
-    var json = JSON.stringify(dict);
-
-    // send like to backend
+    // send score 
     this.filmService
-      .scoreFilm(json,groupName)
-      .subscribe(data => this.films.push(data));
+      .setScore(groupName,userName,filmID,increment)
+      .subscribe(
+        data => {
+          this.films.push(data);
+        }
+      );
 
     // hide film div
     var filmDiv = ('#'+film[0]).toString();
@@ -120,20 +121,40 @@ export class FilmListComponent implements OnInit {
 
   // view film details
   onViewFilm(id: number) {
+
     this.router.navigate(['/films', 'view', id]);
+
+  }
+
+  // view film details
+  onViewRecommendation(groupName: any) {
+
+    this.router.navigate(['/recommendation', groupName]);
+
+  }
+
+  copyToClipboard(item) {
+    document.addEventListener('copy', (e: ClipboardEvent) => {
+      
+      // parameters
+      e.clipboardData.setData('text/plain', (item.toString()));
+      e.preventDefault();
+
+      // remove previous copy
+      document.removeEventListener('copy', null);
+    });
+    
+    // copy item
+    document.execCommand('copy');
   }
 
   // give recommendations
   createCatalogue(list: any){
 
-    console.log(list);
-
     //parameters
     var groupName = list[0];
     var admin = list[1];
     var userName = this.getUserName(this.profileJson);
-
-    console.log(admin)
 
     //check if user is admin
     if (admin == userName){
@@ -146,5 +167,18 @@ export class FilmListComponent implements OnInit {
     //route to recommendation
     //this.router.navigate(['/recommendation', groupName]);
   }
+
+  onClickDeleteGroup(groupName: any){
+    const userName = this.getUserName(this.profileJson);
+
+    //delete group
+    this.groupService.deleteGroup(groupName,userName)
+      .subscribe(data => {
+        data;
+        window.location.reload()
+      }); 
+
+  }
+
 
 }//end comp

@@ -64,11 +64,13 @@
                 <div id="{{'heading'+(i+1)}}" class=" card-header mb-0 btn btn-link " data-toggle="collapse"  [attr.data-target]="'#collapse'+(i+1)" aria-expanded="true" aria-controls="collapse{{i+1}}">
                   <div class="nav-item nav-link mt-1 float-left" >
                     <img class="col rounded-circle account-img-small " src="assets/images/group1.jpg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
-                    <small class="ml-4"><small>{{group.groupName}} </small></small> 
+                    <small class="ml-4"><small>{{group.groupName}}</small></small> 
                   </div> 
                   <div class="nav-item nav-link float-right" href="">
                     <div class="row ">
-                      <button type="button" (click)="createCatalogue( [group.groupName, group.admin] )" class="col btn-sm btn-primary mt-3" >Search</button>
+                      <span *ngIf="user===group.admin">
+                        <button type="button" (click)="onViewRecommendation( group.groupName )" class="col btn-sm btn-primary mt-3" >Movies</button>
+                      </span>
                       <button type="button" class="col btn-sm btn-primary-outline mt-3 ml-2" data-toggle="modal" [attr.data-target]="'#exampleModal'+(i+1)" data-whatever="groupUrl">Invite</button>
                       <div class="modal fade" id="exampleModal{{i+1}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{i+1}}" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -95,12 +97,13 @@
                             <div class="modal-footer" >
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                               <button (click)="copyToClipboard( group.invitation )" type="button"  class="btn btn-primary " >Copy Inviation Code</button>
-
                             </div>
                           </div>
                         </div>
                       </div>
+                      <span *ngIf="user===group.admin">
                         <button type="button" class="col btn-sm btn-red mt-3 ml-2" data-toggle="modal" [attr.data-target]="'#exampleModaDelete'+(i+1)" data-whatever="groupUrl">Delete</button>
+                      </span>
                         <div class="modal fade" id="exampleModaDelete{{i+1}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{i+1}}" aria-hidden="true">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -120,7 +123,7 @@
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn  btn-danger">Delete</button>
+                                <button type="button" (click)="onClickDeleteGroup( group.groupName )" class="btn  btn-danger">Delete</button>
                               </div>
                             </div>
                           </div>
@@ -132,7 +135,7 @@
                     <div class="card-body">
                       <div class="row">
                         <div class="col">
-                          <small>Members</small>
+                          <h5>Members</h5>
                           <p>
                         </div>
                         <div class="float-right text-primary col mt-3 " >
