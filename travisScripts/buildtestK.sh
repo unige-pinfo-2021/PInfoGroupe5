@@ -18,8 +18,6 @@ npm install
 npm update
 npm run-script build --prod
 
-pwd
-ls dist/UI
 
 docker image build -t web-ui .
 

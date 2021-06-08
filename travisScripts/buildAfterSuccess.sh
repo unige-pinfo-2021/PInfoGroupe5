@@ -6,11 +6,13 @@ docker tag api/user khptif/user:latest
 docker tag api/group khptif/group:latest 
 docker tag api/film khptif/film:latest 
 docker tag selector/algorythmic_selector khptif/algorythmic_selector:latest
+docker tag web-ui khptif/web-ui:latest 
 
 docker push khptif/user:latest
 docker push khptif/group:latest
 docker push khptif/film:latest
 docker push khptif/algorythmic_selector:latest
+docker push khptif/web-ui:latest 
 
 sudo apt-get install openssh-server
 sudo apt-get install sshpass
