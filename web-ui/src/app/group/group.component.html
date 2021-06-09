@@ -1,6 +1,6 @@
   <div class="row gtco-testimonials m-0 ">
-    <div class="col-md-8">
-    <div class="card_Solution container " *ngIf="auth.user$ | async as user">
+    <div class="col-md-8 mt-5">
+    <div class="card_Solution container mt-5" *ngIf="auth.user$ | async as user">
       <div class="media ">
         <img class="rounded-circle account-img" src='{{ "assets/images/" + picNum + ".jpg" }}'>
         <div>
@@ -32,9 +32,9 @@
     </div>
     </div>
   </div>
-  <div class="col-md-4 " style="background-color: white;">
+  <div class="col-md-4 mt-5" style="background-color: white;">
     <div class="">
-        <div class="mt-5 card-header bg-light">
+        <div class="mt-5 card-header bg-light" style="border-bottom:0px;">
           <h4 class="text-center" style="color: block">My groups</h4>
           <div id="accordion">
             <div
