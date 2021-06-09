@@ -10,7 +10,7 @@
           </div>
       </div>
       <!-- "multipart/form-data" enable to store image datatype like profile picture and QR codes -->
-      <form id="createGroupForm" class="text-center" [formGroup]="checkoutForm" (ngSubmit)="onSubmit()"> 
+      <form id="createGroupForm" class="text-center" [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
         <fieldset class="form-group">
           <legend class="border-bottom mb-4"> Group Info </legend>
           <label for="exampleInputEmail1">Group Name</label>
@@ -19,7 +19,7 @@
       </form>
       <div class="text-center">
         <div class="container text-center ">
-          <button class="btn-lg btn-primary ml-2 mb-3 text-center" (click)="copyToClipboard( invitation )" style="  margin: auto;width: 100%;border: 0px padding: 0px;">  
+          <button class="btn-lg btn-primary ml-2 mb-3 text-center" (click)="copyToClipboard( invitation )" style="  margin: auto;width: 100%;border: 0px padding: 0px;">
             <div class="bg-primary"  style="border-radius: 2%;">
               <label class="text-light "><strong class=""><span class=" p-2" style="font-size:14px;">Copy Invitation Code</span></strong></label>
               <h1 class=" mt-3" style="border-radius: 2%;"><strong class=""><span class=" text-light">{{invitation}}</span></strong></h1>
@@ -45,15 +45,15 @@
           <div class="card">
             <div id="{{'heading'+(i+1)}}" class=" card-header mb-0 btn btn-link " data-toggle="collapse"  [attr.data-target]="'#collapse'+(i+1)" aria-expanded="true" aria-controls="collapse{{i+1}}">
             <div class="nav-item nav-link mt-1 float-left" >
-              <img class="col rounded-circle account-img-small " src="assets/images/group1.jpg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
-              <small class="ml-4">{{group.groupName}}</small> 
-            </div> 
+              <img class="col rounded-circle account-img-small " src='{{ "assets/images/" + getImage(group.groupName) + ".jpg" }}'  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
+              <small class="ml-4">{{group.groupName}}</small>
+            </div>
         <div class="nav-item nav-link float-right" href="">
           <div class="row ">
             <span *ngIf="user===group.admin">
-              <button type="button"(click)="onViewRecommendation( group.groupName )" class="col btn-sm btn-primary mt-3" >Movies</button>
+              <button type="button"(click)="onViewRecommendation( group.groupName )" class="col btn-sm btn-primary mt-3" >Recommendation</button>
             </span>
-            <button type="button" class="col btn-sm btn-outline-primary mt-3 ml-2" (click)="onViewScoreMovies( group.groupName )">Scores</button>
+            <button type="button" class="col btn-sm btn-outline-primary mt-3 ml-2" (click)="onViewScoreMovies( group.groupName )">Scoring</button>
             <span *ngIf="user===group.admin">
               <button type="button" class="col btn-sm btn-outline-secondary mt-3 ml-2" (click)="deleteCatalogue( group.groupName )">Renew</button>
             </span>
@@ -125,18 +125,18 @@
                     </div>
                   </div>
                 </div>
-              </div> 
+              </div>
             </div>
           </div>
           <div class="card">
-            <div 
-              *ngFor="let user of group.users; let i = index"    
+            <div
+              *ngFor="let user of group.users; let i = index"
               id="heading{{i+1}}" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse{{i+1}}" aria-expanded="true" aria-controls="collapse{{i+1}}"
-              >                        
+              >
               <div class="nav-item nav-link mt-1 float-left" >
                 <img class="col rounded-circle account-img-small " src="assets/images/user1.jpg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
-                <small class="ml-4">{{user}}</small> 
-              </div> 
+                <small class="ml-4">{{user}}</small>
+              </div>
             </div>
           </div>
         </div>

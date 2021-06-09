@@ -80,9 +80,9 @@
         <div class="nav-item nav-link float-right" href="">
           <div class="row ">
             <span *ngIf="user===group.admin">
-              <button type="button"(click)="onViewRecommendation( group.groupName )" class="col btn-sm btn-primary mt-3" >Movies</button>
+              <button type="button"(click)="onViewRecommendation( group.groupName )" class="col btn-sm btn-primary mt-3" >Recommendation</button>
             </span>
-            <button type="button" class="col btn-sm btn-outline-primary mt-3 ml-2" (click)="onViewScoreMovies( group.groupName )">Scores</button>
+            <button type="button" class="col btn-sm btn-outline-primary mt-3 ml-2" (click)="onViewScoreMovies( group.groupName )">Scoring</button>
             <span *ngIf="user===group.admin">
               <button type="button" class="col btn-sm btn-outline-secondary mt-3 ml-2" (click)="deleteCatalogue( group.groupName )">Renew</button>
             </span>

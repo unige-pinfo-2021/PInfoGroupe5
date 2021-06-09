@@ -88,7 +88,7 @@ export class GroupComponent implements OnInit {
               }
             }
           );
-      
+
 
       }
 
@@ -156,7 +156,7 @@ export class GroupComponent implements OnInit {
   onViewScoreMovies(groupName: any) {
 
     this.router.navigate(['/films', groupName]);
-    
+
   }
 
   // get films recommandation
@@ -174,5 +174,9 @@ export class GroupComponent implements OnInit {
         this.router.navigate(['/recommendation', groupName]);
       }
     );
+  }
+  getImage(i:string){
+    console.log(i[1].charCodeAt(0))
+    return (((i[0].charCodeAt(0)+i[1].charCodeAt(0)) % 15 ) + 15 ) % 14;
   }
 }
