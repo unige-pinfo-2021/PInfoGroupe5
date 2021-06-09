@@ -15,17 +15,22 @@ public class TMDB_Request {
     public final int page;
     public final java.util.Date primary_release_date_gte;
     public final java.util.Date primary_release_date_lte;
-    public final List<Integer> with_genres;
+//    public final String[] with_people;
+//    public final List<Integer> with_genres;
+    public final String with_genres;
+//    public final String[] with_keywords;
     
     
     
+    //constracteur----------------------------------------------------------------------------------------
     public TMDB_Request(@JsonProperty("include_adult") boolean include_adult,
     					@JsonProperty("vote_average.gte") float vote_average_gte,
     					@JsonProperty("vote_average.lte") float vote_average_lte,
     					@JsonProperty("page") int page,
     					@JsonProperty("primary_release_date.gte") java.util.Date primary_release_date_gte,
     					@JsonProperty("primary_release_date.lte") java.util.Date primary_release_date_lte,
-    					@JsonProperty("with_genres") List<Integer> with_genres) {
+    					//@JsonProperty("with_genres") List<Integer> with_genres) {
+    					@JsonProperty("with_genres") String with_genres) {
         this.include_adult = include_adult;
         this.vote_average_gte = vote_average_gte;
         this.vote_average_lte = vote_average_lte;

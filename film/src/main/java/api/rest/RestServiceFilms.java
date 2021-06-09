@@ -27,7 +27,7 @@ public class RestServiceFilms {
     @Path("/testhead")
     @Produces(MediaType.APPLICATION_JSON)
     public Response test() throws IOException, InterruptedException { 
-    Response.ResponseBuilder rb = Response.ok(this.filmService.getRandomMovies_asList(60));
+    Response.ResponseBuilder rb = Response.ok(this.filmService.getRandomMovies_asList(40));
     Response response = rb.header("Access-Control-Allow-Origin", "*")
             .header("Access-Control-Allow-Credentials", "true")
             .header("Access-Control-Allow-Headers",
@@ -42,7 +42,7 @@ public class RestServiceFilms {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Movie> getRandomMovies() throws IOException, InterruptedException { 
-	return this.filmService.getRandomMovies_asList(40);
+	return this.filmService.getRandomMovies_asList(80);
     }
 
 
@@ -57,27 +57,46 @@ public class RestServiceFilms {
 				+ "\t\"vote_average.gte\": "+vote_average_gte+",\n"
 				+ "\t\"vote_average.lte\": "+vote_average_lte+",\n"
 				+ "\t\"page\": "+page+",\n"
-				+ "\t\"primary_release_date.gte\": "+primary_release_date_gte+",\n"
-				+ "\t\"primary_release_date.lte\": "+primary_release_date_lte+",\n"
-				+ "\t\"with_people\": "+with_people+",\n"
-				+ "\t\"with_genres\": "+with_genres+",\n"
-				+ "\t\"with_keywords\": "+with_keywords+"\n"
+				+ "\t\"primary_release_date.gte\": \""+primary_release_date_gte+"\",\n"
+				+ "\t\"primary_release_date.lte\": \""+primary_release_date_lte+"\",\n"
+                //+ "\t\"with_people\": "+with_people+",\n"
+				+ "\t\"with_genres\": \""+with_genres+"\"\n"
+				//+ "\t\"with_keywords\": "+with_keywords+"\n"
 				+ "}";
     	return filmService.executeRequest_asList(requestJson);
     }
 
+    /*
     @GET
     @Path("/get/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getMovieById(@PathParam("id") int id) throws IOException, InterruptedException { 
+  //Service film :  GET : /film/get/{id} : retourne le JSON du film avec l'identifiant {id} 
+    public String getMovieById(int id) throws IOException, InterruptedException { 
     	return this.filmService.getMovieById_asJsonString(id);
+    }*/
+    
+    @GET
+    @Path("/get/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+  //Service film :  GET : /film/get/{id} : retourne le JSON du film avec l'identifiant {id} 
+    public Movie getMovieById(int id) throws IOException, InterruptedException { 
+    	return this.filmService.getMovieById(id);
     }
+    
+    /*
     @GET
     @Path("/recommande/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    
-    public String getRecommandationMovies(@PathParam("id") int id) throws IOException, InterruptedException { 
+    public String getRecommandationMovies(int id) throws IOException, InterruptedException { 
     	return this.filmService.getRecommandationMovies_asJsonString(id);
+        
+    }*/
+    
+    @GET
+    @Path("/recommande/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Movie> getRecommandationMovies(int id) throws IOException, InterruptedException { 
+    	return this.filmService.getRecommandationMovies_asList(id);
         
     }
     

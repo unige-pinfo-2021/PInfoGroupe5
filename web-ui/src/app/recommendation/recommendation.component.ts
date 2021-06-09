@@ -19,6 +19,7 @@ import { AuthService } from '@auth0/auth0-angular';
 export class RecommendationComponent implements OnInit {
 
   public films = [];
+  public filmsId = [];
   public mobile = false;
 
   constructor(
@@ -57,6 +58,7 @@ export class RecommendationComponent implements OnInit {
 
         //check if user in DB
         this.userService.updateUserDB(userName,userEmail);
+<<<<<<< Updated upstream
 
         //get recommended movies
         this.groupService.createCatalogue(groupName,userName)
@@ -71,17 +73,60 @@ export class RecommendationComponent implements OnInit {
                 );
             }
           );
+=======
+        //get recommended movies
+        this.groupService.createCatalogue(groupName,userName).
+        subscribe(
+          data =>{
+            console.log(data);
+            this.groupService.getCatalogue(groupName,userName)
+              .subscribe(
+                data =>{
+                  console.log(data);
+                  this.filmsId = data.catalogue;
+                  console.log(this.filmsId)
+                  for (var i = 0; i < this.filmsId.length; i++){
+                    console.log(this.filmsId[i]);
+                    this.filmService.getFilm(this.filmsId[i])
+                    .subscribe(
+                      data => {
+                        this.films.push(data);
+                        console.log(this.films);
+                      }
+                    )
+                  }
+                }
+            );
+          }
+      );
+
+>>>>>>> Stashed changes
       }
     );
 
     if (window.screen.width <= 390) { // 768px portrait
       this.mobile = true;
     };
-
+    //this.deleteCatalogue();
   }
 
   // get films recommandation
+  deleteCatalogue(){
 
+    this.auth.user$.subscribe(
+      (profile) => {
+        (this.profileJson = JSON.stringify(profile, null, 2));
+
+        // get user profile data
+        const userName = this.getUserName(this.profileJson);
+        const userEmail = this.getUserEmail(this.profileJson);
+        const groupName = this.route2.snapshot.paramMap.get('groupName');
+
+        this.groupService.deleteCatalogue(groupName,userName);
+      }
+    );
+
+  }
   onViewFilm(id: number) {
     this.router.navigate(['/films', 'view', id]);
   }
