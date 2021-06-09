@@ -16,7 +16,7 @@ import { AuthService } from '@auth0/auth0-angular';
   styleUrls: ['./film-list.component.css']
 })
 export class FilmListComponent implements OnInit {
-
+  public picNum = 1;
   public films = [];
   public groups = [];
   public info = [];
@@ -186,6 +186,9 @@ export class FilmListComponent implements OnInit {
       });
 
   }
-
+  getImage(i:string){
+    console.log(i[1].charCodeAt(0))
+    return (((i[0].charCodeAt(0)+i[1].charCodeAt(0)) % 15 ) + 15 ) % 14;
+  }
 
 }//end comp
