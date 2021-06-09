@@ -66,16 +66,15 @@ export class RecommendationComponent implements OnInit {
             this.groupService.getCatalogue(groupName,userName)
               .subscribe(
                 data =>{
-                  console.log(data);
                   this.filmsId = data.catalogue;
-                  console.log(this.filmsId)
                   for (var i = 0; i < this.filmsId.length; i++){
-                    console.log(this.filmsId[i]);
                     this.filmService.getFilm(this.filmsId[i])
                     .subscribe(
-                      data => {
-                        this.films.push(data);
-                        console.log(this.films);
+                      result => {
+                        if(result["poster_path"].charAt(0) == "/"){
+                          this.films.push(result);
+                        }
+                        console.log(result);
                       }
                     )
                   }
