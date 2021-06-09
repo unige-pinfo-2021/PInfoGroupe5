@@ -169,9 +169,9 @@ public class TMDB_Caller {
 		int total_count = count * 5;
 		int n_pages = (int)java.lang.Math.ceil((double)total_count/pageSize);
 
-		System.out.println("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
-		System.out.println("n_pages: ");
-		System.out.println(n_pages);
+		//System.out.println("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+		//System.out.println("n_pages: ");
+		//System.out.println(n_pages);
 
 		List<Movie> pageMovieList = new ArrayList<>();
 		List<Movie> totalMovieList = new ArrayList<>();
