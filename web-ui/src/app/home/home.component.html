@@ -9,11 +9,11 @@
 	    width: 100%;"
 	    >
 			<div class="col mt-5 pt-5 mt-5 pt-5">
-	    		<button  onclick="hello()" class="col btn btn-block btn-lg btn-primary">Try Engine <i class="fas fa-user ml-2"></i> </button>
+	    		<button  (click)="onViewJoinGroup()" class="col btn btn-block btn-lg btn-primary">Join Group <i class="fas fa-user ml-2"></i> </button>
 	    	</div>
 
 	    	<div class="col mt-5 pt-5">
-			<a href="http://127.0.0.1:4200/group"><button  onclick="invite()" class="col btn btn-block btn-lg btn-light">Create Group<i class="fas fa-users ml-2"></i> </button></a>
+			<button   (click)="onViewCreateGroup()" class="col btn btn-block btn-lg btn-light">Create Group<i class="fas fa-users ml-2"></i> </button>
 		</div>
 	</div>
 </div>

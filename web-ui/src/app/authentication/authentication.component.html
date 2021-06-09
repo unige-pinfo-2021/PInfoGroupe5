@@ -1,19 +1,22 @@
+
 <img  src="assets/images/auth-page.jpg"  style="position: absolute; right: 0px; top: 0px;">
-    <div class="row mt-5 pt-5 p-1">
+    <div class="row mt-5 pt-5 ">
     <div class="col d-flex justify-content-center mt-5 pt-5">
-        <div class="border">
-            <div class="content-section bg-transparent  m-2 ">
-                <form  [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
-                  <div class="form-group">
-                    <div class=" justify-content-centers"><h2>Invitation Register</h2></div>
-                  </div>
-                  <div class="form-group">
-                    <label for="invitation">Invitation code</label>
-                    <input type="text" class="form-control" id="invitation" 
-                      formControlName="invitation"  placeholder="Invitation Code">
-                  </div>
-                  <button type="submit" class="btn btn-primary justify-content-end">Submit</button>
-                </form>
+        <div class=" mt-5">
+            <div class="mt-5 pt-5">
+                <div class="content-section bg-transparent  m-2 ">
+                    <form  [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+                      <div class="form-group">
+                        <div class=" justify-content-centers"><h2>Invitation Register</h2></div>
+                      </div>
+                      <div class="form-group">
+                        <label for="invitation">Invitation code</label>
+                        <input type="text" class="form-control" id="invitation" 
+                          formControlName="invitation"  placeholder="e.g. E9cs9S">
+                      </div>
+                      <button type="submit" class="btn btn-primary justify-content-end">Submit</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

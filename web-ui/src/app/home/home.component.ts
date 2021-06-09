@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,10 @@ import { AuthService } from '@auth0/auth0-angular';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public auth: AuthService) { }
+  constructor(
+    public auth: AuthService,
+    public router:Router
+  ) { }
   profileJson: string = null;
 
   ngOnInit(): void {
@@ -17,5 +21,18 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  onViewJoinGroup(): void {
+
+    // redirect
+    this.router.navigate(['/auth']);
+
+  }
+
+  onViewCreateGroup(): void {
+
+    // redirect
+    this.router.navigate(['/group']);
+    
+  }
 
 }
