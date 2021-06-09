@@ -69,16 +69,10 @@ export class RecommendationComponent implements OnInit {
                   for (var i = 0; i < this.filmsId.length; i++){
                     this.filmService.getFilm(this.filmsId[i])
                     .subscribe(
-<<<<<<< Updated upstream
                       result => {
                         if(result["poster_path"].charAt(0) == "/"){
                           this.films.push(result);
                         }
-                        console.log(result);
-=======
-                      data => {
-                        this.films.push(data);
->>>>>>> Stashed changes
                       }
                     )
                   }
@@ -93,10 +87,10 @@ export class RecommendationComponent implements OnInit {
     if (window.screen.width <= 390) { // 768px portrait
       this.mobile = true;
     };
-
+    //this.deleteCatalogue();
   }
 
- 
+
   onViewFilm(id: number) {
     this.router.navigate(['/films', 'view', id]);
   }
