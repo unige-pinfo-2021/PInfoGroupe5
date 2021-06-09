@@ -1,0 +1,16 @@
+
+GET: /film
+
+Retourne un ensemble de film de manière aléatoire.
+
+
+GET: /get/{id}
+
+A partir de l'id d'un film, retourne les informations sur ce film 
+au format JSON
+
+
+GET: /recommande/{id}
+
+A partir de l'id d'un film, retourne une recommendation de tmdb pour ce film là.
+Cela se traduit par un ensemble de film en JSON qui est retourné.

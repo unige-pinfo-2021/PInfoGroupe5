@@ -1,0 +1,5 @@
+
+POST: /selector
+
+Prends en input 5 film en json de la forme { 0: idFilm0, 1:idFilm1, etc}
+et retourne une selection de film sous la même forme JSON.
