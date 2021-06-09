@@ -24,6 +24,9 @@ export class GroupComponent implements OnInit {
   public groups = [];
   public mobile = false;
   public isAdmin = false;
+  public groupsInfo = [];
+  public info = [];
+  public user = null;
 
   constructor(
     @Inject(DOCUMENT) document,
@@ -61,6 +64,7 @@ export class GroupComponent implements OnInit {
 
         // get user profile data
         const userName = this.getUserName(this.profileJson);
+        this.user = userName;
         const userEmail = this.getUserEmail(this.profileJson);
 
         //check if user in DB
@@ -70,11 +74,24 @@ export class GroupComponent implements OnInit {
         this.groupService.getUserGroups(userName)
           .subscribe(
             data => {
-              this.groups = data
+              this.groups = data;
+
+              //get info of each groups
+              for (var i in data){
+                this.groupService.getGroupInfo(data[i])
+                  .subscribe(
+                    data => {
+                      this.info = data;
+                      this.groupsInfo.push(data);
+                    }
+                  )
+              }
             }
           );
+      
 
       }
+
     );
 
     // manage responsive design
@@ -139,8 +156,23 @@ export class GroupComponent implements OnInit {
   onViewScoreMovies(groupName: any) {
 
     this.router.navigate(['/films', groupName]);
-    window.location.reload();
     
   }
 
+  // get films recommandation
+  deleteCatalogue(groupName: any){
+
+    this.auth.user$.subscribe(
+      (profile) => {
+        (this.profileJson = JSON.stringify(profile, null, 2));
+
+        // get user profile data
+        const userName = this.getUserName(this.profileJson);
+
+        this.groupService.deleteCatalogue(groupName,userName);
+
+        this.router.navigate(['/recommendation', groupName]);
+      }
+    );
+  }
 }

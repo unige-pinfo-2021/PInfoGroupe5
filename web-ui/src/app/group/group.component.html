@@ -32,7 +32,7 @@
     </div>
     </div>
   </div>
-    <!--<div class="col-md-4 " style="background-color: white;">
+  <div class="col-md-4 mt-5" style="background-color: white;">
     <div class="mt-5 card-header bg-light" style="border-bottom:0px;">
       <h4 style="color: block">
         My groups
@@ -54,6 +54,9 @@
               <button type="button"(click)="onViewRecommendation( group.groupName )" class="col btn-sm btn-primary mt-3" >Movies</button>
             </span>
             <button type="button" class="col btn-sm btn-outline-primary mt-3 ml-2" (click)="onViewScoreMovies( group.groupName )">Scores</button>
+            <span *ngIf="user===group.admin">
+              <button type="button" class="col btn-sm btn-outline-secondary mt-3 ml-2" (click)="deleteCatalogue( group.groupName )">Renew</button>
+            </span>
           </div>
         </div>
       </div>
@@ -138,5 +141,7 @@
           </div>
         </div>
       </div>
-    </div>-->
+    </div>
+  </div>
+
   </div>

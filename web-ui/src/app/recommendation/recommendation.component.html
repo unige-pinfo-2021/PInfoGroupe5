@@ -1,61 +1,58 @@
-<!--<div class="row m-1">
-    <div
-      *ngFor="let film of films; let i = index"
-      style="border: 0;" 
-      >
-      <div id="{{film.id}}" class="container pb-5 mb-5" >
-        <img class="mt-5 rounded mx-auto d-block images keep_ratio_img im_style" src="{{ 'https://image.tmdb.org/t/p/original' + film.poster_path }}" style="">
-        <div class="container ">
-          <span *ngIf="mobile; else elseBlock">
-            <div class="center_icon_btn ">
-              <div class="row mt-2 " style="position: relative;">
-                <button id="sm"   class="col btn_select info  " data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExampleX"  [attr.href]="'#collapseExampleX'+i"><i class="fas fa-info"></i></button>
-              </div>
+<div class=" row m-1 d-flex justify-content-center">
+  <div
+    *ngFor="let film of films; let i = index"
+    style="border: 0;"
+    >
+    <div id="{{film.id}}" class="container pb-5 mb-5" >
+      <img class="mt-5 rounded mx-auto d-block images keep_ratio_img im_style" src="{{ 'https://image.tmdb.org/t/p/original' + film.poster_path }}" style="">
+      <div class="container">
+        <span *ngIf="mobile; else elseBlock">
+          <div class="center_icon_btn ">
+            <div class="row mt-2 d-flex justify-content-center " style="position: relative;">
+              <button id="sm"   class="btn_select_2 info  " data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExampleX"  [attr.href]="'#collapseExampleX'+i" ><i class="fas fa-info"></i></button>
             </div>
-          </span>
-          <ng-template #elseBlock>
-            <div class="center_icon_btn center">
-              <div class="row mt-2 " style="position: relative;">
-                <button id="sm"  (click)=" score( [film.id,true] ) "  class="col btn_select  like "><i class="fas fa-thumbs-up" value="true"></i></button>
-                <button id="sm"  (click)="score( [film.id,false] )"   class="col btn_select unlike "><i class="fas fa-thumbs-down"></i></button>
-                <button id="sm"   class="col btn_select info  " data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExampleX"  [attr.href]="'#collapseExampleX'+i"><i class="fas fa-info"></i></button>
-              </div>
+          </div>
+        </span>
+        <ng-template #elseBlock>
+          <div class="center_icon_btn d-flex justify-content-center">
+            <div class="mt-2 " style="position: relative;">
+              <button id="sm"   class="col btn_select_2 info  " data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExampleX"  [attr.href]="'#collapseExampleX'+i"><i class="fas fa-info"></i></button>
             </div>
-          </ng-template>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="collapse multi-collapse" id="{{'collapseExampleX'+i}}" aria-expanded="false" aria-controls="collapseExampleX">
-              <div class="card card-body" style="border-color: #007bff;border-width: medium;">
-                <p>
-                  <h5><strong>
-                {{ film.title }}
-                 </strong></h5>
-                <p>
-                <div class="row">
-                  <div class="col-2">Story</div>
-                  <div class="col">{{ film.overview }}</div>
-                </div>
-                <p>
-                <div class="row">
-                  <div class="col-2">Popularity</div>
-                  <div class="col">{{ film.popularity }}</div>
-                </div>
-                <p>
-                <div class="row">
-                  <div class="col-2">Release Date</div>
-                  <div class="col">{{ film.release_date }}</div>
-                </div>
-                <p>
-                <div class="row">
-                  <div class="col-2">More</div>
-                  <div class="col">{{ film.info }}</div>
-                </div>
+          </div>
+        </ng-template>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="collapse multi-collapse" id="{{'collapseExampleX'+i}}" aria-expanded="false" aria-controls="collapseExampleX">
+            <div class="card card-body" style="margin: 0px;border-color: gray;border-width: medium;font-size:12px;">
+              <p>
+                <h5><strong>
+              {{ film.title }}
+               </strong></h5>
+              <p>
+              <div class="row">
+                <div class="col-3" >Story</div>
+                <div class="col" >{{ film.overview }}</div>
+              </div>
+              <p>
+              <div class="row">
+                <div class="col-3">Popularity</div>
+                <div class="col">{{ film.popularity }}</div>
+              </div>
+              <p>
+              <div class="row">
+                <div class="col-3">Release Date</div>
+                <div class="col">{{ film.release_date }}</div>
+              </div>
+              <p>
+              <div class="row">
+                <div class="col-3">More</div>
+                <div class="col">{{ film.info }}</div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div> 
-</div>-->
+  </div>
+</div>

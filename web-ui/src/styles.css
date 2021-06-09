@@ -33,6 +33,13 @@ img {
   width: 50%;
 }
 
+.center2 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}
+
 .circle{
   position:relative;
   width:50%;
@@ -111,6 +118,20 @@ img {
     position:absolute;
 
   }
+
+  .btn_select_2 {
+    height: 120px;
+    line-height: 120px;  
+    width: 120px;  
+    font-size: 2em;
+    font-weight: bold;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    position:relative;
+  }
+
   .im_style {
   width: 100%; 
   height:auto;
@@ -151,6 +172,20 @@ img {
     cursor: pointer;
     position:relative;
   }
+
+  .btn_select_2 {
+    height: 120px;
+    line-height: 120px;  
+    width: 120px;  
+    font-size: 2em;
+    font-weight: bold;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    position:relative;
+  }
+
   .im_style {
   width: 100%; 
   height:auto;
@@ -191,6 +226,18 @@ img {
     line-height: 45px;  
     width: 45px;  
     font-size: 1em;
+    font-weight: bold;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    position:relative;
+  }
+  .btn_select_2 {
+    height: 90px;
+    line-height: 90px;  
+    width: 90px;  
+    font-size: 2em;
     font-weight: bold;
     border-radius: 50%;
     color: white;

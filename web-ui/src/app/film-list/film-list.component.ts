@@ -191,4 +191,21 @@ export class FilmListComponent implements OnInit {
     return (((i[0].charCodeAt(0)+i[1].charCodeAt(0)) % 15 ) + 15 ) % 14;
   }
 
+  // get films recommandation
+  deleteCatalogue(groupName: any){
+
+    this.auth.user$.subscribe(
+      (profile) => {
+        (this.profileJson = JSON.stringify(profile, null, 2));
+
+        // get user profile data
+        const userName = this.getUserName(this.profileJson);
+
+        this.groupService.deleteCatalogue(groupName,userName);
+
+        this.router.navigate(['/recommendation', groupName]);
+      }
+    );
+  }
+
 }//end comp
