@@ -25,6 +25,7 @@ export class FilmService {
     return of(result);
     };
   }
+  
 
   constructor(
     private http: HttpClient
@@ -55,6 +56,7 @@ export class FilmService {
       );
 	  return this.films[id];
   }
+
 
   // permet d'obtenir toutes les infos sur un film
   // à partir de son id.

@@ -128,4 +128,19 @@ export class GroupComponent implements OnInit {
     document.execCommand('copy');
   }
 
+  // view film details
+  onViewRecommendation(groupName: any) {
+
+    this.router.navigate(['/recommendation', groupName]);
+
+  }
+
+  // view film details
+  onViewScoreMovies(groupName: any) {
+
+    this.router.navigate(['/films', groupName]);
+    window.location.reload();
+    
+  }
+
 }

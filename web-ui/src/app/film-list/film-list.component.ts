@@ -133,6 +133,13 @@ export class FilmListComponent implements OnInit {
 
   }
 
+  // view film details
+  onViewScoreMovies(groupName: any) {
+
+    this.router.navigate(['/films', groupName]);
+
+  }
+
   copyToClipboard(item) {
     document.addEventListener('copy', (e: ClipboardEvent) => {
 
