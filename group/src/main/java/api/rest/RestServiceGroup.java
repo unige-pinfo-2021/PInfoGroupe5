@@ -12,6 +12,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.PathParam;
 
 import java.io.IOException;
@@ -153,19 +154,37 @@ public class RestServiceGroup {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{groupName}/newCatalogue")
-    public Object setNewCatalogue(Map<String,String> inputJSON,@PathParam("groupName") String groupeName)throws IOException, InterruptedException
+    public Response setNewCatalogue(Map<String,String> inputJSON,@PathParam("groupName") String groupeName)throws IOException, InterruptedException
     { 
        
        
         // catalogue au hasard
         if(inputJSON.get("type").equals( "random"))
         {
-           return this.groupService.setRandomCatalogue(groupeName, inputJSON.get("admin"));
+        	return Response
+        			.status(Response.Status.OK)
+        			.header("Access-Control-Allow-Origin", "*")
+        			.header("Access-Control-Allow-Credentials", "true")
+        			.header("Access-Control-Allow-Headers",
+        					"origin, content-type, accept, authorization")
+        			.header("Access-Control-Allow-Methods", 
+        					"GET, POST, PUT, DELETE, OPTIONS, HEAD")
+        			.entity(this.groupService.setRandomCatalogue(groupeName, inputJSON.get("admin")))
+        			.build();
         }
         // catalogue calculé selon un ensemble d'id de film
         else
         {
-            return this.groupService.calculNewCatalogue(groupeName, inputJSON.get("admin"));
+        	return Response
+        			.status(Response.Status.OK)
+        			.header("Access-Control-Allow-Origin", "*")
+        			.header("Access-Control-Allow-Credentials", "true")
+        			.header("Access-Control-Allow-Headers",
+        					"origin, content-type, accept, authorization")
+        			.header("Access-Control-Allow-Methods", 
+        					"GET, POST, PUT, DELETE, OPTIONS, HEAD")
+        			.entity(this.groupService.calculNewCatalogue(groupeName, inputJSON.get("admin")))
+        			.build();
         }
     }
 

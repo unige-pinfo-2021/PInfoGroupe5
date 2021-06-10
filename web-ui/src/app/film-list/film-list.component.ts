@@ -187,7 +187,6 @@ export class FilmListComponent implements OnInit {
 
   }
   getImage(i:string){
-    console.log(i[1].charCodeAt(0))
     return (((i[0].charCodeAt(0)+i[1].charCodeAt(0)) % 15 ) + 15 ) % 14;
   }
 

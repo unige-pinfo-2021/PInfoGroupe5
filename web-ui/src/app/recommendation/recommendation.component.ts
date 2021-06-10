@@ -59,12 +59,15 @@ export class RecommendationComponent implements OnInit {
         //check if user in DB
         this.userService.updateUserDB(userName,userEmail);
         //get recommended movies
+
         this.groupService.createCatalogue(groupName,userName).
         subscribe(
           data =>{
+            console.log(data)
             this.groupService.getCatalogue(groupName,userName)
               .subscribe(
                 data =>{
+                  console.log(data)
                   this.filmsId = data.catalogue;
                   for (var i = 0; i < this.filmsId.length; i++){
                     this.filmService.getFilm(this.filmsId[i])
