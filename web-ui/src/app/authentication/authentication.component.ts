@@ -6,7 +6,7 @@ import { AuthService } from '@auth0/auth0-angular';
 import { UserService } from '../services/user.service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-authentication',
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.css']
 })
