@@ -12,7 +12,7 @@ import { GroupService } from '../services/group.service';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
-  selector: 'app-recommendation',
+  selector: 'app-root',
   templateUrl: './recommendation.component.html',
   styleUrls: ['./recommendation.component.css']
 })

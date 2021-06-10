@@ -11,7 +11,7 @@ import { GroupService } from '../services/group.service';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
-  selector: 'app-film-list',
+  selector: 'app-root',
   templateUrl: './film-list.component.html',
   styleUrls: ['./film-list.component.css']
 })

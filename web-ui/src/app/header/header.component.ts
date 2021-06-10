@@ -4,7 +4,7 @@ import { DOCUMENT } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-root',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
