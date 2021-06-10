@@ -11,7 +11,7 @@ import {UserService} from "../services/user.service"
 
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-group',
   templateUrl: './group.component.html',
   styleUrls: ['./group.component.css']
 })
