@@ -6,14 +6,14 @@ node_js:
 
 env:
   - NODE_VERSION="12.13.1"
-  
+
 services:
   - docker
 
 addons:
   sonarcloud:
     organization: "khptif" # the key of the org you chose at step #3
- 
+
 cache:
     directories:
       - .autoconf
@@ -24,13 +24,9 @@ cache:
 jobs:
   include:
     - stage : Build
-      script: 
+      script:
       - ./travisScripts/buildtestK.sh
-      - cd testIntegration
-      - ./script.sh
-      - cd ..
-      - mvn sonar:sonar -Dsonar.projectKey=khptif_PInfoGroupe5  -Dsonar.organization=khptif -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=1f5e5b54691d2c55908a51783053b2afef68ef5c -Dsonar.test.exclusions=src/main/java/** -Dsonar.java.binaries=target/classes
-      
+      #- mvn sonar:sonar -Dsonar.projectKey=khptif_PInfoGroupe5  -Dsonar.organization=khptif -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=1f5e5b54691d2c55908a51783053b2afef68ef5c -Dsonar.test.exclusions=src/main/java/** -Dsonar.java.binaries=target/classes
+
       after_success:
       - ./travisScripts/buildAfterSuccess.sh
-      

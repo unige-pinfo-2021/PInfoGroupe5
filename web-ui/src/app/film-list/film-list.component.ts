@@ -11,7 +11,7 @@ import { GroupService } from '../services/group.service';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-film-list',
   templateUrl: './film-list.component.html',
   styleUrls: ['./film-list.component.css']
 })
@@ -187,6 +187,7 @@ export class FilmListComponent implements OnInit {
 
   }
   getImage(i:string){
+    console.log(i[1].charCodeAt(0))
     return (((i[0].charCodeAt(0)+i[1].charCodeAt(0)) % 15 ) + 15 ) % 14;
   }
 

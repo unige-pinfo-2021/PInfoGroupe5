@@ -65,11 +65,11 @@ export class UserService {
   	console.log("testservice")
   	console.log(this.http.get<User[]>("http://tindfilm/user/all"));
     return this.http.get<User[]>("http://tindfilm/user/all");
-
+  
   }
 
   getRandomNum(){
-    return Math.floor(Math.random() * 16)
+    return Math.floor(Math.random() * 16)  
   }
 
 }

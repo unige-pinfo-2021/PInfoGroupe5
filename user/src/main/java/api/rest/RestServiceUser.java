@@ -27,7 +27,7 @@ public class RestServiceUser {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        return "Hello from users !";
+        return "Hello from users ! test marque 1";
     }
 
     @GET
