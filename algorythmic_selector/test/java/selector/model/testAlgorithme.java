@@ -55,21 +55,6 @@ class algorithmeTest {
 		}
 		//fail("Not yet implemented");
 	}
-	
-	@Test
-    void testGetRecommandationMovies() throws IOException, InterruptedException {
-        List<Integer> id_list = new ArrayList<>(Arrays.asList(25,30,87,100,337404,460465,791373,602734,825597));
-        int movie_id;
-        List<Movie> movie_list;
-        for (int i=0; i<id_list.size(); i++) {
-            movie_id = id_list.get(i);
-            movie_list = service.getRecommandationMovies(movie_id);
-//            System.out.println("movie_id : ");
-//            System.out.println(movie_id);
-            assertTrue(movie_list.size() > 0);
-        }
-	
-	
 
 }
 
