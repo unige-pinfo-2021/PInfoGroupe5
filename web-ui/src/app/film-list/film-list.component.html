@@ -29,29 +29,29 @@
         <div class="row">
           <div class="col">
             <div class="collapse multi-collapse" id="{{'collapseExampleX'+i}}" aria-expanded="false" aria-controls="collapseExampleX">
-              <div class="card card-body" style="border-color: #007bff;border-width: medium;">
+              <div class="card card-body" style="margin: 0px;border-color: gray;border-width: medium;font-size:12px;">
                 <p>
                   <h5><strong>
                 {{ film.title }}
                  </strong></h5>
                 <p>
                 <div class="row">
-                  <div class="col-2">Story</div>
-                  <div class="col">{{ film.overview }}</div>
+                  <div class="col-3" >Story</div>
+                  <div class="col" >{{ film.overview }}</div>
                 </div>
                 <p>
                 <div class="row">
-                  <div class="col-2">Popularity</div>
+                  <div class="col-3">Score</div>
                   <div class="col">{{ film.popularity }}</div>
                 </div>
                 <p>
                 <div class="row">
-                  <div class="col-2">Release Date</div>
+                  <div class="col-3">Release</div>
                   <div class="col">{{ film.release_date }}</div>
                 </div>
                 <p>
                 <div class="row">
-                  <div class="col-2">More</div>
+                  <div class="col-3">More</div>
                   <div class="col">{{ film.info }}</div>
                 </div>
               </div>
@@ -80,7 +80,7 @@
         <div class="nav-item nav-link float-right" href="">
           <div class="row ">
             <span *ngIf="user===group.admin">
-              <button type="button"(click)="onViewRecommendation( group.groupName )" class="col btn-sm btn-primary mt-3" >Recommendation</button>
+              <button type="button"(click)="onViewRecommendation( group.groupName )" class="col btn-sm btn-primary mt-3" >Movies</button>
             </span>
             <button type="button" class="col btn-sm btn-outline-primary mt-3 ml-2" (click)="onViewScoreMovies( group.groupName )">Scoring</button>
             <span *ngIf="user===group.admin">
@@ -163,7 +163,7 @@
               id="heading{{i+1}}" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse{{i+1}}" aria-expanded="true" aria-controls="collapse{{i+1}}"
               >
               <div class="nav-item nav-link mt-1 float-left" >
-                <img class="col rounded-circle account-img-small " src="assets/images/user1.jpg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
+                <img class="col rounded-circle account-img-small " src='{{ "assets/images/" + getImage(user) + ".jpg" }}'   style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
                 <small class="ml-4">{{user}}</small>
               </div>
             </div>

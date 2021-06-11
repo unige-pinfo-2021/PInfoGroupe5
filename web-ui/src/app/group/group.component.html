@@ -51,7 +51,7 @@
         <div class="nav-item nav-link float-right" href="">
           <div class="row ">
             <span *ngIf="user===group.admin">
-              <button type="button"(click)="onViewRecommendation( group.groupName )" class="col btn-sm btn-primary mt-3" >Recommendation</button>
+              <button type="button"(click)="onViewRecommendation( group.groupName )" class="col btn-sm btn-primary mt-3" >Movies</button>
             </span>
             <button type="button" class="col btn-sm btn-outline-primary mt-3 ml-2" (click)="onViewScoreMovies( group.groupName )">Scoring</button>
             <span *ngIf="user===group.admin">
@@ -134,7 +134,7 @@
               id="heading{{i+1}}" class=" card-header bg-white mb-0 btn btn-link" data-toggle="collapse" data-target="#collapse{{i+1}}" aria-expanded="true" aria-controls="collapse{{i+1}}"
               >
               <div class="nav-item nav-link mt-1 float-left" >
-                <img class="col rounded-circle account-img-small " src="assets/images/user1.jpg"  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
+                <img class="col rounded-circle account-img-small " src='{{ "assets/images/" + getImage(user) + ".jpg" }}'  style="height: 50px;width: 80px;margin-right: 3px;margin-bottom: 3px;">
                 <small class="ml-4">{{user}}</small>
               </div>
             </div>
