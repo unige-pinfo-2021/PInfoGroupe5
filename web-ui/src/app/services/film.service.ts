@@ -39,7 +39,7 @@ export class FilmService {
 
   // modifie les scores des films
   setScore(groupName: string, userName: string, filmID : number , increment: boolean){
-    const url = "http://tindfilm/group/"+groupName+"/scores";
+    const url = "https://tindfilm/group/"+groupName+"/scores";
     const requete = {"userName": userName , "idFilm": filmID, "increment": increment};
     return this.http.post<any>(url,requete,httpOptions)
       .pipe(
@@ -61,7 +61,7 @@ export class FilmService {
   // permet d'obtenir toutes les infos sur un film
   // à partir de son id.
   getFilm(id: number) {
-    let url = "http://tindfilm/film/get/" + id.toString();
+    let url = "https://tindfilm/film/get/" + id.toString();
     return this.http.get(url);
   }
  

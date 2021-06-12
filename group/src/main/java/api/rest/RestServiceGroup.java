@@ -53,12 +53,6 @@ public class RestServiceGroup {
 	this.groupService = new GroupService();
     }
     
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String Default() { 
-	return "You reached group";
-    }
-
     // créer un nouveau groupe
     @POST
     @Produces(MediaType.APPLICATION_JSON)
