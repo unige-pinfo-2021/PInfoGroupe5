@@ -155,8 +155,8 @@ img {
   }
   .keep_ratio_img {
     display: block;
-    max-width:430px;
-    max-height:795px;
+    max-width:390px;
+    max-height:545px;
     width: auto;
     height: auto;
   }
@@ -403,4 +403,12 @@ img {
 #myDiv {
   display: none;
   text-align: center;
+}
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }

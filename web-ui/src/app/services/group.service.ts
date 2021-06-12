@@ -124,7 +124,6 @@ export class GroupService {
     return this.http.post<any>(url, requete ,httpOptions);
   }
 
-
   // retourne les votes du groupe sous le format suivant:
   //{ userName : {idFilm1 : +1, idFilm2 : -1, etc}, userName2 : {etc..}, etc...}
   getVote(groupName : string){
